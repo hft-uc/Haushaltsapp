@@ -54,7 +54,7 @@ public class Registration extends AppCompatActivity {
 
                             db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user, SetOptions.merge());
                             Toast.makeText(Registration.this, "done", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), Main2Activity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             String fail =task.getException().toString();
                             Toast.makeText(Registration.this, fail, Toast.LENGTH_SHORT).show();
