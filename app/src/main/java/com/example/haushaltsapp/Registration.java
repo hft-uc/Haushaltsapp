@@ -10,14 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.haushaltsapp.types.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 public class Registration extends AppCompatActivity {
 
-    EditText fullNameBtn, mEmail, passwort;
+    EditText fullName, mEmail, passwort;
     Button mRegisterBtn, jumpBtn;
     FirebaseAuth auth;
 
@@ -25,13 +28,13 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        fullNameBtn = findViewById(R.id.Name1);
+        fullName = findViewById(R.id.Name1);
         mEmail = findViewById(R.id.Email1);
         passwort = findViewById(R.id.Passwort1);
         mRegisterBtn = findViewById(R.id.registerbutton);
         auth = FirebaseAuth.getInstance();
         jumpBtn = findViewById(R.id.buttonJump);
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         jumpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,9 +50,11 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            User user = new User(fullName.getText().toString(),email,FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+                            db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user, SetOptions.merge());
                             Toast.makeText(Registration.this, "done", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), Main2Activity.class));
                         } else {
                             String fail =task.getException().toString();
                             Toast.makeText(Registration.this, fail, Toast.LENGTH_SHORT).show();

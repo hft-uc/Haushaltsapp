@@ -43,7 +43,7 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             Toast.makeText(Login.this, "done", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), Main2Activity.class));
                         } else {
                             String fail =task.getException().toString();
                             Toast.makeText(Login.this, fail, Toast.LENGTH_SHORT).show();
