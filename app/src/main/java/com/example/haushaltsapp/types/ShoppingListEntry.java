@@ -2,7 +2,7 @@ package com.example.haushaltsapp.types;
 
 import androidx.annotation.NonNull;
 
-class ShoppingListEntry {
+public class ShoppingListEntry {
 
     @NonNull
     private String name;

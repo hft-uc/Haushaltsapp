@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-class ShoppingList {
+public class ShoppingList {
 
+    public String getName() {
+        return name;
+    }
+
+    private final String name;
     @NonNull
     private List<ShoppingListEntry> entries;
 
@@ -15,10 +20,11 @@ class ShoppingList {
     @NonNull
     private List<User> members;
 
-    public ShoppingList(@NonNull List<ShoppingListEntry> entries, @NonNull User owner, @NonNull List<User> members) {
+    public ShoppingList(@NonNull List<ShoppingListEntry> entries, @NonNull User owner, @NonNull List<User> members, String name) {
         this.entries = entries;
         this.owner = owner;
         this.members = members;
+        this.name = name;
     }
 
     @NonNull
