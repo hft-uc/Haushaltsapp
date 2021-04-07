@@ -1,4 +1,4 @@
-package com.example.haushaltsapp.ui.slideshow;
+package com.example.haushaltsapp.slideshow;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,14 +14,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.haushaltsapp.R;
 
-public class financeFragment extends Fragment {
+public class FinanceFragment extends Fragment {
 
-    private financeViewModel financeViewModel;
+    private FinanceViewModel financeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        financeViewModel =
-                new ViewModelProvider(this).get(financeViewModel.class);
+        financeViewModel = new ViewModelProvider(this).get(FinanceViewModel.class);
+//                new ViewModelProvider(this).get(FinanceViewModel.class);
         View root = inflater.inflate(R.layout.fragment_finance, container, false);
         final TextView textView = root.findViewById(R.id.text_finance);
         financeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

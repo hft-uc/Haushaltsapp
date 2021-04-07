@@ -1,16 +1,16 @@
-package com.example.haushaltsapp.ui.slideshow;
+package com.example.haushaltsapp.gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class financeViewModel extends ViewModel {
+public class ShoppingListViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> mText;
 
-    public financeViewModel() {
+    public ShoppingListViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {
