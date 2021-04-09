@@ -16,35 +16,29 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.UserDetail;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ShoppingListFragment extends Fragment {
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final String TAG = ShoppingListFragment.class.getCanonicalName();
+
     private UserDetail userDetail;
     private ShoppingListViewModel shoppingListViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        shoppingListViewModel =
-                new ViewModelProvider(this).get(ShoppingListViewModel.class);
         View root = inflater.inflate(R.layout.fragment_shoppinglist, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
 
-        db.collection("users")
-            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-            .get()
-            .addOnSuccessListener(documentSnapshot -> {
-                    userDetail = documentSnapshot.toObject(UserDetail.class);
-                    shoppingListViewModel.getShoppingListOf(userDetail.getId()).observe(getViewLifecycleOwner(), shoppingLists -> Log.d("shopping_list", shoppingLists.toString()));
+        shoppingListViewModel =
+            new ViewModelProvider(this, new ShoppingListViewModelFactory(getViewLifecycleOwner()))
+                .get(ShoppingListViewModel.class);
 
-                }
-
-            );
+        shoppingListViewModel.getShoppingList()
+            .observe(getViewLifecycleOwner(), shoppingLists ->
+                Log.d(TAG, shoppingLists.toString()));
 
         Button btnAddShoppingList = root.findViewById(R.id.button_addShoppingList);
 
@@ -61,9 +55,8 @@ public class ShoppingListFragment extends Fragment {
 
             builder.setPositiveButton("OK", (dialog, which) -> {
                 String text = input.getText().toString();
-                ShoppingListDetail shoplist = new ShoppingListDetail(text, userDetail.toSummary());
 
-                shoppingListViewModel.add(shoplist);
+                shoppingListViewModel.add(text);
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 

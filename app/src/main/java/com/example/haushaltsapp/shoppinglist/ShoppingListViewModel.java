@@ -1,9 +1,11 @@
 package com.example.haushaltsapp.shoppinglist;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.haushaltsapp.authentification.UserRepository;
 import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.ShoppingListSummary;
 
@@ -14,8 +16,11 @@ public class ShoppingListViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
 
     private final ShoppingListRepository repository = new ShoppingListRepository();
+    private final UserRepository userRepository = new UserRepository();
+    private final LifecycleOwner lifecycleOwner;
 
-    public ShoppingListViewModel() {
+    public ShoppingListViewModel(LifecycleOwner lifecycleOwner) {
+        this.lifecycleOwner = lifecycleOwner;
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }
@@ -24,13 +29,19 @@ public class ShoppingListViewModel extends ViewModel {
         return mText;
     }
 
-    public LiveData<List<ShoppingListSummary>> getShoppingListOf(String userId) {
-        return repository.getShoppingListsOf(userId);
+    public LiveData<List<ShoppingListSummary>> getShoppingList() {
+        MutableLiveData<List<ShoppingListSummary>> result = new MutableLiveData<>();
+
+        repository.getShoppingListsOf(userRepository.getCurrentUser().getId())
+            .observe(lifecycleOwner, result::setValue);
+
+        return result;
     }
 
+    public LiveData<Boolean> add(String name) {
+        ShoppingListDetail shoppingList = new ShoppingListDetail(name, userRepository.getCurrentUser());
 
-    public LiveData<Boolean> add(ShoppingListDetail shoppingListDetail) {
-        return repository.addShoppingList(shoppingListDetail, shoppingListDetail.getOwner().getId());
+        return repository.addShoppingList(shoppingList, shoppingList.getOwner().getId());
     }
 
     public void update(ShoppingListDetail shoppingListDetail) {

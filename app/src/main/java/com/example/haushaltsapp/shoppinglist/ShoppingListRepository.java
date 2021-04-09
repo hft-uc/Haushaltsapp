@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.haushaltsapp.authentification.UserRepository;
 import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.ShoppingListSummary;
 import com.google.firebase.firestore.DocumentReference;
@@ -16,25 +17,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class ShoppingListRepository {
+public class ShoppingListRepository {
 
-    private static final String SHOPPING_LISTS_COLLECTION = "shopping_lists";
-    private static final String USERS_COLLECTION = "users";
+    public static final String SHOPPING_LISTS_COLLECTION = "shopping_lists";
+    private static final String TAG = ShoppingListRepository.class.getCanonicalName();
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public LiveData<List<ShoppingListSummary>> getShoppingListsOf(String userId) {
         MutableLiveData<List<ShoppingListSummary>> result = new MutableLiveData<>();
 
-        db.collection(USERS_COLLECTION)
+        db.collection(UserRepository.USERS_COLLECTION)
             .document(userId)
             .collection(SHOPPING_LISTS_COLLECTION)
             .addSnapshotListener((value, error) -> {
                     if (value != null) {
                         result.setValue(toShoppingLists(value.iterator()));
                     } else {
-                        Log.e(ShoppingListRepository.class.getCanonicalName(),
-                            "FirebaseFirestoreException TODO handling", error);
+                        Log.w(TAG, "getShoppingListsOf failed", error);
                     }
                 }
             );
@@ -51,8 +51,7 @@ class ShoppingListRepository {
                     if (value != null) {
                         result.setValue(value.toObject(ShoppingListSummary.class));
                     } else {
-                        Log.e(ShoppingListRepository.class.getCanonicalName(),
-                            "FirebaseFirestoreException TODO handling", error);
+                        Log.w(TAG, "getShoppingList failed", error);
                     }
                 }
             );
@@ -80,15 +79,15 @@ class ShoppingListRepository {
         DocumentReference generalRef = db.collection(SHOPPING_LISTS_COLLECTION).document();
         batch.set(generalRef, shoppingListDetail);
 
-        DocumentReference userSpecificRef = db.collection(USERS_COLLECTION)
+        DocumentReference userSpecificRef = db.collection(UserRepository.USERS_COLLECTION)
             .document(userId)
             .collection(SHOPPING_LISTS_COLLECTION)
             .document(generalRef.getId());
         batch.set(userSpecificRef, shoppingListDetail.toSummary());
 
         batch.commit()
-            .addOnSuccessListener(command -> result.setValue(true))
-            .addOnFailureListener(command -> result.setValue(false));
+            .addOnSuccessListener(value -> result.setValue(true))
+            .addOnFailureListener(exception -> result.setValue(false));
 
         return result;
     }
