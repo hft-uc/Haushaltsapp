@@ -1,4 +1,4 @@
-package com.example.haushaltsapp.gallery;
+package com.example.haushaltsapp.shoppinglist;
 
 import android.app.AlertDialog;
 import android.os.Bundle;

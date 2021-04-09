@@ -1,4 +1,4 @@
-package com.example.haushaltsapp.gallery;
+package com.example.haushaltsapp.shoppinglist;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
