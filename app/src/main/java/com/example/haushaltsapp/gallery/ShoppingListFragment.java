@@ -16,15 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.types.ShoppingList;
-import com.example.haushaltsapp.types.User;
+import com.example.haushaltsapp.types.ShoppingListDetail;
+import com.example.haushaltsapp.types.UserDetail;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ShoppingListFragment extends Fragment {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private User user;
+    private UserDetail userDetail;
     private ShoppingListViewModel shoppingListViewModel;
 
     @Override
@@ -39,8 +39,8 @@ public class ShoppingListFragment extends Fragment {
             .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
             .get()
             .addOnSuccessListener(documentSnapshot -> {
-                    user = documentSnapshot.toObject(User.class);
-                    shoppingListViewModel.getShoppingListOf(user.getId()).observe(getViewLifecycleOwner(), shoppingLists -> Log.d("shopping_list", shoppingLists.toString()));
+                    userDetail = documentSnapshot.toObject(UserDetail.class);
+                    shoppingListViewModel.getShoppingListOf(userDetail.getId()).observe(getViewLifecycleOwner(), shoppingLists -> Log.d("shopping_list", shoppingLists.toString()));
 
                 }
 
@@ -61,7 +61,7 @@ public class ShoppingListFragment extends Fragment {
 
             builder.setPositiveButton("OK", (dialog, which) -> {
                 String text = input.getText().toString();
-                ShoppingList shoplist = new ShoppingList(text, user);
+                ShoppingListDetail shoplist = new ShoppingListDetail(text, userDetail.toSummary());
 
                 shoppingListViewModel.add(shoplist);
             });

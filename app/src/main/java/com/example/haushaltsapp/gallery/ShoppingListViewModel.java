@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.haushaltsapp.types.ShoppingList;
+import com.example.haushaltsapp.types.ShoppingListDetail;
+import com.example.haushaltsapp.types.ShoppingListSummary;
 
 import java.util.List;
 
@@ -23,20 +24,21 @@ public class ShoppingListViewModel extends ViewModel {
         return mText;
     }
 
-    public LiveData<List<ShoppingList>> getShoppingListOf(String userId) {
+    public LiveData<List<ShoppingListSummary>> getShoppingListOf(String userId) {
         return repository.getShoppingListsOf(userId);
     }
 
 
-    public LiveData<Boolean> add(ShoppingList shoppingList) {
-        return repository.addShoppingList(shoppingList, shoppingList.getOwner().getId());
+    public LiveData<Boolean> add(ShoppingListDetail shoppingListDetail) {
+        return repository.addShoppingList(shoppingListDetail, shoppingListDetail.getOwner().getId());
     }
 
-    public void update(ShoppingList shoppingList) {
-
+    public void update(ShoppingListDetail shoppingListDetail) {
+        throw new UnsupportedOperationException();
     }
 
-    public void delete(ShoppingList shoppingList) {
+    public void delete(ShoppingListDetail shoppingListDetail) {
+        throw new UnsupportedOperationException();
     }
 
 }

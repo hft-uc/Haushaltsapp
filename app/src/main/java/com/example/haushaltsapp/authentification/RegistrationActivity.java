@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.haushaltsapp.MainActivity;
 import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.types.User;
+import com.example.haushaltsapp.types.UserDetail;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
@@ -41,9 +41,9 @@ public class RegistrationActivity extends AppCompatActivity {
             String pass = passwort.getText().toString().trim();
             auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    User user = new User(fullName.getText().toString(), email, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    UserDetail userDetail = new UserDetail(fullName.getText().toString(), email, FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                    db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user, SetOptions.merge());
+                    db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(userDetail, SetOptions.merge());
                     Toast.makeText(RegistrationActivity.this, "done", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
