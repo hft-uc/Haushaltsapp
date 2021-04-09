@@ -3,6 +3,7 @@ package com.example.haushaltsapp.gallery;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,11 +36,15 @@ public class ShoppingListFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_gallery);
 
         db.collection("users")
-                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .get()
-                .addOnSuccessListener(documentSnapshot ->
-                        user = documentSnapshot.toObject(User.class)
-                );
+            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+            .get()
+            .addOnSuccessListener(documentSnapshot -> {
+                    user = documentSnapshot.toObject(User.class);
+                    shoppingListViewModel.getShoppingListOf(user.getId()).observe(getViewLifecycleOwner(), shoppingLists -> Log.d("shopping_list", shoppingLists.toString()));
+
+                }
+
+            );
 
         Button btnAddShoppingList = root.findViewById(R.id.button_addShoppingList);
 
@@ -58,7 +63,7 @@ public class ShoppingListFragment extends Fragment {
                 String text = input.getText().toString();
                 ShoppingList shoplist = new ShoppingList(text, user);
 
-                db.collection("listen").document(shoplist.getName()).set(shoplist);
+                shoppingListViewModel.add(shoplist);
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
@@ -66,6 +71,7 @@ public class ShoppingListFragment extends Fragment {
         });
 
         shoppingListViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
