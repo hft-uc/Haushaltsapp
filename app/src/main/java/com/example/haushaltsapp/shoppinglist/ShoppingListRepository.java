@@ -30,11 +30,11 @@ class ShoppingListRepository {
             .document(userId)
             .collection(SHOPPING_LISTS_COLLECTION)
             .addSnapshotListener((value, error) -> {
-                    if (error != null) {
+                    if (value != null) {
+                        result.setValue(toShoppingLists(value.iterator()));
+                    } else {
                         Log.e(ShoppingListRepository.class.getCanonicalName(),
                             "FirebaseFirestoreException TODO handling", error);
-                    } else {
-                        result.setValue(toShoppingLists(value.iterator()));
                     }
                 }
             );
@@ -48,11 +48,11 @@ class ShoppingListRepository {
         db.collection(SHOPPING_LISTS_COLLECTION)
             .document(id)
             .addSnapshotListener((value, error) -> {
-                    if (error != null) {
+                    if (value != null) {
+                        result.setValue(value.toObject(ShoppingListSummary.class));
+                    } else {
                         Log.e(ShoppingListRepository.class.getCanonicalName(),
                             "FirebaseFirestoreException TODO handling", error);
-                    } else {
-                        result.setValue(value.toObject(ShoppingListSummary.class));
                     }
                 }
             );
