@@ -1,4 +1,4 @@
-package com.example.haushaltsapp.shoppinglist;
+package com.example.haushaltsapp.shopping;
 
 import android.util.Log;
 
@@ -10,6 +10,7 @@ import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.ShoppingListSummary;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
@@ -17,10 +18,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ShoppingListRepository {
+public class ShoppingRepository {
 
     public static final String SHOPPING_LISTS_COLLECTION = "shopping_lists";
-    private static final String TAG = ShoppingListRepository.class.getCanonicalName();
+    private static final String TAG = ShoppingRepository.class.getCanonicalName();
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -42,15 +43,22 @@ public class ShoppingListRepository {
         return result;
     }
 
+    public Query getShoppingListsQuery(String userId) {
+        return db.collection(UserRepository.USERS_COLLECTION)
+            .document(userId)
+            .collection(SHOPPING_LISTS_COLLECTION)
+            .orderBy("name");
+    }
+
     public LiveData<ShoppingListSummary> getShoppingList(String id) {
         MutableLiveData<ShoppingListSummary> result = new MutableLiveData<>();
 
         db.collection(SHOPPING_LISTS_COLLECTION)
             .document(id)
             .addSnapshotListener((value, error) -> {
-                    if (value != null) {
-                        result.setValue(value.toObject(ShoppingListSummary.class));
-                    } else {
+                if (value != null) {
+                    result.setValue(value.toObject(ShoppingListSummary.class));
+                } else {
                         Log.w(TAG, "getShoppingList failed", error);
                     }
                 }

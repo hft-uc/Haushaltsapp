@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_shoppingList"
-        android:name="com.example.haushaltsapp.shoppinglist.ShoppingListFragment"
-        android:label="@string/menu_shoppingList"
-        tools:layout="@layout/fragment_shoppinglist" />
+        android:id="@+id/nav_shopping"
+        android:name="com.example.haushaltsapp.shopping.ShoppingFragment"
+        android:label="@string/menu_shopping"
+        tools:layout="@layout/fragment_shopping_list" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.haushaltsapp.slideshow.FinanceFragment"
-        android:label="@string/menu_Finanzen"
+        android:label="@string/menu_finanzen"
         tools:layout="@layout/fragment_finance" />
 </navigation>

@@ -18,6 +18,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_shoppingList">ShoppingList</string>
-    <string name="menu_Finanzen">Finanzen</string>
+    <string name="menu_shopping">ShoppingList</string>
+    <string name="menu_finanzen">Finanzen</string>
+    <string name="add_shopping_list">Add shopping list</string>
 </resources>
