@@ -55,7 +55,7 @@ public class ShoppingViewModel extends ViewModel {
         throw new UnsupportedOperationException();
     }
 
-    public ShoppingListRecyclerViewAdapter createAdapter() {
+    public ShoppingRecyclerViewAdapter createAdapter() {
         PagedList.Config config = new PagedList.Config.Builder()
             .setEnablePlaceholders(true)
             .setPrefetchDistance(10)
@@ -70,7 +70,7 @@ public class ShoppingViewModel extends ViewModel {
             .setQuery(query, config, ShoppingListSummary.class)
             .build();
 
-        return new ShoppingListRecyclerViewAdapter(options);
+        return new ShoppingRecyclerViewAdapter(options);
     }
 
 }

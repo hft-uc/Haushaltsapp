@@ -13,10 +13,10 @@ import com.example.haushaltsapp.types.ShoppingListSummary;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 
-public class ShoppingListRecyclerViewAdapter
-    extends FirestorePagingAdapter<ShoppingListSummary, ShoppingListRecyclerViewAdapter.ViewHolder> {
+public class ShoppingRecyclerViewAdapter
+    extends FirestorePagingAdapter<ShoppingListSummary, ShoppingRecyclerViewAdapter.ViewHolder> {
 
-    public ShoppingListRecyclerViewAdapter(@NonNull FirestorePagingOptions<ShoppingListSummary> options) {
+    public ShoppingRecyclerViewAdapter(@NonNull FirestorePagingOptions<ShoppingListSummary> options) {
         super(options);
     }
 
