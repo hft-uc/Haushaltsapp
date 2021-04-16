@@ -14,10 +14,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
 @SuppressWarnings("ConstantConditions")
-public class UserRepository {
+public class AuthRepository {
 
     public static final String USERS_COLLECTION = "users";
-    private static final String TAG = UserRepository.class.getCanonicalName();
+    private static final String TAG = AuthRepository.class.getCanonicalName();
 
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();

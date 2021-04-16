@@ -5,18 +5,12 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.haushaltsapp.authentification.UserRepository;
+import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.ShoppingListDetail;
-import com.example.haushaltsapp.types.ShoppingListSummary;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.WriteBatch;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class ShoppingRepository {
 
@@ -25,56 +19,26 @@ public class ShoppingRepository {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public LiveData<List<ShoppingListSummary>> getShoppingListsOf(String userId) {
-        MutableLiveData<List<ShoppingListSummary>> result = new MutableLiveData<>();
-
-        db.collection(UserRepository.USERS_COLLECTION)
-            .document(userId)
-            .collection(SHOPPING_LISTS_COLLECTION)
-            .addSnapshotListener((value, error) -> {
-                    if (value != null) {
-                        result.setValue(toShoppingLists(value.iterator()));
-                    } else {
-                        Log.w(TAG, "getShoppingListsOf failed", error);
-                    }
-                }
-            );
-
-        return result;
-    }
-
     public Query getShoppingListsQuery(String userId) {
-        return db.collection(UserRepository.USERS_COLLECTION)
+        return db.collection(AuthRepository.USERS_COLLECTION)
             .document(userId)
             .collection(SHOPPING_LISTS_COLLECTION)
             .orderBy("name");
     }
 
-    public LiveData<ShoppingListSummary> getShoppingList(String id) {
-        MutableLiveData<ShoppingListSummary> result = new MutableLiveData<>();
+    public LiveData<ShoppingListDetail> getShoppingList(String id) {
+        MutableLiveData<ShoppingListDetail> result = new MutableLiveData<>();
 
         db.collection(SHOPPING_LISTS_COLLECTION)
             .document(id)
             .addSnapshotListener((value, error) -> {
-                if (value != null) {
-                    result.setValue(value.toObject(ShoppingListSummary.class));
-                } else {
+                    if (value != null) {
+                        result.setValue(value.toObject(ShoppingListDetail.class));
+                    } else {
                         Log.w(TAG, "getShoppingList failed", error);
                     }
                 }
             );
-
-        return result;
-    }
-
-    private List<ShoppingListSummary> toShoppingLists(Iterator<QueryDocumentSnapshot> iterator) {
-        List<ShoppingListSummary> result = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-            QueryDocumentSnapshot doc = iterator.next();
-
-            result.add(doc.toObject(ShoppingListSummary.class));
-        }
 
         return result;
     }
@@ -85,9 +49,10 @@ public class ShoppingRepository {
         WriteBatch batch = db.batch();
 
         DocumentReference generalRef = db.collection(SHOPPING_LISTS_COLLECTION).document();
+        shoppingListDetail.setId(generalRef.getId());
         batch.set(generalRef, shoppingListDetail);
 
-        DocumentReference userSpecificRef = db.collection(UserRepository.USERS_COLLECTION)
+        DocumentReference userSpecificRef = db.collection(AuthRepository.USERS_COLLECTION)
             .document(userId)
             .collection(SHOPPING_LISTS_COLLECTION)
             .document(generalRef.getId());

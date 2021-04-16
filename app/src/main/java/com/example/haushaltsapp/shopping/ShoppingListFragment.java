@@ -3,7 +3,6 @@ package com.example.haushaltsapp.shopping;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.haushaltsapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ShoppingFragment extends Fragment {
-    private static final String TAG = ShoppingFragment.class.getCanonicalName();
-
+public class ShoppingListFragment extends Fragment {
     private ShoppingViewModel shoppingViewModel;
 
     @Override
@@ -27,15 +24,10 @@ public class ShoppingFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         shoppingViewModel =
-            new ViewModelProvider(this, new ShoppingViewModelFactory(getViewLifecycleOwner()))
-                .get(ShoppingViewModel.class);
+            new ViewModelProvider(this).get(ShoppingViewModel.class);
 
         RecyclerView recyclerView = root.findViewById(R.id.shopping_list);
-        recyclerView.setAdapter(shoppingViewModel.createAdapter());
-
-        shoppingViewModel.getShoppingList()
-            .observe(getViewLifecycleOwner(), shoppingLists ->
-                Log.d(TAG, shoppingLists.toString()));
+        recyclerView.setAdapter(shoppingViewModel.createAdapter(getViewLifecycleOwner()));
 
         root.<FloatingActionButton>findViewById(R.id.add_shopping_list_fab).setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

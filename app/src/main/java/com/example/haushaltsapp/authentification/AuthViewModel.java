@@ -3,9 +3,9 @@ package com.example.haushaltsapp.authentification;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-public class UserViewModel extends ViewModel {
+public class AuthViewModel extends ViewModel {
 
-    private final UserRepository repository = new UserRepository();
+    private final AuthRepository repository = new AuthRepository();
 
     public LiveData<Boolean> signIn(String email, String password) {
         return repository.signIn(email, password);

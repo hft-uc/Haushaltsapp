@@ -20,7 +20,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button mRegisterBtn;
     private Button jumpBtn;
 
-    private UserViewModel userViewModel;
+    private AuthViewModel authViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +33,13 @@ public class RegistrationActivity extends AppCompatActivity {
         jumpBtn = findViewById(R.id.buttonJump);
         jumpBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
 
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         mRegisterBtn.setOnClickListener(view -> {
             String email = mEmail.getText().toString().trim();
             String pass = passwort.getText().toString().trim();
 
-            userViewModel.register(email, pass, fullName.getText().toString())
+            authViewModel.register(email, pass, fullName.getText().toString())
                 .observe(this, success -> {
                     if (success) {
                         Toast.makeText(RegistrationActivity.this, "done", Toast.LENGTH_SHORT).show();

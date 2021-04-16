@@ -13,13 +13,26 @@
 
     <fragment
         android:id="@+id/nav_shopping"
-        android:name="com.example.haushaltsapp.shopping.ShoppingFragment"
+        android:name="com.example.haushaltsapp.shopping.ShoppingListFragment"
         android:label="@string/menu_shopping"
-        tools:layout="@layout/fragment_shopping_list" />
+        tools:layout="@layout/fragment_shopping_list">
+        <action
+            android:id="@+id/action_nav_shopping_to_shoppingDetailFragment"
+            app:destination="@id/shoppingDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.haushaltsapp.slideshow.FinanceFragment"
         android:label="@string/menu_finanzen"
         tools:layout="@layout/fragment_finance" />
+    <fragment
+        android:id="@+id/shoppingDetailFragment"
+        android:name="com.example.haushaltsapp.shopping.ShoppingDetailFragment"
+        android:label="fragment_shopping_detail"
+        tools:layout="@layout/fragment_shopping_detail">
+        <argument
+            android:name="shopping_id"
+            app:argType="string" />
+    </fragment>
 </navigation>

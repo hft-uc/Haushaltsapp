@@ -13,14 +13,14 @@ import com.example.haushaltsapp.MainActivity;
 import com.example.haushaltsapp.R;
 
 public class LoginActivity extends AppCompatActivity {
-    private UserViewModel userViewModel;
+    private AuthViewModel authViewModel;
 
     @Override
     protected void onStart() {
         super.onStart();
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        if (userViewModel.alreadySignedIn()) {
+        if (authViewModel.alreadySignedIn()) {
             navigateToMain();
         }
     }
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
             String tempEmail = email.getText().toString().trim();
             String tempPass = passwort.getText().toString().trim();
 
-            userViewModel.signIn(tempEmail, tempPass)
+            authViewModel.signIn(tempEmail, tempPass)
                 .observe(this, success -> {
                     if (Boolean.TRUE.equals(success)) {
                         Toast.makeText(LoginActivity.this, "done", Toast.LENGTH_SHORT).show();
