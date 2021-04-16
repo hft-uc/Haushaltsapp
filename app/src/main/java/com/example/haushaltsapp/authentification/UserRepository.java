@@ -84,4 +84,8 @@ public class UserRepository {
         FirebaseUser user = auth.getCurrentUser();
         return new UserSummary(user.getUid(), user.getDisplayName());
     }
+
+    public boolean alreadySignedIn() {
+        return auth.getCurrentUser() != null;
+    }
 }
