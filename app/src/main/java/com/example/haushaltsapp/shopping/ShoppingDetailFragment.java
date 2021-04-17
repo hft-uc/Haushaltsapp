@@ -5,19 +5,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.user.UserViewModel;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ShoppingDetailFragment extends Fragment {
     private static final String TAG = ShoppingDetailFragment.class.getCanonicalName();
 
+    private Toolbar toolbar;
+
+    private ShoppingDetailPagerAdapter pagerAdapter;
+    private ViewPager2 viewPager;
     private ShoppingViewModel shoppingViewModel;
     private UserViewModel userViewModel;
 
@@ -41,13 +48,28 @@ public class ShoppingDetailFragment extends Fragment {
         @Nullable Bundle savedInstanceState
     ) {
         View root = inflater.inflate(R.layout.fragment_shopping_detail, container, false);
+        toolbar = getActivity().findViewById(R.id.toolbar);
 
-        shoppingViewModel.getShoppingList().observe(getViewLifecycleOwner(), shoppingListDetail -> {
-            root.<TextView>findViewById(R.id.shopping_detail_name).setText(shoppingListDetail.getName());
+        shoppingViewModel.getShoppingList().observe(getViewLifecycleOwner(), detail -> {
+            Log.i(TAG, "Setting title to " + detail.getName());
+            toolbar.setTitle(detail.getName());
 
-            userViewModel.updateUsers(shoppingListDetail.getMembers());
+            Log.i(TAG, "Updating users to " + detail.getMembers());
+            userViewModel.updateUsers(detail.getMembers());
         });
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        pagerAdapter = new ShoppingDetailPagerAdapter(this);
+        viewPager = view.findViewById(R.id.shopping_detail_pager);
+        viewPager.setAdapter(pagerAdapter);
+
+        TabLayout tabLayout = view.findViewById(R.id.shopping_detail_tab_layout);
+        new TabLayoutMediator(tabLayout, viewPager,
+            ((tab, position) -> tab.setIcon(ShoppingDetailPagerAdapter.TAB_ICONS[position]))
+        ).attach();
     }
 }
