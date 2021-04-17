@@ -1,14 +1,13 @@
 package com.example.haushaltsapp.shopping;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.types.ShoppingListDetail;
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * A fragment representing a list of Items.
@@ -40,12 +40,7 @@ public class ShoppingDetailEntriesFragment extends Fragment {
         final ShoppingDetailEntriesRecyclerViewAdapter adapter = new ShoppingDetailEntriesRecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
 
-        view.findViewById(R.id.add_shopping_list_entry_fab)
-            .setOnClickListener(v -> {
-                final AddEntryDialog dialog = new AddEntryDialog();
-                dialog.setCancelable(false);
-                dialog.showNow(getChildFragmentManager(), "tag");
-            });
+        initAddButton(view);
 
         Transformations.map(shoppingViewModel.getShoppingList(), ShoppingListDetail::getEntries)
             .observe(requireParentFragment().getViewLifecycleOwner(), adapter::updateItems);
@@ -53,39 +48,34 @@ public class ShoppingDetailEntriesFragment extends Fragment {
         return view;
     }
 
-    public static class AddEntryDialog extends DialogFragment {
+    private void initAddButton(View view) {
+        view.findViewById(R.id.add_shopping_list_entry_fab)
+            .setOnClickListener(v -> {
+                final Context context = getContext();
 
-        private EditText name;
-        private EditText amount;
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(R.string.add_entry);
+                final LinearLayout layout = new LinearLayout(context);
+                layout.setOrientation(LinearLayout.VERTICAL);
 
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.dialog_add_shopping_detail_entry, container, false);
+                final TextInputEditText nameInput = new TextInputEditText(context);
+                nameInput.setHint(R.string.name);
+                layout.addView(nameInput, 0);
 
-            name = view.findViewById(R.id.add_shopping_entry_name_edit_text);
-            amount = view.findViewById(R.id.add_shopping_entry_amount_edit_text);
+                final TextInputEditText amountInput = new TextInputEditText(context);
+                amountInput.setHint(R.string.amount);
+                layout.addView(amountInput, 1);
 
-            return view;
-        }
+                builder.setView(layout)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        final String name = nameInput.getText().toString();
+                        final String amount = amountInput.getText().toString();
 
-
-//        @NonNull
-//        @Override
-//        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-//
-//            View view = inflater.inflate(R.layout.dialog_add_shopping_detail_entry, container);
-//
-//            name = view.findViewById(R.id.add_shopping_entry_name_edit_text);
-//            amount = view.findViewById(R.id.add_shopping_entry_amount_edit_text);
-//
-//            return view;
-//        }
-
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_Haushaltsapp);
-        }
+                        shoppingViewModel.addEntry(name, amount);
+                    })
+                    .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel())
+                    .show();
+            });
     }
+
 }

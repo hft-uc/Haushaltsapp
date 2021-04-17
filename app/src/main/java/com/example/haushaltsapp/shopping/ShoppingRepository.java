@@ -2,6 +2,7 @@ package com.example.haushaltsapp.shopping;
 
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.ShoppingListDetail;
+import com.example.haushaltsapp.types.ShoppingListEntry;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -11,6 +12,7 @@ import com.google.firebase.firestore.WriteBatch;
 public class ShoppingRepository {
 
     public static final String SHOPPING_LISTS_COLLECTION = "shopping_lists";
+    public static final String SHOPPING_LISTS_ENTRY_COLLECTION = "entry";
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -46,5 +48,20 @@ public class ShoppingRepository {
         batch.set(userSpecificRef, shoppingListDetail.toSummary());
 
         return batch.commit();
+    }
+
+    /**
+     * @param id The id of the shopping list to add to
+     */
+    public Task<Void> addShoppingListEntry(String id, ShoppingListEntry entry) {
+        final DocumentReference reference = db.collection(SHOPPING_LISTS_COLLECTION)
+            .document(id)
+            .collection(SHOPPING_LISTS_ENTRY_COLLECTION)
+            .document();
+        entry.setId(reference.getId());
+
+        return reference
+            .set(entry);
+
     }
 }

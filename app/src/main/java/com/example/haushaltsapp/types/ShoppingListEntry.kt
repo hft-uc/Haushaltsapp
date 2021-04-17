@@ -1,11 +1,13 @@
 package com.example.haushaltsapp.types
 
 data class ShoppingListEntry(
-        val id: Int,
+        var id: String,
         var name: String,
         var amount: String,
         var isDone: Boolean
 ) {
     @Suppress("unused")
-    constructor() : this(0, "", "", false)
+    constructor() : this("", "", "", false)
+
+    constructor(name: String, amount: String) : this("", name, amount, false)
 }

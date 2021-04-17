@@ -24,5 +24,6 @@
     <string name="add_shopping_list_entry">Add shopping list entry</string>
     <string name="name">name</string>
     <string name="amount">amount</string>
+    <string name="add_entry">Neue Eintrag hinzufügen</string>
 
 </resources>

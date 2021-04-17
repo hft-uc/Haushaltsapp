@@ -10,10 +10,21 @@ import androidx.paging.PagedList;
 
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.ShoppingListDetail;
+import com.example.haushaltsapp.types.ShoppingListEntry;
 import com.example.haushaltsapp.types.ShoppingListSummary;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.Query;
 
+/**
+ * <p>
+ * Contains the state for the fragment.
+ * </p>
+ *
+ * <p>
+ * When working with a single shopping list always call {@link #loadShoppingList} first to initiate
+ * the view model. After this all operations on a specific shopping list are operating on that one.
+ * </p>
+ */
 public class ShoppingViewModel extends ViewModel {
     private static final String TAG = ShoppingViewModel.class.getCanonicalName();
 
@@ -21,12 +32,15 @@ public class ShoppingViewModel extends ViewModel {
     private final AuthRepository authRepository = new AuthRepository();
 
     private MutableLiveData<ShoppingListDetail> shoppingListDetailLiveData;
+    private String id;
 
     /**
      * Starts to load the {@code ShoppingListDetail} with given id.
      * It can be queried with {@code getShoppingList}
      */
     public void loadShoppingList(String id) {
+        this.id = id;
+
         shoppingListDetailLiveData = new MutableLiveData<>();
 
         repository.getShoppingList(id)
@@ -44,14 +58,22 @@ public class ShoppingViewModel extends ViewModel {
         return shoppingListDetailLiveData;
     }
 
-
     public LiveData<Boolean> add(String name) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
         ShoppingListDetail shoppingList = new ShoppingListDetail(name, authRepository.getCurrentUser());
         repository.addShoppingList(shoppingList, shoppingList.getOwner().getId())
-            .addOnSuccessListener(value -> result.setValue(true))
-            .addOnFailureListener(exception -> result.setValue(false));
+            .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
+
+        return result;
+    }
+
+    public LiveData<Boolean> addEntry(String name, String amount) {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+
+        ShoppingListEntry entry = new ShoppingListEntry(name, amount);
+        repository.addShoppingListEntry(id, entry)
+            .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
 
         return result;
     }
