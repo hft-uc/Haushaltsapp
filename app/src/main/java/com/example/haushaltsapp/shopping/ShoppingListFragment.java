@@ -27,7 +27,7 @@ public class ShoppingListFragment extends Fragment {
             new ViewModelProvider(this).get(ShoppingViewModel.class);
 
         RecyclerView recyclerView = root.findViewById(R.id.shopping_list);
-        recyclerView.setAdapter(shoppingViewModel.createAdapter(getViewLifecycleOwner()));
+        recyclerView.setAdapter(shoppingViewModel.createShoppingListAdapter(getViewLifecycleOwner()));
 
         root.<FloatingActionButton>findViewById(R.id.add_shopping_list_fab).setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

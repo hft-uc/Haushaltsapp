@@ -21,5 +21,8 @@
     <string name="menu_shopping">ShoppingList</string>
     <string name="menu_finanzen">Finanzen</string>
     <string name="add_shopping_list">Add shopping list</string>
+    <string name="add_shopping_list_entry">Add shopping list entry</string>
+    <string name="name">name</string>
+    <string name="amount">amount</string>
 
 </resources>

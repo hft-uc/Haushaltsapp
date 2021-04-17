@@ -5,23 +5,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.types.UserSummary;
-
-import java.util.Collections;
-import java.util.List;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import javax.annotation.Nonnull;
 
-public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapter.ViewHolder> {
+public class UserRecyclerViewAdapter
+    extends FirestoreRecyclerAdapter<UserSummary, UserRecyclerViewAdapter.ViewHolder> {
 
-    private List<UserSummary> items = Collections.emptyList();
-
-    public void updateItems(List<UserSummary> items) {
-        this.items = items;
-        notifyDataSetChanged();
+    public UserRecyclerViewAdapter(@NonNull FirestoreRecyclerOptions<UserSummary> options) {
+        super(options);
     }
 
     @Nonnull
@@ -33,14 +31,9 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.item = items.get(position);
-        holder.contentview.setText(items.get(position).getName());
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull UserSummary model) {
+        holder.item = model;
+        holder.contentview.setText(model.getName());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

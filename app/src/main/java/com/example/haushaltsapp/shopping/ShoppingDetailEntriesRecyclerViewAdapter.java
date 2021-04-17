@@ -28,7 +28,7 @@ public class ShoppingDetailEntriesRecyclerViewAdapter extends RecyclerView.Adapt
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.fragment_shopping_detail_entries_list, parent, false);
+            .inflate(R.layout.fragment_shopping_detail_entries_item, parent, false);
         return new ViewHolder(view);
     }
 

@@ -32,11 +32,10 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
 
         RecyclerView recyclerView = (RecyclerView) view;
-        final UserRecyclerViewAdapter adapter = new UserRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
 
-        userViewModel.getUsers()
-            .observe(requireParentFragment().getViewLifecycleOwner(), adapter::updateItems);
+        recyclerView.setAdapter(
+            new UserRecyclerViewAdapter(userViewModel.createRecyclerOptions())
+        );
 
         return view;
     }

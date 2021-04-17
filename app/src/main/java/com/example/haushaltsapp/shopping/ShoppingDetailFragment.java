@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.haushaltsapp.R;
+import com.example.haushaltsapp.user.UserSource;
 import com.example.haushaltsapp.user.UserViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -54,9 +55,11 @@ public class ShoppingDetailFragment extends Fragment {
             Log.i(TAG, "Setting title to " + detail.getName());
             toolbar.setTitle(detail.getName());
 
-            Log.i(TAG, "Updating users to " + detail.getMembers());
-            userViewModel.updateUsers(detail.getMembers());
+            userViewModel.setSource(UserSource.SHOPPING);
+            userViewModel.setId(detail.getId());
+
         });
+
 
         return root;
     }

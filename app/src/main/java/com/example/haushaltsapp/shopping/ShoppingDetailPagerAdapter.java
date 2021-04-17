@@ -18,8 +18,14 @@ public class ShoppingDetailPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        Fragment fragment = new UserFragment();
-        return fragment;
+        switch (position) {
+            case 0:
+                return new ShoppingDetailEntriesFragment();
+            case 1:
+                return new UserFragment();
+            default:
+                throw new IllegalArgumentException("More entries in pager than expected");
+        }
     }
 
     @Override
