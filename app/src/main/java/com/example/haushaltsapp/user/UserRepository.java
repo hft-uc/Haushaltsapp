@@ -21,4 +21,9 @@ public class UserRepository {
             .orderBy("name");
     }
 
+    public Query getMembers(String id){
+        return db.collection(MEMBERS_COLLECTION).orderBy("name");
+
+    }
+
 }

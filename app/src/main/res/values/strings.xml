@@ -20,10 +20,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_shopping">ShoppingList</string>
     <string name="menu_finanzen">Finanzen</string>
+    <string name="chat">Chat</string>
     <string name="add_shopping_list">Add shopping list</string>
     <string name="add_shopping_list_entry">Add shopping list entry</string>
     <string name="name">name</string>
     <string name="amount">amount</string>
     <string name="add_entry">Neue Eintrag hinzufügen</string>
-
 </resources>

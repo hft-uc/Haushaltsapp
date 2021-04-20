@@ -27,6 +27,8 @@ public class UserViewModel extends ViewModel {
                 break;
             case SUPPLY:
             case FINANCE:
+            case CHAT:
+                query = repository.getMembers(id);
                 break;
         }
 
