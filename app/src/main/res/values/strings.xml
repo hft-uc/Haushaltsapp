@@ -23,7 +23,8 @@
     <string name="chat">Chat</string>
     <string name="add_shopping_list">Add shopping list</string>
     <string name="add_shopping_list_entry">Add shopping list entry</string>
-    <string name="name">name</string>
-    <string name="amount">amount</string>
-    <string name="add_entry">Neue Eintrag hinzufügen</string>
+    <string name="add_member">Add member</string>
+    <string name="name">Name</string>
+    <string name="amount">Amount</string>
+    <string name="add_entry">Add entry</string>
 </resources>
