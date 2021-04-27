@@ -61,8 +61,8 @@ public class SupplyViewModel extends ViewModel {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
         ShoppingListDetail shoppingList = new ShoppingListDetail(name, authRepository.getCurrentUser());
-        repository.addShoppingList(shoppingList, shoppingList.getOwner().getId())
-                .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
+      //  repository.addShoppingList(shoppingList, shoppingList.getOwner().getId())
+       //         .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
 
         return result;
     }
@@ -71,8 +71,8 @@ public class SupplyViewModel extends ViewModel {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
         ShoppingListEntry entry = new ShoppingListEntry(name, amount);
-        repository.addShoppingListEntry(id, entry)
-                .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
+     //   repository.addShoppingListEntry(id, entry)
+     //           .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
 
         return result;
     }
@@ -92,7 +92,7 @@ public class SupplyViewModel extends ViewModel {
                 .setPageSize(20)
                 .build();
 
-        final Query query = repository.getShoppingLists(authRepository.getCurrentUser().getId());
+     /*   final Query query = repository.getShoppingLists(authRepository.getCurrentUser().getId());
 
         FirestorePagingOptions<ShoppingListSummary> options
                 = new FirestorePagingOptions.Builder<ShoppingListSummary>()
@@ -100,6 +100,11 @@ public class SupplyViewModel extends ViewModel {
                 .setQuery(query, config, ShoppingListSummary.class)
                 .build();
 
-        return new ShoppingRecyclerViewAdapter(options);
+
+      */
+      //  return new ShoppingRecyclerViewAdapter(options);
+return null;
+
+
     }
 }
