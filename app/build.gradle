@@ -59,6 +59,7 @@ dependencies {
     implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "com.android.support:design"
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:26.8.0')
@@ -66,6 +67,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:22.1.2'
 
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
 
     // Utilities
 
