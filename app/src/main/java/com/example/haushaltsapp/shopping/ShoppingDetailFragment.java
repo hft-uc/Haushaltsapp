@@ -21,7 +21,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ShoppingDetailFragment extends Fragment {
     private static final String TAG = ShoppingDetailFragment.class.getCanonicalName();
-
     private Toolbar toolbar;
 
     private ShoppingDetailPagerAdapter pagerAdapter;
