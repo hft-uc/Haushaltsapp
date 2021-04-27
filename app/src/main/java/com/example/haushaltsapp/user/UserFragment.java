@@ -17,6 +17,8 @@ import com.example.haushaltsapp.R;
  */
 public class UserFragment extends Fragment {
 
+    private static final String TAG = UserFragment.class.getCanonicalName();
+
     private UserViewModel userViewModel;
 
     @Override
@@ -31,9 +33,7 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) view;
-
-        recyclerView.setAdapter(
+        view.<RecyclerView>findViewById(R.id.user_list).setAdapter(
             new UserRecyclerViewAdapter(userViewModel.createRecyclerOptions())
         );
 
