@@ -17,7 +17,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_finanzen" />
         <item
-            android:id="@+id/nav_chat"
+            android:id="@+id/nav_chat_detail"
             android:icon="@drawable/ic_menu_chat"
             android:title="@string/chat" />
 
