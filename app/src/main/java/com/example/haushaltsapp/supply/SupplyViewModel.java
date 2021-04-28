@@ -99,8 +99,6 @@ public class SupplyViewModel extends ViewModel {
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, config, ShoppingListSummary.class)
                 .build();
-
-
       */
       //  return new ShoppingRecyclerViewAdapter(options);
 return null;

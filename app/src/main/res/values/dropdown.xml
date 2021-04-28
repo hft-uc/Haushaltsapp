@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dropdown">
+        <item>Ausgabe</item>
+        <item>Einkommen</item>
+    </string-array>
+</resources>
