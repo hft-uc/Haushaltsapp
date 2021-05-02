@@ -1,8 +1,12 @@
 package com.example.haushaltsapp.user;
 
+import com.example.haushaltsapp.types.UserSummary;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import static com.example.haushaltsapp.authentification.AuthRepository.USERS_COLLECTION;
 import static com.example.haushaltsapp.shopping.ShoppingRepository.SHOPPING_LISTS_COLLECTION;
 
 public class UserRepository {
@@ -21,8 +25,21 @@ public class UserRepository {
             .orderBy("name");
     }
 
-    public Query getMembers(String id){
+    public Query getMembers(String id) {
         return db.collection(MEMBERS_COLLECTION).orderBy("name");
+    }
+
+    public Query getAllUsers() {
+        return db.collection(USERS_COLLECTION)
+            .orderBy("name");
+    }
+
+    public Task<Void> addShoppingListMember(String id, UserSummary user) {
+        DocumentReference document = db.collection(SHOPPING_LISTS_COLLECTION)
+            .document(id)
+            .collection(MEMBERS_COLLECTION)
+            .document(user.getId());
+        return document.set(user);
 
     }
 

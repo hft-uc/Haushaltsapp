@@ -2,11 +2,16 @@ package com.example.haushaltsapp.user;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.haushaltsapp.types.UserSummary;
+import com.example.haushaltsapp.utils.FirestoreExtensionsKt;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
+
+import java.util.List;
 
 /**
  * Used to communicate between the parent fragment and {@code UserFragment} to pass in the users
@@ -20,6 +25,48 @@ public class UserViewModel extends ViewModel {
     private String id;
 
     public FirestoreRecyclerOptions<UserSummary> createRecyclerOptions() {
+        Query query = getQuery();
+
+        Log.i(TAG, "Created FirestoreRecyclerOptions");
+        return new FirestoreRecyclerOptions.Builder<UserSummary>()
+            .setQuery(query, UserSummary.class)
+            .build();
+    }
+
+    public LiveData<List<UserSummary>> getMembers() {
+        MutableLiveData<List<UserSummary>> result = new MutableLiveData<>();
+
+        getQuery().addSnapshotListener((value, error) -> {
+            if (error == null) {
+                List<UserSummary> users = FirestoreExtensionsKt.toObjectList(value.getDocuments(), UserSummary.class);
+                result.setValue(users);
+            } else {
+                Log.w(TAG, "Failed to load members");
+            }
+        });
+
+        return result;
+    }
+
+    /**
+     * Friend system currently not implemented, just returns all users
+     */
+    public LiveData<List<UserSummary>> getFriends() {
+        MutableLiveData<List<UserSummary>> result = new MutableLiveData<>();
+
+        repository.getAllUsers().addSnapshotListener((value, error) -> {
+            if (error == null) {
+                List<UserSummary> users = FirestoreExtensionsKt.toObjectList(value.getDocuments(), UserSummary.class);
+                result.setValue(users);
+            } else {
+                Log.w(TAG, "Failed to load all friends", error);
+            }
+        });
+
+        return result;
+    }
+
+    private Query getQuery() {
         Query query = null;
         switch (source) {
             case SHOPPING:
@@ -31,11 +78,19 @@ public class UserViewModel extends ViewModel {
                 query = repository.getMembers(id);
                 break;
         }
+        return query;
+    }
 
-        Log.i(TAG, "Created FirestoreRecyclerOptions");
-        return new FirestoreRecyclerOptions.Builder<UserSummary>()
-            .setQuery(query, UserSummary.class)
-            .build();
+    public void addMember(UserSummary user) {
+        switch (source) {
+            case SHOPPING:
+                repository.addShoppingListMember(id, user);
+                break;
+            case SUPPLY:
+            case FINANCE:
+            case CHAT:
+                break;
+        }
     }
 
     public void setSource(UserSource source) {
