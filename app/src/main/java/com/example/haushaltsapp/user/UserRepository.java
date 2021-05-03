@@ -1,10 +1,12 @@
 package com.example.haushaltsapp.user;
 
+import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.UserSummary;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.WriteBatch;
 
 import static com.example.haushaltsapp.authentification.AuthRepository.USERS_COLLECTION;
 import static com.example.haushaltsapp.shopping.ShoppingRepository.SHOPPING_LISTS_COLLECTION;
@@ -34,13 +36,21 @@ public class UserRepository {
             .orderBy("name");
     }
 
-    public Task<Void> addShoppingListMember(String id, UserSummary user) {
-        DocumentReference document = db.collection(SHOPPING_LISTS_COLLECTION)
-            .document(id)
+    public Task<Void> addShoppingListMember(ShoppingListDetail shoppingList, UserSummary user) {
+        WriteBatch batch = db.batch();
+
+        DocumentReference generalRef = db.collection(SHOPPING_LISTS_COLLECTION)
+            .document(shoppingList.getId())
             .collection(MEMBERS_COLLECTION)
             .document(user.getId());
-        return document.set(user);
+        batch.set(generalRef, user);
 
+        DocumentReference userSpecificRef = db.collection(USERS_COLLECTION)
+            .document(user.getId())
+            .collection(SHOPPING_LISTS_COLLECTION)
+            .document();
+        batch.set(userSpecificRef, shoppingList.toSummary());
+
+        return batch.commit();
     }
-
 }

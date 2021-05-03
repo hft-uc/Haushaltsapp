@@ -56,7 +56,7 @@ public class ShoppingDetailFragment extends Fragment {
 
             userViewModel.setSource(UserSource.SHOPPING);
             userViewModel.setId(detail.getId());
-
+            userViewModel.setShoppingListDetail(detail);
         });
 
 
