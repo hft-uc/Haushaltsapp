@@ -50,6 +50,13 @@ public class ShoppingRepository {
         return batch.commit();
     }
 
+    public Query getShoppingListEntries(String id) {
+        return db.collection(SHOPPING_LISTS_COLLECTION)
+            .document(id)
+            .collection(SHOPPING_LISTS_ENTRY_COLLECTION)
+            .orderBy("name");
+    }
+
     /**
      * @param id The id of the shopping list to add to
      */

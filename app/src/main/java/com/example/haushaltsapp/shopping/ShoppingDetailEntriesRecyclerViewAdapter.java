@@ -5,23 +5,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.types.ShoppingListEntry;
-
-import java.util.Collections;
-import java.util.List;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import javax.annotation.Nonnull;
 
-public class ShoppingDetailEntriesRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingDetailEntriesRecyclerViewAdapter.ViewHolder> {
+public class ShoppingDetailEntriesRecyclerViewAdapter
+    extends FirestoreRecyclerAdapter<ShoppingListEntry, ShoppingDetailEntriesRecyclerViewAdapter.ViewHolder> {
 
-    private List<ShoppingListEntry> items = Collections.emptyList();
-
-    public void updateItems(List<ShoppingListEntry> items) {
-        this.items = items;
-        notifyDataSetChanged();
+    public ShoppingDetailEntriesRecyclerViewAdapter(@NonNull FirestoreRecyclerOptions<ShoppingListEntry> options) {
+        super(options);
     }
 
     @Nonnull
@@ -33,15 +31,11 @@ public class ShoppingDetailEntriesRecyclerViewAdapter extends RecyclerView.Adapt
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.item = items.get(position);
-        holder.name.setText(items.get(position).getName());
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ShoppingListEntry model) {
+        holder.item = model;
+        holder.name.setText(model.getName());
     }
 
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;

@@ -35,13 +35,11 @@ public class ShoppingDetailEntriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shopping_detail_entries_list, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.shopping_detail_entry_list);
-        final ShoppingDetailEntriesRecyclerViewAdapter adapter = new ShoppingDetailEntriesRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
+
+        recyclerView.setAdapter(new ShoppingDetailEntriesRecyclerViewAdapter(
+            shoppingViewModel.createShoppingListEntriesAdapter(getViewLifecycleOwner())));
 
         initAddButton(view);
-
-//        Transformations.map(shoppingViewModel.getShoppingList(), ShoppingListDetail::getEntries)
-//            .observe(requireParentFragment().getViewLifecycleOwner(), adapter::updateItems);
 
         return view;
     }

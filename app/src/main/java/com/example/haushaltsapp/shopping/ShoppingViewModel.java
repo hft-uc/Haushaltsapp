@@ -12,6 +12,7 @@ import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.ShoppingListEntry;
 import com.example.haushaltsapp.types.ShoppingListSummary;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.Query;
 
@@ -102,5 +103,14 @@ public class ShoppingViewModel extends ViewModel {
             .build();
 
         return new ShoppingRecyclerViewAdapter(options);
+    }
+
+    public FirestoreRecyclerOptions<ShoppingListEntry> createShoppingListEntriesAdapter(LifecycleOwner lifecycleOwner) {
+        final Query query = repository.getShoppingListEntries(id);
+
+        return new FirestoreRecyclerOptions.Builder<ShoppingListEntry>()
+            .setQuery(query, ShoppingListEntry.class)
+            .setLifecycleOwner(lifecycleOwner)
+            .build();
     }
 }
