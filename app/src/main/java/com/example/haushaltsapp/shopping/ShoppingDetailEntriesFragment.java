@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.google.android.material.textfield.TextInputEditText;
 
 /**
@@ -42,8 +40,8 @@ public class ShoppingDetailEntriesFragment extends Fragment {
 
         initAddButton(view);
 
-        Transformations.map(shoppingViewModel.getShoppingList(), ShoppingListDetail::getEntries)
-            .observe(requireParentFragment().getViewLifecycleOwner(), adapter::updateItems);
+//        Transformations.map(shoppingViewModel.getShoppingList(), ShoppingListDetail::getEntries)
+//            .observe(requireParentFragment().getViewLifecycleOwner(), adapter::updateItems);
 
         return view;
     }

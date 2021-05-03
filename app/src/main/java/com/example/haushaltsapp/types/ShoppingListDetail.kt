@@ -3,15 +3,13 @@ package com.example.haushaltsapp.types
 data class ShoppingListDetail(
         var id: String,
         var name: String,
-        val entries: MutableList<ShoppingListEntry>,
         val owner: UserSummary,
-        val members: MutableList<UserSummary>
 ) {
 
     @Suppress("unused")
-    constructor() : this("", "", mutableListOf(), UserSummary(), mutableListOf())
+    constructor() : this("", "", UserSummary())
 
-    constructor(name: String, owner: UserSummary) : this("", name, mutableListOf(), owner, mutableListOf())
+    constructor(name: String, owner: UserSummary) : this("", name, owner)
 
     fun toSummary(): ShoppingListSummary = ShoppingListSummary(id, name)
 }
