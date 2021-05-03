@@ -34,7 +34,7 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
 
         view.<RecyclerView>findViewById(R.id.user_list).setAdapter(
-            new UserRecyclerViewAdapter(userViewModel.createRecyclerOptions())
+            new UserRecyclerViewAdapter(userViewModel.createRecyclerOptions(getViewLifecycleOwner()))
         );
 
         return view;

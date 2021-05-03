@@ -2,6 +2,7 @@ package com.example.haushaltsapp.user;
 
 import android.util.Log;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -24,12 +25,13 @@ public class UserViewModel extends ViewModel {
     private UserSource source;
     private String id;
 
-    public FirestoreRecyclerOptions<UserSummary> createRecyclerOptions() {
+    public FirestoreRecyclerOptions<UserSummary> createRecyclerOptions(LifecycleOwner lifecycleOwner) {
         Query query = getQuery();
 
         Log.i(TAG, "Created FirestoreRecyclerOptions");
         return new FirestoreRecyclerOptions.Builder<UserSummary>()
             .setQuery(query, UserSummary.class)
+            .setLifecycleOwner(lifecycleOwner)
             .build();
     }
 
