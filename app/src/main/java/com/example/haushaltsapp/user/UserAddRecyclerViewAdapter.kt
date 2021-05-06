@@ -16,7 +16,7 @@ class UserAddRecyclerViewAdapter(private val listener: UserAddListener)
     private var members: List<UserSummary> = emptyList()
     private var filteredUsers: List<UserSummary> = emptyList()
     private var query: String = ""
-
+    lateinit var owner: UserSummary
 
     fun updateUsers(users: List<UserSummary>) {
         this.users = users
@@ -37,7 +37,7 @@ class UserAddRecyclerViewAdapter(private val listener: UserAddListener)
     }
 
     private fun updateFilteredUsers() {
-        filteredUsers = users.minus(members).filter { it.name.contains(query) }
+        filteredUsers = users.minus(members).minus(owner).filter { it.name.contains(query) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -38,6 +38,7 @@ public class UserAddFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.user_add_list);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOwner(userViewModel.getOwner());
         userViewModel.getFriends().observe(getViewLifecycleOwner(), adapter::updateUsers);
         userViewModel.getMembers().observe(getViewLifecycleOwner(), adapter::updateMembers);
 

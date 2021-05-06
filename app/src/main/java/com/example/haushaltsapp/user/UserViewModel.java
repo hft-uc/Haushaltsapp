@@ -85,6 +85,18 @@ public class UserViewModel extends ViewModel {
         return query;
     }
 
+    public UserSummary getOwner() {
+        switch (source) {
+            case SHOPPING:
+                return shoppingListDetail.getOwner();
+            case SUPPLY:
+            case FINANCE:
+            case CHAT:
+            default:
+                return null;
+        }
+    }
+
     public void addMember(UserSummary user) {
         switch (source) {
             case SHOPPING:
