@@ -69,10 +69,10 @@ public class ShoppingViewModel extends ViewModel {
         return result;
     }
 
-    public LiveData<Boolean> addEntry(String name, String amount) {
+    public LiveData<Boolean> addEntry(String name) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        ShoppingListEntry entry = new ShoppingListEntry(name, amount);
+        ShoppingListEntry entry = new ShoppingListEntry(name);
         repository.addShoppingListEntry(id, entry)
             .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
 
