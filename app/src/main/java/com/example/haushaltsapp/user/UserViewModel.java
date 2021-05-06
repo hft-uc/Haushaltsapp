@@ -97,6 +97,18 @@ public class UserViewModel extends ViewModel {
         }
     }
 
+    public void removeMember(UserSummary user) {
+        switch (source) {
+            case SHOPPING:
+                repository.removeShoppingListMember(shoppingListDetail, user);
+                break;
+            case SUPPLY:
+            case FINANCE:
+            case CHAT:
+                break;
+        }
+    }
+
     public void setSource(UserSource source) {
         Log.i(TAG, "Set source to " + source.name());
         this.source = source;
@@ -111,5 +123,4 @@ public class UserViewModel extends ViewModel {
         Log.i(TAG, "Set shopping list detail  to " + detail);
         this.shoppingListDetail = detail;
     }
-
 }

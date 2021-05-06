@@ -34,7 +34,8 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
 
         view.<RecyclerView>findViewById(R.id.user_list).setAdapter(
-            new UserRecyclerViewAdapter(userViewModel.createRecyclerOptions(getViewLifecycleOwner()))
+            new UserRecyclerViewAdapter(userViewModel.createRecyclerOptions(getViewLifecycleOwner()),
+                user -> userViewModel.removeMember(user))
         );
 
         return view;
