@@ -48,7 +48,7 @@ public class UserRepository {
         DocumentReference userSpecificRef = db.collection(USERS_COLLECTION)
             .document(user.getId())
             .collection(SHOPPING_LISTS_COLLECTION)
-            .document();
+            .document(shoppingList.getId());
         batch.set(userSpecificRef, shoppingList.toSummary());
 
         return batch.commit();
