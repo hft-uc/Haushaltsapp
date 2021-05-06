@@ -18,8 +18,14 @@ import javax.annotation.Nonnull;
 public class ShoppingDetailEntriesRecyclerViewAdapter
     extends FirestoreRecyclerAdapter<ShoppingListEntry, ShoppingDetailEntriesRecyclerViewAdapter.ViewHolder> {
 
-    public ShoppingDetailEntriesRecyclerViewAdapter(@NonNull FirestoreRecyclerOptions<ShoppingListEntry> options) {
+    private final EntryUnDoneListener listener;
+
+    public ShoppingDetailEntriesRecyclerViewAdapter(
+        @NonNull FirestoreRecyclerOptions<ShoppingListEntry> options,
+        EntryUnDoneListener listener
+    ) {
         super(options);
+        this.listener = listener;
     }
 
     @Nonnull
@@ -36,6 +42,9 @@ public class ShoppingDetailEntriesRecyclerViewAdapter
         holder.name.setText(model.getName());
     }
 
+    public interface EntryUnDoneListener {
+        void onClick(ShoppingListEntry item);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
@@ -46,6 +55,7 @@ public class ShoppingDetailEntriesRecyclerViewAdapter
             super(view);
             this.view = view;
             name = view.findViewById(R.id.content);
+            view.setOnClickListener(v -> listener.onClick(item));
         }
 
         @Nonnull

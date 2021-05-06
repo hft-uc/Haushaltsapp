@@ -87,6 +87,12 @@ public class ShoppingViewModel extends ViewModel {
         throw new UnsupportedOperationException();
     }
 
+    public void toggleDone(ShoppingListEntry item) {
+        item.setDone(!item.isDone());
+        Log.d(TAG, "Toggling is done to '" + item.isDone() + "' for item '" + item.getId() + "'");
+        repository.updateEntry(id, item);
+    }
+
     public ShoppingRecyclerViewAdapter createShoppingListAdapter(LifecycleOwner lifecycleOwner) {
         PagedList.Config config = new PagedList.Config.Builder()
             .setEnablePlaceholders(true)

@@ -36,8 +36,10 @@ public class ShoppingDetailEntriesFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.shopping_detail_entry_list);
 
-        recyclerView.setAdapter(new ShoppingDetailEntriesRecyclerViewAdapter(
-            shoppingViewModel.createShoppingListEntriesAdapter(getViewLifecycleOwner())));
+        final ShoppingDetailEntriesRecyclerViewAdapter adapter = new ShoppingDetailEntriesRecyclerViewAdapter(
+            shoppingViewModel.createShoppingListEntriesAdapter(getViewLifecycleOwner()),
+            item -> shoppingViewModel.toggleDone(item));
+        recyclerView.setAdapter(adapter);
 
         initAddButton(view);
 
