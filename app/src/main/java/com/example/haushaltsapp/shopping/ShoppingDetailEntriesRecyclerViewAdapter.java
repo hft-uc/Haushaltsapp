@@ -3,6 +3,7 @@ package com.example.haushaltsapp.shopping;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ public class ShoppingDetailEntriesRecyclerViewAdapter
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ShoppingListEntry model) {
         holder.item = model;
         holder.name.setText(model.getName());
+        holder.done.setVisibility(model.isDone() ? View.VISIBLE : View.INVISIBLE);
     }
 
     public interface EntryUnDoneListener {
@@ -49,12 +51,15 @@ public class ShoppingDetailEntriesRecyclerViewAdapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public final TextView name;
+        public final ImageView done;
         public ShoppingListEntry item;
+
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            name = view.findViewById(R.id.content);
+            name = view.findViewById(R.id.shopping_entry_name);
+            done = view.findViewById(R.id.shopping_entry_done);
             view.setOnClickListener(v -> listener.onClick(item));
         }
 
