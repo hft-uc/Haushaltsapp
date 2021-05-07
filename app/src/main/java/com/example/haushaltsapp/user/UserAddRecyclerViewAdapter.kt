@@ -37,7 +37,7 @@ class UserAddRecyclerViewAdapter(private val listener: UserAddListener)
     }
 
     private fun updateFilteredUsers() {
-        filteredUsers = users.minus(members).minus(owner).filter { it.name.contains(query) }
+        filteredUsers = users.minus(members).minus(owner).filter { it.name.contains(query, ignoreCase = true) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
