@@ -36,8 +36,10 @@ public class ShoppingDetailEntriesFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.shopping_detail_entry_list);
 
-        recyclerView.setAdapter(new ShoppingDetailEntriesRecyclerViewAdapter(
-            shoppingViewModel.createShoppingListEntriesAdapter(getViewLifecycleOwner())));
+        final ShoppingDetailEntriesRecyclerViewAdapter adapter = new ShoppingDetailEntriesRecyclerViewAdapter(
+            shoppingViewModel.createShoppingListEntriesAdapter(getViewLifecycleOwner()),
+            item -> shoppingViewModel.toggleDone(item));
+        recyclerView.setAdapter(adapter);
 
         initAddButton(view);
 
@@ -58,16 +60,11 @@ public class ShoppingDetailEntriesFragment extends Fragment {
                 nameInput.setHint(R.string.name);
                 layout.addView(nameInput, 0);
 
-                final TextInputEditText amountInput = new TextInputEditText(context);
-                amountInput.setHint(R.string.amount);
-                layout.addView(amountInput, 1);
-
                 builder.setView(layout)
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         final String name = nameInput.getText().toString();
-                        final String amount = amountInput.getText().toString();
 
-                        shoppingViewModel.addEntry(name, amount);
+                        shoppingViewModel.addEntry(name);
                     })
                     .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel())
                     .show();

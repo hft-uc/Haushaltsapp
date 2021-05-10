@@ -18,8 +18,12 @@ import javax.annotation.Nonnull;
 public class UserRecyclerViewAdapter
     extends FirestoreRecyclerAdapter<UserSummary, UserRecyclerViewAdapter.ViewHolder> {
 
-    public UserRecyclerViewAdapter(@NonNull FirestoreRecyclerOptions<UserSummary> options) {
+    private final UserRemoveListener listener;
+
+    public UserRecyclerViewAdapter(@NonNull FirestoreRecyclerOptions<UserSummary> options,
+                                   UserRemoveListener listener) {
         super(options);
+        this.listener = listener;
     }
 
     @Nonnull
@@ -36,6 +40,10 @@ public class UserRecyclerViewAdapter
         holder.contentview.setText(model.getName());
     }
 
+    public interface UserRemoveListener {
+        void onClick(UserSummary user);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public final TextView contentview;
@@ -45,6 +53,7 @@ public class UserRecyclerViewAdapter
             super(view);
             this.view = view;
             contentview = view.findViewById(R.id.user_list_item_name);
+            view.setOnClickListener(v -> listener.onClick(item));
         }
 
         @Nonnull

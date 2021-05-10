@@ -18,7 +18,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mEmail;
     private EditText passwort;
     private Button mRegisterBtn;
-    private Button jumpBtn;
 
     private AuthViewModel authViewModel;
 
@@ -29,9 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
         fullName = findViewById(R.id.Name1);
         mEmail = findViewById(R.id.Email1);
         passwort = findViewById(R.id.Passwort1);
-        mRegisterBtn = findViewById(R.id.registerbutton);
-        jumpBtn = findViewById(R.id.buttonJump);
-        jumpBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+        mRegisterBtn = findViewById(R.id.register_button);
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 

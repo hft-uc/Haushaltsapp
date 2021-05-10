@@ -69,10 +69,10 @@ public class ShoppingViewModel extends ViewModel {
         return result;
     }
 
-    public LiveData<Boolean> addEntry(String name, String amount) {
+    public LiveData<Boolean> addEntry(String name) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        ShoppingListEntry entry = new ShoppingListEntry(name, amount);
+        ShoppingListEntry entry = new ShoppingListEntry(name);
         repository.addShoppingListEntry(id, entry)
             .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
 
@@ -85,6 +85,12 @@ public class ShoppingViewModel extends ViewModel {
 
     public void delete(ShoppingListDetail shoppingListDetail) {
         throw new UnsupportedOperationException();
+    }
+
+    public void toggleDone(ShoppingListEntry item) {
+        item.setDone(!item.isDone());
+        Log.d(TAG, "Toggling is done to '" + item.isDone() + "' for item '" + item.getId() + "'");
+        repository.updateEntry(id, item);
     }
 
     public ShoppingRecyclerViewAdapter createShoppingListAdapter(LifecycleOwner lifecycleOwner) {

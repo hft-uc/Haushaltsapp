@@ -85,10 +85,34 @@ public class UserViewModel extends ViewModel {
         return query;
     }
 
+    public UserSummary getOwner() {
+        switch (source) {
+            case SHOPPING:
+                return shoppingListDetail.getOwner();
+            case SUPPLY:
+            case FINANCE:
+            case CHAT:
+            default:
+                return null;
+        }
+    }
+
     public void addMember(UserSummary user) {
         switch (source) {
             case SHOPPING:
                 repository.addShoppingListMember(shoppingListDetail, user);
+                break;
+            case SUPPLY:
+            case FINANCE:
+            case CHAT:
+                break;
+        }
+    }
+
+    public void removeMember(UserSummary user) {
+        switch (source) {
+            case SHOPPING:
+                repository.removeShoppingListMember(shoppingListDetail, user);
                 break;
             case SUPPLY:
             case FINANCE:
@@ -111,5 +135,4 @@ public class UserViewModel extends ViewModel {
         Log.i(TAG, "Set shopping list detail  to " + detail);
         this.shoppingListDetail = detail;
     }
-
 }

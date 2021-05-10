@@ -48,8 +48,26 @@ public class UserRepository {
         DocumentReference userSpecificRef = db.collection(USERS_COLLECTION)
             .document(user.getId())
             .collection(SHOPPING_LISTS_COLLECTION)
-            .document();
+            .document(shoppingList.getId());
         batch.set(userSpecificRef, shoppingList.toSummary());
+
+        return batch.commit();
+    }
+
+    public Task<Void> removeShoppingListMember(ShoppingListDetail shoppingList, UserSummary user) {
+        WriteBatch batch = db.batch();
+
+        DocumentReference generalRef = db.collection(SHOPPING_LISTS_COLLECTION)
+            .document(shoppingList.getId())
+            .collection(MEMBERS_COLLECTION)
+            .document(user.getId());
+        batch.delete(generalRef);
+
+        DocumentReference userSpecificRef = db.collection(USERS_COLLECTION)
+            .document(user.getId())
+            .collection(SHOPPING_LISTS_COLLECTION)
+            .document(shoppingList.getId());
+        batch.delete(userSpecificRef);
 
         return batch.commit();
     }

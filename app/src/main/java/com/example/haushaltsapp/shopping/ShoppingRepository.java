@@ -12,7 +12,7 @@ import com.google.firebase.firestore.WriteBatch;
 public class ShoppingRepository {
 
     public static final String SHOPPING_LISTS_COLLECTION = "shopping_lists";
-    public static final String SHOPPING_LISTS_ENTRY_COLLECTION = "entry";
+    public static final String SHOPPING_LIST_ENTRIES_COLLECTION = "entries";
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -53,7 +53,8 @@ public class ShoppingRepository {
     public Query getShoppingListEntries(String id) {
         return db.collection(SHOPPING_LISTS_COLLECTION)
             .document(id)
-            .collection(SHOPPING_LISTS_ENTRY_COLLECTION)
+            .collection(SHOPPING_LIST_ENTRIES_COLLECTION)
+            .orderBy("done")
             .orderBy("name");
     }
 
@@ -63,12 +64,20 @@ public class ShoppingRepository {
     public Task<Void> addShoppingListEntry(String id, ShoppingListEntry entry) {
         final DocumentReference reference = db.collection(SHOPPING_LISTS_COLLECTION)
             .document(id)
-            .collection(SHOPPING_LISTS_ENTRY_COLLECTION)
+            .collection(SHOPPING_LIST_ENTRIES_COLLECTION)
             .document();
         entry.setId(reference.getId());
 
         return reference
             .set(entry);
 
+    }
+
+    public Task<Void> updateEntry(String id, ShoppingListEntry entry) {
+        return db.collection(SHOPPING_LISTS_COLLECTION)
+            .document(id)
+            .collection(SHOPPING_LIST_ENTRIES_COLLECTION)
+            .document(entry.getId())
+            .set(entry);
     }
 }

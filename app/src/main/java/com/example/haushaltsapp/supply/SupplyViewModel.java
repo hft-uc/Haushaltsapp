@@ -11,12 +11,7 @@ import androidx.paging.PagedList;
 
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.shopping.ShoppingRecyclerViewAdapter;
-import com.example.haushaltsapp.shopping.ShoppingRepository;
 import com.example.haushaltsapp.types.ShoppingListDetail;
-import com.example.haushaltsapp.types.ShoppingListEntry;
-import com.example.haushaltsapp.types.ShoppingListSummary;
-import com.firebase.ui.firestore.paging.FirestorePagingOptions;
-import com.google.firebase.firestore.Query;
 
 /**
  * <p>
@@ -70,8 +65,8 @@ public class SupplyViewModel extends ViewModel {
     public LiveData<Boolean> addEntry(String name, String amount) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        ShoppingListEntry entry = new ShoppingListEntry(name, amount);
-     //   repository.addShoppingListEntry(id, entry)
+//        ShoppingListEntry entry = new ShoppingListEntry(name, amount);
+        //   repository.addShoppingListEntry(id, entry)
      //           .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
 
         return result;
