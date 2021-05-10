@@ -1,16 +1,15 @@
 package com.example.haushaltsapp.slideshow;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.shopping.ShoppingViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AddTransactionActivity extends AppCompatActivity {
@@ -34,17 +33,19 @@ private FinanceViewModel financeViewModel;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.dropdown, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         entryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 nameET.getText().toString();
-                priceET.getText().toString();
+                String con = priceET.getText().toString().replaceAll("[^0-9]", "");
+                ;
                 spinner.getSelectedItem();
                 String text = spinner.getSelectedItem().toString();
-
-                financeViewModel.addEntry(nameET.getText().toString(),Double.parseDouble(priceET.getText().toString()));
+                int test = ((spinner.getSelectedItemPosition() * 2) - 1) * Integer.parseInt(con);
+                int spintest = spinner.getSelectedItemPosition();
+                financeViewModel.addEntry(nameET.getText().toString(), Double.valueOf(test));
             }
         });
 
