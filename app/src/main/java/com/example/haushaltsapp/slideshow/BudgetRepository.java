@@ -3,8 +3,6 @@ package com.example.haushaltsapp.slideshow;
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.Budget;
 import com.example.haushaltsapp.types.Expenditure;
-import com.example.haushaltsapp.types.ShoppingListDetail;
-import com.example.haushaltsapp.types.ShoppingListEntry;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,20 +46,34 @@ public class BudgetRepository {
         return batch.commit();
     }
 
+    public Query getTransactions(String id) {
+        return db.collection(Budget_COLLECTION)
+                .document(id)
+                .collection(Transactions)
+                .orderBy("name");
+    }
 
 
-    public Task<Void> addBudgetTransaction(String id, Expenditure entry) {
+    public Task<Void> addShoppingListEntry(String id, Expenditure entry) {
         final DocumentReference reference = db.collection(Budget_COLLECTION)
-                .document("KopVcJMWdXTOwRPnHdA2")
+                .document(id)
                 .collection(Transactions)
                 .document();
-
         entry.setId(reference.getId());
 
         return reference
                 .set(entry);
 
+    }
 
+    public Task<Void> addBudgetTransaction(String id, Expenditure entry) {
+        final DocumentReference reference = db.collection(Budget_COLLECTION)
+                .document(id)
+                .collection(Transactions)
+                .document();
+        entry.setId(reference.getId());
+        return reference
+                .set(entry);
 
     }
 

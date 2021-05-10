@@ -2,18 +2,18 @@ package com.example.haushaltsapp.slideshow;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.haushaltsapp.shopping.ShoppingDetailFragment;
-import com.example.haushaltsapp.slideshow.FinanceFragment;
+import com.example.haushaltsapp.R;
 
 public class FinanceViewPageAdapter extends FragmentStateAdapter {
+    static final int[] TAB_ICONS = {
+            R.drawable.outline_shopping_cart_24,
+            R.drawable.outline_group_24,
+            R.drawable.outline_person_add_24
+    };
 
-    public FinanceViewPageAdapter(@NonNull FragmentActivity fa) {
+    public FinanceViewPageAdapter(@NonNull Fragment fa) {
         super(fa);
     }
 
@@ -24,7 +24,7 @@ public class FinanceViewPageAdapter extends FragmentStateAdapter {
 
         switch (position) {
             case 0:
-                return HistoryFragment.newInstance();
+                return new GraphicFragment();
 
         }
         return null;

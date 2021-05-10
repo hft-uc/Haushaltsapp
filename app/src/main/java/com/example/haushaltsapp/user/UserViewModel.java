@@ -78,6 +78,8 @@ public class UserViewModel extends ViewModel {
                 break;
             case SUPPLY:
             case FINANCE:
+                query = repository.getShoppingListMembers(id);
+                break;
             case CHAT:
                 query = repository.getMembers(id);
                 break;

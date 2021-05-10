@@ -2,7 +2,6 @@ package com.example.haushaltsapp.slideshow;
 
 import android.util.Log;
 
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,9 +10,9 @@ import androidx.paging.PagedList;
 
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.Budget;
+import com.example.haushaltsapp.types.BudgetSummary;
 import com.example.haushaltsapp.types.Expenditure;
-import com.example.haushaltsapp.types.ShoppingListDetail;
-import com.example.haushaltsapp.types.ShoppingListEntry;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.Query;
 
 public class FinanceViewModel extends ViewModel {
@@ -23,26 +22,25 @@ public class FinanceViewModel extends ViewModel {
     private final BudgetRepository repository = new BudgetRepository();
 
     private MutableLiveData<Budget> BudgetLiveData;
-    private final MutableLiveData<String> mText;
     private String id;
-    public FinanceViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
-    }
-
-//currently every user has only acces to his own budget
 
     public void loadBudget(String id){
         this.id = id;
+        BudgetLiveData = new MutableLiveData<>();
         repository.getBudget(id)
                 .addSnapshotListener((value, error) -> {
-                    if (value != null) {
-                        BudgetLiveData.setValue(value.toObject(Budget.class));
-                    } else {
-                        Log.w(TAG, "loadBudget failed", error);
-                    }
-                }
+                            if (value != null) {
+                                BudgetLiveData.setValue(value.toObject(Budget.class));
+                            } else {
+                                Log.w(TAG, "loadBudget failed", error);
+                            }
+                        }
                 );
+    }
+
+
+    public LiveData<Budget> getBudgetsList() {
+        return BudgetLiveData;
     }
 
 
@@ -66,7 +64,24 @@ public class FinanceViewModel extends ViewModel {
         return result;
 
     }
-    public LiveData<String> getText() {
-        return mText;
+
+    public BudgetRecyclerviewAdapter createBudgetAdapter(LifecycleOwner lifecycleOwner) {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(true)
+                .setPrefetchDistance(10)
+                .setPageSize(20)
+                .build();
+
+        final Query query = repository.getBudgets(authRepository.getCurrentUser().getId());
+
+        FirestorePagingOptions<BudgetSummary> options
+                = new FirestorePagingOptions.Builder<BudgetSummary>()
+                .setLifecycleOwner(lifecycleOwner)
+                .setQuery(query, config, BudgetSummary.class)
+                .build();
+
+        return new BudgetRecyclerviewAdapter(options);
     }
+
+
 }

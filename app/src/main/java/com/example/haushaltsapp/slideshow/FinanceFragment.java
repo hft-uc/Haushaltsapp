@@ -1,53 +1,53 @@
 package com.example.haushaltsapp.slideshow;
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 public class FinanceFragment extends Fragment {
 
-
-    public static FinanceFragment newInstance() {
-
-        return new FinanceFragment();
-    }
-
+    private Button btn;
     private FinanceViewModel financeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        financeViewModel = new ViewModelProvider(this).get(FinanceViewModel.class);
-//                new ViewModelProvider(this).get(FinanceViewModel.class);
         View root = inflater.inflate(R.layout.fragment_finance, container, false);
-      //  final TextView textView = root.findViewById(R.id.text_finance);
-        FloatingActionButton addTransactionButton = root.findViewById(R.id.addTransaction);
-        root.<FloatingActionButton>findViewById(R.id.addTransaction).setOnClickListener(view -> {
-            Intent intent = new Intent(root.getContext(), AddTransactionActivity.class);
-            startActivity(intent);
+        financeViewModel = new ViewModelProvider(this).get(FinanceViewModel.class);
 
-        });
+        RecyclerView recyclerView = root.findViewById(R.id.BudgetRec);
+        recyclerView.setAdapter(financeViewModel.createBudgetAdapter(getViewLifecycleOwner()));
 
+        btn = root.findViewById(R.id.button_temp);
 
-        //financeViewModel.add("test");
-        financeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-          //      textView.setText(s);
-            }
+        btn.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Neues Budget erstellen");
+            // Set up the input
+            final EditText input = new EditText(getContext());
+            input.setHint("blabla");
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", (dialog, which) -> {
+                String text = input.getText().toString();
+
+                financeViewModel.add(text);
+            });
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+            builder.show();
         });
 
 
@@ -58,16 +58,7 @@ public class FinanceFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewPager2 viewPager=  view.findViewById(R.id.pager);
-        FinanceViewPageAdapter viewPagerAdapter = new FinanceViewPageAdapter(getActivity());
-        viewPager.setAdapter(viewPagerAdapter);
 
-        TabLayout tabLayout = getActivity().findViewById(R.id.tab);
-        //  tabLayout.setupWithViewPager(viewPager);
-        String [] tabTtiles={"Home","Chat","Notification","Account"};
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText(tabTtiles[position])
-        ).attach();
     }
 
 
