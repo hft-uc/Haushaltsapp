@@ -2,7 +2,7 @@ package com.example.haushaltsapp.types
 
 data class Budget(
         var id: String,
-        val expenditures: MutableList<Expenditure>,
+        val Transaction: MutableList<Transaction>,
         //  val incomes: MutableList<Income>,
         val owner: UserSummary,
         val members: MutableList<UserSummary>,

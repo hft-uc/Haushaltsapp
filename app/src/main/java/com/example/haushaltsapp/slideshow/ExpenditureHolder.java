@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.types.Expenditure;
+import com.example.haushaltsapp.types.Transaction;
 
 public class ExpenditureHolder extends RecyclerView.ViewHolder {
 
@@ -19,7 +19,7 @@ public class ExpenditureHolder extends RecyclerView.ViewHolder {
     final TextView category;
     final TextView user;
     public View view;
-    public Expenditure item;
+    public Transaction item;
 
     public ExpenditureHolder(@NonNull View itemView) {
         super(itemView);

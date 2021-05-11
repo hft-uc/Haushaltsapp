@@ -18,12 +18,17 @@ public class AddTransactionActivity extends AppCompatActivity {
     private Spinner spinner;
     private TextInputEditText priceET;
 private FinanceViewModel financeViewModel;
+    String value;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
+
+        Bundle b = getIntent().getExtras();
+        if (b != null)
+            value = b.getString("key");
         financeViewModel = new ViewModelProvider(this).get(FinanceViewModel.class);
 
         nameET = findViewById(R.id.transaction_name_input);
@@ -40,12 +45,15 @@ private FinanceViewModel financeViewModel;
             public void onClick(View view) {
                 nameET.getText().toString();
                 String con = priceET.getText().toString().replaceAll("[^0-9]", "");
-                ;
+
+
                 spinner.getSelectedItem();
                 String text = spinner.getSelectedItem().toString();
                 int test = ((spinner.getSelectedItemPosition() * 2) - 1) * Integer.parseInt(con);
                 int spintest = spinner.getSelectedItemPosition();
-                financeViewModel.addEntry(nameET.getText().toString(), Double.valueOf(test));
+                financeViewModel.addEntryByID(value, nameET.getText().toString(), Double.valueOf(test));
+                //financeViewModel.addEntry(nameET.getText().toString(), Double.valueOf(test));
+                finish();
             }
         });
 

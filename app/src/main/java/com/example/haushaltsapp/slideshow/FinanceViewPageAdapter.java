@@ -25,17 +25,16 @@ public class FinanceViewPageAdapter extends FragmentStateAdapter {
         switch (position) {
             case 0:
                 return new GraphicFragment();
-
+            case 1:
+                return new HistoryListFragment();
         }
         return null;
-
-
 
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 2;
     }
 
 

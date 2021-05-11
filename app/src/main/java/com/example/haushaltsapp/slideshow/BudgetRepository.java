@@ -2,7 +2,7 @@ package com.example.haushaltsapp.slideshow;
 
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.Budget;
-import com.example.haushaltsapp.types.Expenditure;
+import com.example.haushaltsapp.types.Transaction;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,7 +54,7 @@ public class BudgetRepository {
     }
 
 
-    public Task<Void> addShoppingListEntry(String id, Expenditure entry) {
+    public Task<Void> addShoppingListEntry(String id, Transaction entry) {
         final DocumentReference reference = db.collection(Budget_COLLECTION)
                 .document(id)
                 .collection(Transactions)
@@ -66,7 +66,7 @@ public class BudgetRepository {
 
     }
 
-    public Task<Void> addBudgetTransaction(String id, Expenditure entry) {
+    public Task<Void> addBudgetTransaction(String id, Transaction entry) {
         final DocumentReference reference = db.collection(Budget_COLLECTION)
                 .document(id)
                 .collection(Transactions)

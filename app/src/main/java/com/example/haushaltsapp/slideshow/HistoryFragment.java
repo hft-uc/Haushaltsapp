@@ -1,5 +1,6 @@
 package com.example.haushaltsapp.slideshow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.user.UserViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +32,7 @@ public class HistoryFragment extends Fragment {
     private FinanceViewModel financeViewModel;
     private UserViewModel userViewModel;
     private Toolbar toolbar;
+    FloatingActionButton action;
     private static final String TAG = HistoryFragment.class.getCanonicalName();
 
     @Override
@@ -52,37 +55,41 @@ public class HistoryFragment extends Fragment {
         financeViewModel.loadBudget(id);
         Log.i(TAG, "created HistoryFragment with id " + id);
         // Inflate the layout for this fragment
-
         View root = inflater.inflate(R.layout.fragment_history, container, false);
         toolbar = getActivity().findViewById(R.id.toolbar);
-
         financeViewModel.getBudgetsList().observe(getViewLifecycleOwner(), detail -> {
             Log.i(TAG, "Setting title to " + detail.getName());
             toolbar.setTitle(detail.getName());
 
         });
+
+        action = root.findViewById(R.id.addTransactionButton);
+        action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
+
+                Bundle b = new Bundle();
+                b.putString("key", financeViewModel.getid()); //Your id
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+
         return root;
 
 
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
-
         pagerAdapter = new FinanceViewPageAdapter(this);
         viewPager = view.findViewById(R.id.finance_detail_pager);
         viewPager.setAdapter(pagerAdapter);
-
         TabLayout tabLayout = view.findViewById(R.id.history_tab_layout);
         new TabLayoutMediator(tabLayout, viewPager,
                 ((tab, position) -> tab.setIcon(FinanceViewPageAdapter.TAB_ICONS[position]))
         ).attach();
-
-
-
-
-
-
 
 
       /*  TabLayout tabLayout = getActivity().findViewById(R.id.tab);

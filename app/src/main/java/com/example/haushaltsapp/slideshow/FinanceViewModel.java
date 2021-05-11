@@ -11,7 +11,8 @@ import androidx.paging.PagedList;
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.Budget;
 import com.example.haushaltsapp.types.BudgetSummary;
-import com.example.haushaltsapp.types.Expenditure;
+import com.example.haushaltsapp.types.Transaction;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.Query;
 
@@ -24,7 +25,14 @@ public class FinanceViewModel extends ViewModel {
     private MutableLiveData<Budget> BudgetLiveData;
     private String id;
 
-    public void loadBudget(String id){
+
+    public String getid() {
+        return id;
+    }
+
+    ;
+
+    public void loadBudget(String id) {
         this.id = id;
         BudgetLiveData = new MutableLiveData<>();
         repository.getBudget(id)
@@ -43,7 +51,6 @@ public class FinanceViewModel extends ViewModel {
         return BudgetLiveData;
     }
 
-
     public LiveData<Boolean> add(String name) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
@@ -58,12 +65,23 @@ public class FinanceViewModel extends ViewModel {
     public LiveData<Boolean> addEntry(String name, Double amount) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        Expenditure entry = new Expenditure(name, amount);
+        Transaction entry = new Transaction(name, amount);
         repository.addBudgetTransaction(id, entry)
                 .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
         return result;
 
     }
+
+    public LiveData<Boolean> addEntryByID(String id1, String name, Double amount) {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+
+        Transaction entry = new Transaction(name, amount);
+        repository.addBudgetTransaction(id1, entry)
+                .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
+        return result;
+
+    }
+
 
     public BudgetRecyclerviewAdapter createBudgetAdapter(LifecycleOwner lifecycleOwner) {
         PagedList.Config config = new PagedList.Config.Builder()
@@ -83,5 +101,13 @@ public class FinanceViewModel extends ViewModel {
         return new BudgetRecyclerviewAdapter(options);
     }
 
+    public FirestoreRecyclerOptions<Transaction> createEntriesAdapter(LifecycleOwner lifecycleOwner) {
+        final Query query = repository.getTransactions(id);
+
+        return new FirestoreRecyclerOptions.Builder<Transaction>()
+                .setQuery(query, Transaction.class)
+                .setLifecycleOwner(lifecycleOwner)
+                .build();
+    }
 
 }
