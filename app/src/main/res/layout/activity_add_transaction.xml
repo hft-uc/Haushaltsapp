@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/confirmTransactionBTN"
     android:layout_width="match_parent"
@@ -42,8 +41,13 @@
             <Spinner
                 android:id="@+id/transaction_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="548dp"
+                android:layout_height="309dp"
                 android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                android:layout_width="match_parent"
+                android:layout_height="108dp" />
 
             <Button
                 android:id="@+id/transaction_button"

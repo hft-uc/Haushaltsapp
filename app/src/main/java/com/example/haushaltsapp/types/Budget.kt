@@ -11,7 +11,7 @@ data class Budget(
 ) {
     @Suppress("unused")
     constructor() : this("", mutableListOf(), UserSummary(), mutableListOf(), 0.0, "")
-    constructor(name: String, CurrentUser: UserSummary) : this("", mutableListOf(), CurrentUser, mutableListOf(), 0.0, name) {
+    constructor(name: String, owner: UserSummary) : this("", mutableListOf(), owner, mutableListOf(), 0.0, name) {
 
     }
 

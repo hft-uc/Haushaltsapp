@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.haushaltsapp.R;
+import com.example.haushaltsapp.user.UserSource;
 import com.example.haushaltsapp.user.UserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -56,6 +57,11 @@ public class HistoryFragment extends Fragment {
         financeViewModel.getBudgetsList().observe(getViewLifecycleOwner(), detail -> {
             Log.i(TAG, "Setting title to " + detail.getName());
             toolbar.setTitle(detail.getName());
+
+            userViewModel.setSource(UserSource.FINANCE);
+            userViewModel.setId(detail.getId());
+            userViewModel.setBudget(detail);
+
 
         });
 

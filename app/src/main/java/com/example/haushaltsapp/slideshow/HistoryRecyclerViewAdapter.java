@@ -28,6 +28,8 @@ public class HistoryRecyclerViewAdapter extends FirestoreRecyclerAdapter<Transac
     protected void onBindViewHolder(@NonNull @NotNull HistoryRecyclerViewAdapter.ViewHolder holder, int position, @NonNull @NotNull com.example.haushaltsapp.types.Transaction model) {
         holder.item = model;
         holder.entry.setText(model.getName());
+        holder.price.setText(String.valueOf(model.getAmount()));
+        holder.user.setText(model.getOwner());
     }
 
     @NonNull

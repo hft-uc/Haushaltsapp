@@ -8,13 +8,15 @@ data class Transaction(
         var amount: Double,
         var name: String,
         var date: Timestamp?,
-        var type: String
+        var type: String,
+        var owner: String,
+        var category: String
 ) {
 
 
     @Suppress("unused")
-    constructor() : this("", 0.0, "", null, "")
-    constructor(name: String, amount: Double) : this("", amount, name, null, "") {
+    constructor() : this("", 0.0, "", null, "", "", "")
+    constructor(name: String, amount: Double, owner: String) : this("", amount, name, null, "", owner, "") {
 
     }
 }

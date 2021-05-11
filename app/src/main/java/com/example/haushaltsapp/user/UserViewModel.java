@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.haushaltsapp.types.Budget;
 import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.UserSummary;
 import com.example.haushaltsapp.utils.FirestoreExtensionsKt;
@@ -26,6 +27,7 @@ public class UserViewModel extends ViewModel {
     private UserSource source;
     private String id;
     private ShoppingListDetail shoppingListDetail;
+    private Budget budget;
 
     public FirestoreRecyclerOptions<UserSummary> createRecyclerOptions(LifecycleOwner lifecycleOwner) {
         Query query = getQuery();
@@ -93,6 +95,7 @@ public class UserViewModel extends ViewModel {
                 return shoppingListDetail.getOwner();
             case SUPPLY:
             case FINANCE:
+                return budget.getOwner();
             case CHAT:
             default:
                 return null;
@@ -137,4 +140,11 @@ public class UserViewModel extends ViewModel {
         Log.i(TAG, "Set shopping list detail  to " + detail);
         this.shoppingListDetail = detail;
     }
+
+    public void setBudget(Budget detail) {
+        Log.i(TAG, "Set Budget to " + detail);
+        this.budget = detail;
+    }
+
+
 }

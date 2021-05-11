@@ -65,7 +65,7 @@ public class FinanceViewModel extends ViewModel {
     public LiveData<Boolean> addEntry(String name, Double amount) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        Transaction entry = new Transaction(name, amount);
+        Transaction entry = new Transaction(name, amount, authRepository.getCurrentUser().getName());
         repository.addBudgetTransaction(id, entry)
                 .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
         return result;
@@ -74,8 +74,8 @@ public class FinanceViewModel extends ViewModel {
 
     public LiveData<Boolean> addEntryByID(String id1, String name, Double amount) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-
-        Transaction entry = new Transaction(name, amount);
+        String test = authRepository.getCurrentUser().getName();
+        Transaction entry = new Transaction(name, amount, test);
         repository.addBudgetTransaction(id1, entry)
                 .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
         return result;
