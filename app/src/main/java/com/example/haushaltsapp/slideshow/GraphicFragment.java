@@ -34,10 +34,10 @@ public class GraphicFragment extends Fragment {
         Pie pie = AnyChart.pie();
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("John", 10000));
-        data.add(new ValueDataEntry("Jake", 12000));
-        data.add(new ValueDataEntry("Peter", 18000));
-
+        data.add(new ValueDataEntry("Getränke", 18000));
+        data.add(new ValueDataEntry("Lebensmittel", 18000));
+        data.add(new ValueDataEntry("Sonstige", 10000));
+        data.add(new ValueDataEntry("Gehalt", 18000));
         pie.data(data);
 
         AnyChartView anyChartView = (AnyChartView) view.findViewById(R.id.any_chart_view);
