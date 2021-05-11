@@ -54,7 +54,6 @@ public class BudgetRecyclerviewAdapter extends FirestorePagingAdapter<BudgetSumm
 
             view.setOnClickListener(v -> {
                 Log.i(TAG, "Navigating to transaction list with id " + item.getId());
-                //   Navigation.findNavController(v).navigate();
                 Navigation.findNavController(v).navigate(FinanceFragmentDirections.actionNavSlideshowToHistoryFragment(item.getId()));
             });
         }

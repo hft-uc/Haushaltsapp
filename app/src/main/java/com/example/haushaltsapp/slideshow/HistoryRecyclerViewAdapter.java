@@ -16,12 +16,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class HistoryRecyclerViewAdapter extends FirestoreRecyclerAdapter<Transaction, HistoryRecyclerViewAdapter.ViewHolder> {
 
-
-    private List<Transaction> Expenditure;
 
     //List<com.example.haushaltsapp.types.Expenditure> expenditure
     public HistoryRecyclerViewAdapter(@NonNull FirestoreRecyclerOptions<Transaction> options) {

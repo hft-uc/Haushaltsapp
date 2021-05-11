@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.haushaltsapp.R;
@@ -25,8 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment {
-    private RecyclerView HistoryFragmentRecyclerView;
-    private HistoryRecyclerViewAdapter historyRecyclerViewAdapter;
     private FinanceViewPageAdapter pagerAdapter;
     private ViewPager2 viewPager;
     private FinanceViewModel financeViewModel;
@@ -51,7 +48,6 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         String id = HistoryFragmentArgs.fromBundle(requireArguments()).getBudgetId();
-        Bundle bundle = getArguments();
         financeViewModel.loadBudget(id);
         Log.i(TAG, "created HistoryFragment with id " + id);
         // Inflate the layout for this fragment
@@ -64,21 +60,15 @@ public class HistoryFragment extends Fragment {
         });
 
         action = root.findViewById(R.id.addTransactionButton);
-        action.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
+        action.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
 
-                Bundle b = new Bundle();
-                b.putString("key", financeViewModel.getid()); //Your id
-                intent.putExtras(b);
-                startActivity(intent);
-            }
+            Bundle b = new Bundle();
+            b.putString("key", financeViewModel.getid()); //Your id
+            intent.putExtras(b);
+            startActivity(intent);
         });
-
-
         return root;
-
 
     }
     @Override
@@ -91,34 +81,6 @@ public class HistoryFragment extends Fragment {
                 ((tab, position) -> tab.setIcon(FinanceViewPageAdapter.TAB_ICONS[position]))
         ).attach();
 
-
-      /*  TabLayout tabLayout = getActivity().findViewById(R.id.tab);
-        //  tabLayout.setupWithViewPager(viewPager);
-        String [] tabTtiles={"Home","Chat","Notification","Account"};
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText(tabTtiles[position])
-        ).attach();
-
-
-*/
-
-
-   /*     HistoryFragmentRecyclerView = view.findViewById(R.id.history_rv);
-        HistoryFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        historyRecyclerViewAdapter = new HistoryRecyclerViewAdapter(getUid(),getActivity());
-        HistoryFragmentRecyclerView.setAdapter(historyRecyclerViewAdapter);
-
-        historyRecyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                HistoryFragmentRecyclerView.smoothScrollToPosition(0);
-            }
-
-
-
-        });
-    */
     }
 
 }
