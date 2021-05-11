@@ -38,16 +38,17 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="204dp">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <Spinner
                 android:id="@+id/transaction_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="309dp"
                 android:layout_weight="1" />
-
-            <Spinner
-                android:id="@+id/spinner_category"
-                android:layout_width="match_parent"
-                android:layout_height="108dp" />
 
             <Button
                 android:id="@+id/transaction_button"
