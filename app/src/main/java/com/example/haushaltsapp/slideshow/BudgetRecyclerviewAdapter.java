@@ -28,7 +28,7 @@ public class BudgetRecyclerviewAdapter extends FirestorePagingAdapter<BudgetSumm
     @Override
     protected void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position, @NonNull @NotNull BudgetSummary model) {
         holder.setItem(model);
-        holder.contentView.setText(model.getId());
+        holder.contentView.setText(model.getName());
     }
 
 

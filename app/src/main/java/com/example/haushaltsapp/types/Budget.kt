@@ -15,5 +15,5 @@ data class Budget(
 
     }
 
-    fun toSummary(): BudgetSummary = BudgetSummary(id, owner.toString())
+    fun toSummary(): BudgetSummary = BudgetSummary(id, name)
 }

@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager" />
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/fragment_budget_item" />
 
     <TextView
         android:id="@+id/text_finance"
