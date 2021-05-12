@@ -21,7 +21,7 @@ public class ChatDetailPageAdapter extends FragmentStatePagerAdapter {
                 fragment = new ChatFragment();
                 break;
             case 1:
-                fragment = new BlankFragment();
+                fragment = new ChatUserListFragment();
                 break;
         }
         return fragment;

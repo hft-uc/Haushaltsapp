@@ -27,10 +27,6 @@ public class UserRepository {
             .orderBy("name");
     }
 
-    public Query getMembers(String id) {
-        return db.collection(MEMBERS_COLLECTION).orderBy("name");
-    }
-
     public Query getAllUsers() {
         return db.collection(USERS_COLLECTION)
             .orderBy("name");

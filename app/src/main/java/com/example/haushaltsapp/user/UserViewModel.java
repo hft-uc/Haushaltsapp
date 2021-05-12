@@ -82,9 +82,6 @@ public class UserViewModel extends ViewModel {
             case FINANCE:
                 query = repository.getShoppingListMembers(id);
                 break;
-            case CHAT:
-                query = repository.getMembers(id);
-                break;
         }
         return query;
     }
@@ -96,7 +93,6 @@ public class UserViewModel extends ViewModel {
             case SUPPLY:
             case FINANCE:
                 return budget.getOwner();
-            case CHAT:
             default:
                 return null;
         }
@@ -109,7 +105,6 @@ public class UserViewModel extends ViewModel {
                 break;
             case SUPPLY:
             case FINANCE:
-            case CHAT:
                 break;
         }
     }
@@ -121,7 +116,6 @@ public class UserViewModel extends ViewModel {
                 break;
             case SUPPLY:
             case FINANCE:
-            case CHAT:
                 break;
         }
     }
