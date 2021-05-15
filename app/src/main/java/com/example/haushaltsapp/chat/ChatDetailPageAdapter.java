@@ -23,6 +23,9 @@ public class ChatDetailPageAdapter extends FragmentStatePagerAdapter {
             case 1:
                 fragment = new ChatUserListFragment();
                 break;
+            case 2:
+                fragment = new ProfileFragment();
+                break;
         }
         return fragment;
     }
@@ -35,13 +38,15 @@ public class ChatDetailPageAdapter extends FragmentStatePagerAdapter {
                 return "Chats";
             case 1:
                 return "Users";
+            case 2:
+                return "Profile";
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 2;
+        // Show 3 total pages.
+        return 3;
     }
 }
