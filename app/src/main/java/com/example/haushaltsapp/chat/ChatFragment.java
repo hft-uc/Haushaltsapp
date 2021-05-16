@@ -112,7 +112,7 @@ public class ChatFragment extends Fragment {
                 Log.w("TAG", "Failed to load all friends", error);
             }
 
-            userListRecyclerViewAdapter = new ChatUserListRecyclerViewAdapter(mUsers, getContext());
+            userListRecyclerViewAdapter = new ChatUserListRecyclerViewAdapter(mUsers, getContext(), true);
             chatRecycleView.setAdapter(userListRecyclerViewAdapter);
         });
     }

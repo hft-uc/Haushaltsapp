@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +18,14 @@ import java.util.List;
 
 public class ChatUserListRecyclerViewAdapter extends RecyclerView.Adapter<ChatUserListRecyclerViewAdapter.ViewHolder> {
 
-    private final List<UserSummary> chatUsers;
+    private final List<UserSummary> mUsers;
     private Context mContext;
+    private boolean isChat;
 
-    public ChatUserListRecyclerViewAdapter(List<UserSummary> chatUsers, Context mContext) {
-        this.chatUsers = chatUsers;
+    public ChatUserListRecyclerViewAdapter(List<UserSummary> mUsers, Context mContext, boolean isChat) {
+        this.mUsers = mUsers;
         this.mContext = mContext;
+        this.isChat = isChat;
     }
 
     @Override
@@ -34,15 +37,34 @@ public class ChatUserListRecyclerViewAdapter extends RecyclerView.Adapter<ChatUs
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        UserSummary chatUser = chatUsers.get(position);
+        UserSummary user = mUsers.get(position);
         // holder.mUserIdView.setText(chatUser.getId());
-        holder.mChatUserView.setText(chatUser.getName());
+        holder.txtUsername.setText(user.getName());
+
+        if(user.getImageUrl().equals("default")) {
+            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            // Glide.with(getContext()).load(document.getData().get("imageUrl")).into(profileImage);
+        }
+
+        if(isChat) {
+            if(user.getStatus().equals("online")) {
+                holder.imgOn.setVisibility(View.VISIBLE);
+                holder.imgOff.setVisibility(View.GONE);
+            } else {
+                holder.imgOn.setVisibility(View.GONE);
+                holder.imgOff.setVisibility(View.VISIBLE);
+            }
+        } else {
+            holder.imgOn.setVisibility(View.GONE);
+            holder.imgOff.setVisibility(View.GONE);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MessageActivity.class);
-                intent.putExtra("userId", chatUser.getId());
+                intent.putExtra("userId", user.getId());
                 mContext.startActivity(intent);
             }
         });
@@ -50,22 +72,26 @@ public class ChatUserListRecyclerViewAdapter extends RecyclerView.Adapter<ChatUs
 
     @Override
     public int getItemCount() {
-        return chatUsers.size();
+        return mUsers.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mUserIdView;
-        public final TextView mChatUserView;
+        private final TextView txtUsername;
+        private final ImageView profileImage;
+        private final ImageView imgOn;
+        private final ImageView imgOff;
 
         public ViewHolder(View view) {
             super(view);
-            mUserIdView = (TextView) view.findViewById(R.id.user_id);
-            mChatUserView = (TextView) view.findViewById(R.id.chat_username);
+            txtUsername = view.findViewById(R.id.username);
+            profileImage = view.findViewById(R.id.profile_image);
+            imgOn = view.findViewById(R.id.img_on);
+            imgOff = view.findViewById(R.id.img_off);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mChatUserView.getText() + "'";
+            return super.toString() + " '" + txtUsername.getText() + "'";
         }
     }
 }

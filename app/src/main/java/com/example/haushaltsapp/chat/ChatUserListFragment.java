@@ -43,7 +43,7 @@ public class ChatUserListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private final UserRepository userRepository;
-    private List<UserSummary> chatUsers;
+    private List<UserSummary> mUsers;
     private ChatUserListRecyclerViewAdapter recyclerViewAdapter;
 
 
@@ -64,39 +64,30 @@ public class ChatUserListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        chatUsers = new ArrayList<>();
+        mUsers = new ArrayList<>();
 
-        readChatUsers();
+        readUsers();
 
         return view;
     }
 
-    private void readChatUsers() {
+    private void readUsers() {
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         userRepository.getAllUsers().addSnapshotListener((value, error) -> {
             if (error == null) {
+                mUsers.clear();
                 List<UserSummary> users = FirestoreExtensionsKt.toObjectList(value.getDocuments(), UserSummary.class);
                 for(UserSummary userSummary : users) {
                     if(userSummary.getId().equals(currentUser.getUid())) {
                         continue;
                     }
-                    chatUsers.add(userSummary);
+                    mUsers.add(userSummary);
                 }
             } else {
                 Log.w("TAG", "Failed to load all friends", error);
             }
-            recyclerViewAdapter = new ChatUserListRecyclerViewAdapter(chatUsers, getContext());
+            recyclerViewAdapter = new ChatUserListRecyclerViewAdapter(mUsers, getContext(), false);
             recyclerView.setAdapter(recyclerViewAdapter);
         });
     }
-
-    /**
-    private List<ChatUser> readChatUsers() {
-        List<ChatUser> chatUsers = new ArrayList<>();
-        chatUsers.add(new ChatUser(1, "Salma"));
-        chatUsers.add(new ChatUser(2, "Marie"));
-
-        return chatUsers;
-    }
-     */
 }

@@ -12,6 +12,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,5 +54,26 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
             || super.onSupportNavigateUp();
+    }
+
+    private void status(String status) {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(currentUser.getUid()).update(hashMap);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 }

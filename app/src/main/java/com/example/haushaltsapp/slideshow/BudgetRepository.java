@@ -27,7 +27,7 @@ public class BudgetRepository {
                 .document(userId)
                 .collection(Budget_COLLECTION)
                 .orderBy("name");
-    }
+    } 
 
 
     public Task<Void> addBudget(Budget budget, String userId) {

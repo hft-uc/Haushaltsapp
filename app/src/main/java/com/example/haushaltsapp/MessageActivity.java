@@ -3,7 +3,6 @@ package com.example.haushaltsapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -136,5 +135,24 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void status(String status) {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        db.collection("users").document(firebaseUser.getUid()).update(hashMap);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 }

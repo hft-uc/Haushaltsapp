@@ -24,6 +24,7 @@
             android:layout_alignParentEnd="true"
             android:id="@+id/show_message"
             android:textSize="20dp"
+            android:padding="10dp"
             android:layout_alignParentRight="true" />
 
     </RelativeLayout>
