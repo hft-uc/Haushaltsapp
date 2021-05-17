@@ -52,7 +52,7 @@ public class SupplyRecyclerViewAdapter
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            contentView = view.findViewById(R.id.shopping_content);
+            contentView = view.findViewById(R.id.supply_content);
 
             view.setOnClickListener(v -> {
                 Log.i(TAG, "Navigating to shopping list with id " + item.getId());
