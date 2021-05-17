@@ -4,16 +4,22 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A fragment representing a list of Items.
@@ -27,6 +33,8 @@ public class ShoppingDetailEntriesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         shoppingViewModel = new ViewModelProvider(requireParentFragment()).get(ShoppingViewModel.class);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -71,4 +79,22 @@ public class ShoppingDetailEntriesFragment extends Fragment {
             });
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.shopping_detail_entries, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        if (item.getItemId() == R.id.action_clean_shopping_detail_entries) {
+            clearShoppingList();
+            return true;
+        }
+        return false;
+    }
+
+    private void clearShoppingList() {
+        shoppingViewModel.clearShoppingList();
+    }
 }

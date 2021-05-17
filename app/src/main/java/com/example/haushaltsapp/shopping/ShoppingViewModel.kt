@@ -1,122 +1,118 @@
-package com.example.haushaltsapp.shopping;
+package com.example.haushaltsapp.shopping
 
-import android.util.Log;
-
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.paging.PagedList;
-
-import com.example.haushaltsapp.authentification.AuthRepository;
-import com.example.haushaltsapp.types.ShoppingListDetail;
-import com.example.haushaltsapp.types.ShoppingListEntry;
-import com.example.haushaltsapp.types.ShoppingListSummary;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.firebase.ui.firestore.paging.FirestorePagingOptions;
-import com.google.firebase.firestore.Query;
+import android.util.Log
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
+import com.example.haushaltsapp.authentification.AuthRepository
+import com.example.haushaltsapp.types.ShoppingListDetail
+import com.example.haushaltsapp.types.ShoppingListEntry
+import com.example.haushaltsapp.types.ShoppingListSummary
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.firebase.ui.firestore.paging.FirestorePagingOptions
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestoreException
 
 /**
- * <p>
- * Contains the state for the fragment.
- * </p>
  *
- * <p>
- * When working with a single shopping list always call {@link #loadShoppingList} first to initiate
+ *
+ * Contains the state for the fragment.
+ *
+ *
+ *
+ *
+ * When working with a single shopping list always call [.loadShoppingList] first to initiate
  * the view model. After this all operations on a specific shopping list are operating on that one.
- * </p>
+ *
  */
-public class ShoppingViewModel extends ViewModel {
-    private static final String TAG = ShoppingViewModel.class.getCanonicalName();
-
-    private final ShoppingRepository repository = new ShoppingRepository();
-    private final AuthRepository authRepository = new AuthRepository();
-
-    private MutableLiveData<ShoppingListDetail> shoppingListDetailLiveData;
-    private String id;
+class ShoppingViewModel : ViewModel() {
+    private val repository = ShoppingRepository()
+    private val authRepository = AuthRepository()
+    private var shoppingListDetailLiveData: MutableLiveData<ShoppingListDetail?>? = null
+    private var id: String? = null
 
     /**
-     * Starts to load the {@code ShoppingListDetail} with given id.
-     * It can be queried with {@code getShoppingList}
+     * Starts to load the `ShoppingListDetail` with given id.
+     * It can be queried with `getShoppingList`
      */
-    public void loadShoppingList(String id) {
-        this.id = id;
-
-        shoppingListDetailLiveData = new MutableLiveData<>();
-
+    fun loadShoppingList(id: String?) {
+        this.id = id
+        shoppingListDetailLiveData = MutableLiveData()
         repository.getShoppingList(id)
-            .addSnapshotListener((value, error) -> {
-                    if (value != null) {
-                        shoppingListDetailLiveData.setValue(value.toObject(ShoppingListDetail.class));
-                    } else {
-                        Log.w(TAG, "loadShoppingList failed", error);
-                    }
+            .addSnapshotListener { value: DocumentSnapshot?, error: FirebaseFirestoreException? ->
+                if (value != null) {
+                    shoppingListDetailLiveData!!.setValue(value.toObject(
+                        ShoppingListDetail::class.java))
+                } else {
+                    Log.w(TAG, "loadShoppingList failed", error)
                 }
-            );
+            }
     }
 
-    public LiveData<ShoppingListDetail> getShoppingList() {
-        return shoppingListDetailLiveData;
+    val shoppingList: LiveData<ShoppingListDetail?>?
+        get() = shoppingListDetailLiveData
+
+    fun add(name: String?): LiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+        val shoppingList = ShoppingListDetail(name!!, authRepository.currentUser)
+        repository.addShoppingList(shoppingList, shoppingList.owner.id)
+            .addOnCompleteListener { task: Task<Void?> -> result.setValue(task.isSuccessful) }
+        return result
     }
 
-    public LiveData<Boolean> add(String name) {
-        MutableLiveData<Boolean> result = new MutableLiveData<>();
-
-        ShoppingListDetail shoppingList = new ShoppingListDetail(name, authRepository.getCurrentUser());
-        repository.addShoppingList(shoppingList, shoppingList.getOwner().getId())
-            .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
-
-        return result;
-    }
-
-    public LiveData<Boolean> addEntry(String name) {
-        MutableLiveData<Boolean> result = new MutableLiveData<>();
-
-        ShoppingListEntry entry = new ShoppingListEntry(name);
+    fun addEntry(name: String?): LiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+        val entry = ShoppingListEntry(name!!)
         repository.addShoppingListEntry(id, entry)
-            .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
-
-        return result;
+            .addOnCompleteListener { task: Task<Void?> -> result.setValue(task.isSuccessful) }
+        return result
     }
 
-    public void update(ShoppingListDetail shoppingListDetail) {
-        throw new UnsupportedOperationException();
+    fun update(shoppingListDetail: ShoppingListDetail?) {
+        throw UnsupportedOperationException()
     }
 
-    public void delete(ShoppingListDetail shoppingListDetail) {
-        throw new UnsupportedOperationException();
+    fun delete(shoppingListDetail: ShoppingListDetail?) {
+        throw UnsupportedOperationException()
     }
 
-    public void toggleDone(ShoppingListEntry item) {
-        item.setDone(!item.isDone());
-        Log.d(TAG, "Toggling is done to '" + item.isDone() + "' for item '" + item.getId() + "'");
-        repository.updateEntry(id, item);
+    fun toggleDone(item: ShoppingListEntry) {
+        item.isDone = !item.isDone
+        Log.d(TAG, "Toggling is done to '" + item.isDone + "' for item '" + item.id + "'")
+        repository.updateEntry(id, item)
     }
 
-    public ShoppingRecyclerViewAdapter createShoppingListAdapter(LifecycleOwner lifecycleOwner) {
-        PagedList.Config config = new PagedList.Config.Builder()
+    fun createShoppingListAdapter(lifecycleOwner: LifecycleOwner?): ShoppingRecyclerViewAdapter {
+        val config = PagedList.Config.Builder()
             .setEnablePlaceholders(true)
             .setPrefetchDistance(10)
             .setPageSize(20)
-            .build();
-
-        final Query query = repository.getShoppingLists(authRepository.getCurrentUser().getId());
-
-        FirestorePagingOptions<ShoppingListSummary> options
-            = new FirestorePagingOptions.Builder<ShoppingListSummary>()
-            .setLifecycleOwner(lifecycleOwner)
-            .setQuery(query, config, ShoppingListSummary.class)
-            .build();
-
-        return new ShoppingRecyclerViewAdapter(options);
+            .build()
+        val query = repository.getShoppingLists(authRepository.currentUser.id)
+        val options = FirestorePagingOptions.Builder<ShoppingListSummary>()
+            .setLifecycleOwner(lifecycleOwner!!)
+            .setQuery(query, config, ShoppingListSummary::class.java)
+            .build()
+        return ShoppingRecyclerViewAdapter(options)
     }
 
-    public FirestoreRecyclerOptions<ShoppingListEntry> createShoppingListEntriesAdapter(LifecycleOwner lifecycleOwner) {
-        final Query query = repository.getShoppingListEntries(id);
-
-        return new FirestoreRecyclerOptions.Builder<ShoppingListEntry>()
-            .setQuery(query, ShoppingListEntry.class)
+    fun createShoppingListEntriesAdapter(lifecycleOwner: LifecycleOwner?): FirestoreRecyclerOptions<ShoppingListEntry> {
+        val query = repository.getShoppingListEntries(id)
+        return FirestoreRecyclerOptions.Builder<ShoppingListEntry>()
+            .setQuery(query, ShoppingListEntry::class.java)
             .setLifecycleOwner(lifecycleOwner)
-            .build();
+            .build()
+    }
+
+    fun clearShoppingList() {
+        Log.d(TAG, "Deleting entries of shopping list with id '$id'")
+        repository.deleteEntries(id)
+    }
+
+    companion object {
+        private val TAG = ShoppingViewModel::class.java.canonicalName
     }
 }
