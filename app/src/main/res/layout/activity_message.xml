@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e6e6e0"
     tools:context=".MessageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -27,8 +26,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/chat_username1"
                 android:textSize="20dp"
-                android:layout_marginLeft="25dp"
-                android:textColor="#fff" />
+                android:layout_marginLeft="25dp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,13 +42,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:background="#fff"
         android:layout_alignParentBottom="true">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_send"
-            android:background="#fff"
             android:hint="Type a message..."
             android:layout_toLeftOf="@id/btn_send"
             android:layout_centerVertical="true" />
