@@ -30,6 +30,64 @@ Für die Versionsverwaltung benutzen wir Git. Wir haben uns darauf geeinigt nur 
 Firebase schützt in der Datenbank abgelegte Daten nicht. Zumindest nicht von alleine bla bla bla
 
 
+Default Regeln
+
+    rules_version = '2';
+    service cloud.firestore {
+    match /databases/{database}/documents {
+     match /{document=**} {
+         allow read, write: if 
+      	    request.time < timestamp.date(2021, 7, 1);
+        }
+       }
+      }
+
+Die Default Regeln sind nur für die Entwicklung gedacht da jedes Dokument gelesen und geändert werden kann. Die Datenbank ist nicht geschützt.
+
+
+Bsp
+
+    match /Budget/{itemId}{
+
+      allow read: if isOwner(resource.data) &&
+        isSignedIn();
+
+      allow create: if isValidBudget(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        checkKeys();
+
+      allow update: if isValidBudget(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        isOwner(resource.data) &&
+        checkKeys();
+
+      allow delete: if isOwner(resource.data);
+
+      // FUNCTIONS
+      function isSignedIn() {
+        return request.auth != null;
+      }
+  
+      function isOwner(budget) {
+        return request.auth.uid == budget.;
+      }
+  
+      function isValidBudget(budget) {
+        return (
+          // budget.id
+          budget.id is string &&
+          budget.id != '' 
+        );
+      }
+
+      function checkKeys() {
+        let requiredFields = ['id'];
+        return request.resource.data.keys().hasAll(requiredFields)
+      }
+    }
+
+
+
 
 
   
