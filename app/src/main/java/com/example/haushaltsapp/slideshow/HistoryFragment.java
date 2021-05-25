@@ -50,6 +50,8 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         String id = HistoryFragmentArgs.fromBundle(requireArguments()).getBudgetId();
         financeViewModel.loadBudget(id);
+        financeViewModel.setId(id);
+        financeViewModel.test(id);
         Log.i(TAG, "created HistoryFragment with id " + id);
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_history, container, false);
@@ -61,7 +63,6 @@ public class HistoryFragment extends Fragment {
             userViewModel.setSource(UserSource.FINANCE);
             userViewModel.setId(detail.getId());
             userViewModel.setBudget(detail);
-
 
         });
 

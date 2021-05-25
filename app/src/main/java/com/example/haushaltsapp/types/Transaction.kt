@@ -16,7 +16,11 @@ data class Transaction(
 
     @Suppress("unused")
     constructor() : this("", 0.0, "", null, "", "", "")
-    constructor(name: String, amount: Double, owner: String) : this("", amount, name, null, "", owner, "") {
+    constructor(name: String, amount: Double, owner: String, category: String) : this("", amount, name, null, "", owner, category) {
 
+    }
+
+    companion object {
+        lateinit var category: String
     }
 }

@@ -39,6 +39,15 @@
             android:name="budget_id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/GraphicFragment"
+        android:name="com.example.haushaltsapp.slideshow.GraphicFragment"
+        android:label="fragment_graphic"
+        tools:layout="@layout/fragment_graphic">
+        <argument
+            android:name="budget_id"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/shoppingDetailFragment"

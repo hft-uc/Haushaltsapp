@@ -15,6 +15,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     private Button entryButton;
     private TextInputEditText nameET;
     private Spinner spinner;
+    private Spinner spinCategory;
     private TextInputEditText priceET;
     private FinanceViewModel financeViewModel;
     String value;
@@ -33,21 +34,25 @@ public class AddTransactionActivity extends AppCompatActivity {
         priceET = findViewById(R.id.transaction_amount_input);
         entryButton = findViewById(R.id.transaction_button);
         spinner = findViewById(R.id.transaction_spinner);
+        spinCategory = findViewById(R.id.category_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.dropdown, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.dropdown_category, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinCategory.setAdapter(adapter1);
         entryButton.setOnClickListener(view -> {
             nameET.getText().toString();
             String con = priceET.getText().toString().replaceAll("[^0-9]", "");
             spinner.getSelectedItem();
-            //debug
-            String text = spinner.getSelectedItem().toString();
             int test = ((spinner.getSelectedItemPosition() * 2) - 1) * Integer.parseInt(con);
-            //debug
-            int spintest = spinner.getSelectedItemPosition();
-            financeViewModel.addEntryByID(value, nameET.getText().toString(), Double.valueOf(test));
+            String cat2 = spinCategory.getSelectedItem().toString();
+            financeViewModel.addEntryByID(value, nameET.getText().toString(), (double) test, cat2);
             finish();
         });
 

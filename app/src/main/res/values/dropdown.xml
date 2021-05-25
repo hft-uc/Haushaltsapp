@@ -4,4 +4,13 @@
         <item>Ausgabe</item>
         <item>Einkommen</item>
     </string-array>
+    <string-array name="dropdown_category">
+        <item>clothing</item>
+        <item>gaming</item>
+        <item>work</item>
+        <item>shopping</item>
+        <item>transport</item>
+    </string-array>
+
+
 </resources>
