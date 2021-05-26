@@ -91,7 +91,14 @@ Bsp
 
 
   
-   
+#### 9.99 Wie man dieses Projekt baut
+1. Log in [Firebase Konsole](https://console.firebase.google.com/)
+2. Neues Projekt anlegen
+3. Neue Datenabnk anlegen (Bild folgt)
+4. Authentifizierung hinzufügen (Bild folgt)
+5.Firebase mit dem Android App Projekt hinzufügen (Bild folgt)
+6.----
+7. google-services.json in app/ folder einfügen
    
    
    
