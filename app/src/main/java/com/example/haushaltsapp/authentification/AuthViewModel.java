@@ -18,4 +18,9 @@ public class AuthViewModel extends ViewModel {
     public LiveData<Boolean> register(String email, String password, String name) {
         return repository.register(email, password, name);
     }
+
+    public void logout() {
+        repository.logout();
+    }
+
 }

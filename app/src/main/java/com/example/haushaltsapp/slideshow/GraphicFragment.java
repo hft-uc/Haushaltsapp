@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +20,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.firebase.firestore.auth.User;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,10 +32,10 @@ public class GraphicFragment extends Fragment {
 
 
     private PieChart chart;
-    private SeekBar seekBarX, seekBarY;
-    private TextView tvX, tvY;
-    private User user;
     private FinanceViewModel financeViewModel;
+    private TextView incTV;
+    private TextView expTV;
+    private ProgressBar ProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,11 @@ public class GraphicFragment extends Fragment {
         financeViewModel = new ViewModelProvider(requireParentFragment()).get(FinanceViewModel.class);
         String id = financeViewModel.getid();
         financeViewModel.loadBudget(id);
+        incTV = view.findViewById(R.id.textView_income);
+        expTV = view.findViewById(R.id.textView_expense);
+        ProgressBar = view.findViewById(R.id.progress_bar);
+        float expensesSum = 0;
+        float incomesSum = 0;
         Map<String, Double> categoryModels = financeViewModel.getTransactionsMap();
         Set<String> categoryModelsSet = categoryModels.keySet();
         Object[] tempObjectArray = categoryModelsSet.toArray();
@@ -61,7 +65,10 @@ public class GraphicFragment extends Fragment {
         for (int i = 0; i < categoryModelsSet.size(); i++) {
             float temp = categoryModels.get(tempObjectArray[i]).floatValue();
             if (temp < 0) {
+                expensesSum = expensesSum + temp;
                 temp = temp * -1;
+            } else {
+                incomesSum = incomesSum + temp;
             }
             pieEntries.add(new PieEntry(temp, tempObjectArray[i].toString())
             );
@@ -84,8 +91,6 @@ public class GraphicFragment extends Fragment {
         colors.add(ColorTemplate.getHoloBlue());
 
         PieDataSet dataSet = new PieDataSet(pieEntries, "Übersicht");
-        tvX = view.findViewById(R.id.tvXMax);
-        tvY = view.findViewById(R.id.tvYMax);
         dataSet.setDrawValues(true);
         dataSet.setSliceSpace(2f);
         dataSet.setColors(colors);
@@ -113,6 +118,11 @@ public class GraphicFragment extends Fragment {
         chart.highlightValues(null);
         chart.invalidate();
 
+
+        incTV.setText(String.valueOf(incomesSum));
+        expTV.setText(String.valueOf(expensesSum));
+        float progress = 100 * incomesSum / (float) (incomesSum - expensesSum);
+        ProgressBar.setProgress((int) progress);
         return view;
     }
 

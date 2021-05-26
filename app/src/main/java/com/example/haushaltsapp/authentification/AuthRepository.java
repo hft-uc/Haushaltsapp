@@ -39,15 +39,19 @@ public class AuthRepository {
         return result;
     }
 
+    public void logout() {
+        auth.signOut();
+    }
+
     public LiveData<Boolean> register(String email, String password, String name) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
         auth.createUserWithEmailAndPassword(email, password)
-            .continueWith(task -> {
-                if (task.isSuccessful()) {
-                    final FirebaseUser firebaseUser = task.getResult().getUser();
+                .continueWith(task -> {
+                    if (task.isSuccessful()) {
+                        final FirebaseUser firebaseUser = task.getResult().getUser();
 
-                    UserDetail user = new UserDetail(firebaseUser.getUid(), name, email);
+                        UserDetail user = new UserDetail(firebaseUser.getUid(), name, email);
 
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setDisplayName(name).build();
