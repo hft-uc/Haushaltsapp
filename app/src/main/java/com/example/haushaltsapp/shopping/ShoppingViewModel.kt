@@ -31,6 +31,7 @@ class ShoppingViewModel : ViewModel() {
     private val authRepository = AuthRepository()
     private lateinit var shoppingListDetailLiveData: MutableLiveData<ShoppingListDetail>
     private lateinit var id: String
+    private lateinit var shoppingListDetail: ShoppingListDetail
 
     /**
      * Starts to load the `ShoppingListDetail` with given id.
@@ -42,8 +43,10 @@ class ShoppingViewModel : ViewModel() {
         repository.getShoppingList(id)
             .addSnapshotListener { value: DocumentSnapshot?, error: FirebaseFirestoreException? ->
                 if (value != null) {
-                    shoppingListDetailLiveData.setValue(value.toObject(
-                        ShoppingListDetail::class.java))
+                    value.toObject(ShoppingListDetail::class.java)?.let { detail ->
+                        shoppingListDetail = detail
+                        shoppingListDetailLiveData.setValue(detail)
+                    }
                 } else {
                     Log.w(TAG, "loadShoppingList failed", error)
                 }
@@ -53,28 +56,20 @@ class ShoppingViewModel : ViewModel() {
     val shoppingList: LiveData<ShoppingListDetail>
         get() = shoppingListDetailLiveData
 
-    fun add(name: String?): LiveData<Boolean> {
+    fun add(name: String): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
-        val shoppingList = ShoppingListDetail(name!!, authRepository.currentUser)
+        val shoppingList = ShoppingListDetail(name, authRepository.currentUser)
         repository.addShoppingList(shoppingList, shoppingList.owner.id)
             .addOnCompleteListener { task: Task<Void?> -> result.setValue(task.isSuccessful) }
         return result
     }
 
-    fun addEntry(name: String?): LiveData<Boolean> {
+    fun addEntry(name: String): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
-        val entry = ShoppingListEntry(name!!)
+        val entry = ShoppingListEntry(name)
         repository.addShoppingListEntry(id, entry)
             .addOnCompleteListener { task: Task<Void?> -> result.setValue(task.isSuccessful) }
         return result
-    }
-
-    fun update(shoppingListDetail: ShoppingListDetail) {
-        throw UnsupportedOperationException()
-    }
-
-    fun delete(shoppingListDetail: ShoppingListDetail) {
-        throw UnsupportedOperationException()
     }
 
     fun toggleDone(item: ShoppingListEntry) {
@@ -103,6 +98,11 @@ class ShoppingViewModel : ViewModel() {
     fun clearShoppingList() {
         Log.d(TAG, "Deleting entries of shopping list with id '$id'")
         repository.deleteEntries(id)
+    }
+
+    fun delete() {
+        Log.d(TAG, "Deleting shopping list with id '$id'")
+        repository.delete(id, authRepository.currentUser.id)
     }
 
     companion object {

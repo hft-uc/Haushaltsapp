@@ -36,7 +36,7 @@ class ShoppingDetailEntriesFragment : Fragment() {
 
         val adapter = ShoppingDetailEntriesRecyclerViewAdapter(
             shoppingViewModel.createShoppingListEntriesAdapter(viewLifecycleOwner)
-        ) { item: ShoppingListEntry? -> shoppingViewModel.toggleDone(item!!) }
+        ) { item: ShoppingListEntry -> shoppingViewModel.toggleDone(item) }
         recyclerView.adapter = adapter
 
         initAddButton(view)
@@ -71,14 +71,12 @@ class ShoppingDetailEntriesFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_clean_shopping_detail_entries) {
-            clearShoppingList()
+        if (item.itemId == R.id.action_clear_shopping_detail_entries) {
+            shoppingViewModel.clearShoppingList()
             return true
         }
         return false
     }
 
-    private fun clearShoppingList() {
-        shoppingViewModel.clearShoppingList()
-    }
+
 }

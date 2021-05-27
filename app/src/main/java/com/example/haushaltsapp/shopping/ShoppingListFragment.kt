@@ -46,4 +46,6 @@ class ShoppingListFragment : Fragment() {
             }
         return root
     }
+
+
 }

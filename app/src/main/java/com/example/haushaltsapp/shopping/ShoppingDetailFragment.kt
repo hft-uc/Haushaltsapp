@@ -2,9 +2,7 @@ package com.example.haushaltsapp.shopping
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +31,8 @@ class ShoppingDetailFragment : Fragment() {
         val id = ShoppingDetailFragmentArgs.fromBundle(requireArguments()).shoppingId
         shoppingViewModel.loadShoppingList(id)
         Log.i(TAG, "created ShoppingDetailFragment with id $id")
+
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -64,6 +64,22 @@ class ShoppingDetailFragment : Fragment() {
             tab.setIcon(ShoppingDetailPagerAdapter.TAB_ICONS[position])
         }
             .attach()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.shopping_detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.action_delete_shopping_list) {
+            requireActivity().onBackPressed()
+            shoppingViewModel.delete()
+            true
+        } else {
+            false
+        }
+
     }
 
     companion object {
