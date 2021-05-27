@@ -12,15 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.types.ShoppingListSummary;
-import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
-import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+
+import org.jetbrains.annotations.NotNull;
 
 public class ShoppingRecyclerViewAdapter
-    extends FirestorePagingAdapter<ShoppingListSummary, ShoppingRecyclerViewAdapter.ViewHolder> {
+    extends FirestoreRecyclerAdapter<ShoppingListSummary, ShoppingRecyclerViewAdapter.ViewHolder> {
 
     private static final String TAG = ShoppingRecyclerViewAdapter.class.getCanonicalName();
 
-    public ShoppingRecyclerViewAdapter(@NonNull FirestorePagingOptions<ShoppingListSummary> options) {
+
+    public ShoppingRecyclerViewAdapter(@NonNull @NotNull FirestoreRecyclerOptions<ShoppingListSummary> options) {
         super(options);
     }
 

@@ -5,13 +5,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
 import com.example.haushaltsapp.authentification.AuthRepository
 import com.example.haushaltsapp.types.ShoppingListDetail
 import com.example.haushaltsapp.types.ShoppingListEntry
 import com.example.haushaltsapp.types.ShoppingListSummary
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -86,15 +84,10 @@ class ShoppingViewModel : ViewModel() {
     }
 
     fun createShoppingListAdapter(lifecycleOwner: LifecycleOwner?): ShoppingRecyclerViewAdapter {
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(true)
-            .setPrefetchDistance(10)
-            .setPageSize(20)
-            .build()
         val query = repository.getShoppingLists(authRepository.currentUser.id)
-        val options = FirestorePagingOptions.Builder<ShoppingListSummary>()
+        val options = FirestoreRecyclerOptions.Builder<ShoppingListSummary>()
             .setLifecycleOwner(lifecycleOwner!!)
-            .setQuery(query, config, ShoppingListSummary::class.java)
+            .setQuery(query, ShoppingListSummary::class.java)
             .build()
         return ShoppingRecyclerViewAdapter(options)
     }
