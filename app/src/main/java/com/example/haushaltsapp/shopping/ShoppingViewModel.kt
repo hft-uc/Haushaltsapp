@@ -29,20 +29,20 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 class ShoppingViewModel : ViewModel() {
     private val repository = ShoppingRepository()
     private val authRepository = AuthRepository()
-    private var shoppingListDetailLiveData: MutableLiveData<ShoppingListDetail?>? = null
-    private var id: String? = null
+    private lateinit var shoppingListDetailLiveData: MutableLiveData<ShoppingListDetail>
+    private lateinit var id: String
 
     /**
      * Starts to load the `ShoppingListDetail` with given id.
      * It can be queried with `getShoppingList`
      */
-    fun loadShoppingList(id: String?) {
+    fun loadShoppingList(id: String) {
         this.id = id
         shoppingListDetailLiveData = MutableLiveData()
         repository.getShoppingList(id)
             .addSnapshotListener { value: DocumentSnapshot?, error: FirebaseFirestoreException? ->
                 if (value != null) {
-                    shoppingListDetailLiveData!!.setValue(value.toObject(
+                    shoppingListDetailLiveData.setValue(value.toObject(
                         ShoppingListDetail::class.java))
                 } else {
                     Log.w(TAG, "loadShoppingList failed", error)
@@ -50,7 +50,7 @@ class ShoppingViewModel : ViewModel() {
             }
     }
 
-    val shoppingList: LiveData<ShoppingListDetail?>?
+    val shoppingList: LiveData<ShoppingListDetail>
         get() = shoppingListDetailLiveData
 
     fun add(name: String?): LiveData<Boolean> {
@@ -69,11 +69,11 @@ class ShoppingViewModel : ViewModel() {
         return result
     }
 
-    fun update(shoppingListDetail: ShoppingListDetail?) {
+    fun update(shoppingListDetail: ShoppingListDetail) {
         throw UnsupportedOperationException()
     }
 
-    fun delete(shoppingListDetail: ShoppingListDetail?) {
+    fun delete(shoppingListDetail: ShoppingListDetail) {
         throw UnsupportedOperationException()
     }
 
@@ -83,16 +83,16 @@ class ShoppingViewModel : ViewModel() {
         repository.updateEntry(id, item)
     }
 
-    fun createShoppingListAdapter(lifecycleOwner: LifecycleOwner?): ShoppingRecyclerViewAdapter {
+    fun createShoppingListAdapter(lifecycleOwner: LifecycleOwner): ShoppingRecyclerViewAdapter {
         val query = repository.getShoppingLists(authRepository.currentUser.id)
         val options = FirestoreRecyclerOptions.Builder<ShoppingListSummary>()
-            .setLifecycleOwner(lifecycleOwner!!)
+            .setLifecycleOwner(lifecycleOwner)
             .setQuery(query, ShoppingListSummary::class.java)
             .build()
         return ShoppingRecyclerViewAdapter(options)
     }
 
-    fun createShoppingListEntriesAdapter(lifecycleOwner: LifecycleOwner?): FirestoreRecyclerOptions<ShoppingListEntry> {
+    fun createShoppingListEntriesAdapter(lifecycleOwner: LifecycleOwner): FirestoreRecyclerOptions<ShoppingListEntry> {
         val query = repository.getShoppingListEntries(id)
         return FirestoreRecyclerOptions.Builder<ShoppingListEntry>()
             .setQuery(query, ShoppingListEntry::class.java)

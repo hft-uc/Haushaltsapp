@@ -1,73 +1,55 @@
-package com.example.haushaltsapp.shopping;
+package com.example.haushaltsapp.shopping
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
+import com.example.haushaltsapp.R
+import com.example.haushaltsapp.types.ShoppingListSummary
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
-import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
+class ShoppingRecyclerViewAdapter(options: FirestoreRecyclerOptions<ShoppingListSummary?>) :
+    FirestoreRecyclerAdapter<ShoppingListSummary, ShoppingRecyclerViewAdapter.ViewHolder>(options) {
 
-import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.types.ShoppingListSummary;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-
-import org.jetbrains.annotations.NotNull;
-
-public class ShoppingRecyclerViewAdapter
-    extends FirestoreRecyclerAdapter<ShoppingListSummary, ShoppingRecyclerViewAdapter.ViewHolder> {
-
-    private static final String TAG = ShoppingRecyclerViewAdapter.class.getCanonicalName();
-
-
-    public ShoppingRecyclerViewAdapter(@NonNull @NotNull FirestoreRecyclerOptions<ShoppingListSummary> options) {
-        super(options);
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: ShoppingListSummary) {
+        holder.setItem(model)
+        holder.contentView.text = model.name
     }
 
-    @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ShoppingListSummary model) {
-        holder.setItem(model);
-        holder.contentView.setText(model.getName());
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.fragment_shopping_item, parent, false)
+        return ViewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.fragment_shopping_item, parent, false);
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        return new ViewHolder(view);
+        val contentView: TextView = view.findViewById(R.id.shopping_content)
+        private lateinit var item: ShoppingListSummary
+
+        override fun toString(): String {
+            return super.toString() + " '" + contentView.text + "'"
+        }
+
+        fun setItem(item: ShoppingListSummary) {
+            this.item = item
+        }
+
+        init {
+            view.setOnClickListener { v: View ->
+                Log.i(TAG, "Navigating to shopping list with id " + item.id)
+                Navigation.findNavController(v)
+                    .navigate(ShoppingListFragmentDirections.actionNavShoppingToShoppingDetailFragment(
+                        item.id))
+            }
+        }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        public final View view;
-        public final TextView contentView;
-        private ShoppingListSummary item;
-
-
-        public ViewHolder(View view) {
-            super(view);
-            this.view = view;
-            contentView = view.findViewById(R.id.shopping_content);
-
-            view.setOnClickListener(v -> {
-                Log.i(TAG, "Navigating to shopping list with id " + item.getId());
-                Navigation.findNavController(v).navigate(ShoppingListFragmentDirections.actionNavShoppingToShoppingDetailFragment(item.getId()));
-            });
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return super.toString() + " '" + contentView.getText() + "'";
-        }
-
-        public void setItem(ShoppingListSummary item) {
-            this.item = item;
-        }
+    companion object {
+        private val TAG = ShoppingRecyclerViewAdapter::class.java.canonicalName
     }
 }

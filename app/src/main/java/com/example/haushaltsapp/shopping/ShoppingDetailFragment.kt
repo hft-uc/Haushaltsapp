@@ -1,77 +1,72 @@
-package com.example.haushaltsapp.shopping;
+package com.example.haushaltsapp.shopping
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
+import com.example.haushaltsapp.R
+import com.example.haushaltsapp.shopping.ShoppingViewModel
+import com.example.haushaltsapp.types.ShoppingListDetail
+import com.example.haushaltsapp.user.UserSource
+import com.example.haushaltsapp.user.UserViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
+class ShoppingDetailFragment : Fragment() {
 
-import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.user.UserSource;
-import com.example.haushaltsapp.user.UserViewModel;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+    private lateinit var toolbar: Toolbar
+    private lateinit var pagerAdapter: ShoppingDetailPagerAdapter
+    private lateinit var viewPager: ViewPager2
+    private lateinit var shoppingViewModel: ShoppingViewModel
+    private lateinit var userViewModel: UserViewModel
 
-public class ShoppingDetailFragment extends Fragment {
-    private static final String TAG = ShoppingDetailFragment.class.getCanonicalName();
-    private Toolbar toolbar;
 
-    private ShoppingDetailPagerAdapter pagerAdapter;
-    private ViewPager2 viewPager;
-    private ShoppingViewModel shoppingViewModel;
-    private UserViewModel userViewModel;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        shoppingViewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
-        String id = ShoppingDetailFragmentArgs.fromBundle(requireArguments()).getShoppingId();
-        shoppingViewModel.loadShoppingList(id);
-
-        Log.i(TAG, "created ShoppingDetailFragment with id " + id);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        shoppingViewModel = ViewModelProvider(this).get(ShoppingViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        val id = ShoppingDetailFragmentArgs.fromBundle(requireArguments()).shoppingId
+        shoppingViewModel.loadShoppingList(id)
+        Log.i(TAG, "created ShoppingDetailFragment with id $id")
     }
 
-    @Override
-    public View onCreateView(
-        @NonNull LayoutInflater inflater,
-        @Nullable ViewGroup container,
-        @Nullable Bundle savedInstanceState
-    ) {
-        View root = inflater.inflate(R.layout.fragment_shopping_detail, container, false);
-        toolbar = getActivity().findViewById(R.id.toolbar);
-
-        shoppingViewModel.getShoppingList().observe(getViewLifecycleOwner(), detail -> {
-            Log.i(TAG, "Setting title to " + detail.getName());
-            toolbar.setTitle(detail.getName());
-
-            userViewModel.setSource(UserSource.SHOPPING);
-            userViewModel.setId(detail.getId());
-            userViewModel.setShoppingListDetail(detail);
-        });
-
-
-        return root;
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        val root = inflater.inflate(R.layout.fragment_shopping_detail, container, false)
+        toolbar = requireActivity().findViewById(R.id.toolbar)
+        shoppingViewModel.shoppingList.observe(viewLifecycleOwner,
+            { detail: ShoppingListDetail ->
+                Log.i(TAG, "Setting title to " + detail.name)
+                toolbar.title = detail.name
+                userViewModel.setSource(UserSource.SHOPPING)
+                userViewModel.setId(detail.id)
+                userViewModel.setShoppingListDetail(detail)
+            })
+        return root
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        pagerAdapter = new ShoppingDetailPagerAdapter(this);
-        viewPager = view.findViewById(R.id.shopping_detail_pager);
-        viewPager.setAdapter(pagerAdapter);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        pagerAdapter = ShoppingDetailPagerAdapter(this)
+        viewPager = view.findViewById(R.id.shopping_detail_pager)
+        viewPager.adapter = pagerAdapter
 
-        TabLayout tabLayout = view.findViewById(R.id.shopping_detail_tab_layout);
-        new TabLayoutMediator(tabLayout, viewPager,
-            ((tab, position) -> tab.setIcon(ShoppingDetailPagerAdapter.TAB_ICONS[position]))
-        ).attach();
+        val tabLayout: TabLayout = view.findViewById(R.id.shopping_detail_tab_layout)
+        TabLayoutMediator(tabLayout, viewPager
+        ) { tab, position ->
+            tab.setIcon(ShoppingDetailPagerAdapter.TAB_ICONS[position])
+        }
+            .attach()
+    }
+
+    companion object {
+        private val TAG = ShoppingDetailFragment::class.java.canonicalName
     }
 }
