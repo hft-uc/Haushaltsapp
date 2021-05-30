@@ -33,6 +33,20 @@ Wir haben uns für die Aufteilung nach Feature entschieden. Es gruppiert Klassen
 
 Da wir auch seperate jeweils an einen Feature arbeiten, hat jeder sein eigenes Packet und kann somit niemand anderen in quere kommen.
 
+Eine textuelle representation kann man auf Windows mit dem Befehl `tree` erhalten (TODO neu generieren vor abgabe)
+```
+└───haushaltsapp
+    ├───authentification
+    ├───chat
+    ├───home
+    ├───shopping
+    ├───slideshow
+    ├───supply
+    ├───types
+    ├───user
+    └───utils
+```
+
 #### 4.2 Model View ViewModel (MVVM)
 Ein sehr verbreitetes Architekturmodell in der nativen Android Entwicklung ist das von MVC abgewandelte MVVM Modell. Es schreibt eine Aufteilung der Verantwortlichkeiten vor und sorgt damit für eine ingesamt bessere Codebasis. Die Verantwortlichkeiten sind wie folgt aufgeteilt:
 
