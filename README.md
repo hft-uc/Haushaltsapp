@@ -93,7 +93,9 @@ public class AuthRepository {
         return result;
     }
 }
+```
 
+``` java
 public class AuthViewModel extends ViewModel {
 
     private final AuthRepository repository = new AuthRepository();
@@ -102,7 +104,9 @@ public class AuthViewModel extends ViewModel {
         return repository.signIn(email, password);
     }
 }
+```
 
+``` java
 public class LoginActivity extends AppCompatActivity {
     private AuthViewModel authViewModel;
 
