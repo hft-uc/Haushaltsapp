@@ -67,6 +67,70 @@ Durch diese Aufteilung der Verantwortlichkeiten, kann man Code teilen zwischen K
 
 Ein weitere Vorteil, welcher hier aber nicht umgesetzt wurde, ist dass man die einzelnen Schichten einfacher testen kann. Indem man jeweils für die tiefer liegende Schicht ein Mock erstellt und diese per `Dependecy Injection` in die Klassen injektiert, kann man jede Schicht in isolation testen.
 
+Ein kleines Beispiel hierfür sind die Klassen im `authentification` Packet, hier wurden nicht relevante Sachen gekürzt:
+``` java
+public class AuthRepository {
+
+    private static final String TAG = AuthRepository.class.getCanonicalName();
+
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    public LiveData<Boolean> signIn(String email, String password) {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Log.i(TAG, "signIn successful");
+                } else {
+                    Log.w(TAG, "signIn failed", task.getException());
+                }
+
+                result.setValue(task.isSuccessful());
+            });
+
+        return result;
+    }
+}
+
+public class AuthViewModel extends ViewModel {
+
+    private final AuthRepository repository = new AuthRepository();
+
+    public LiveData<Boolean> signIn(String email, String password) {
+        return repository.signIn(email, password);
+    }
+}
+
+public class LoginActivity extends AppCompatActivity {
+    private AuthViewModel authViewModel;
+
+    @Override
+    protected void onStart() {
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        btnLogin.setOnClickListener(view -> {
+            String tempEmail = email.getText().toString().trim();
+            String tempPass = passwort.getText().toString().trim();
+
+            authViewModel.signIn(tempEmail, tempPass)
+                .observe(this, success -> {
+                    if (Boolean.TRUE.equals(success)) {
+                        Toast.makeText(LoginActivity.this, "done", Toast.LENGTH_SHORT).show();
+                        navigateToMain();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        });
+    }
+}
+
+```
+
 #### 4.4 Fragmente wiederverwenden
 Ein Grund für die Verwendung von Fragmenten über Activities, ist dass man mehrer Fragment in einer Activity darstellen kann und somit zwischen verschiedenen Features einfach teilen kann. Mehrere unserer Features haben die Möglichkeit User zu einer Gruppe zuzuweisen und müssen diese entsprechend auch anzeigen. Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von der Einkaufsliste und dem Finanz Feature verwendet wird.
 
