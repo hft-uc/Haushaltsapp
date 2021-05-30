@@ -93,21 +93,25 @@ public class ChatFragment extends Fragment {
             if (error == null) {
                 mUsers.clear();
                 List<UserSummary> users = FirestoreExtensionsKt.toObjectList(value.getDocuments(), UserSummary.class);
+                List<UserSummary> tempUsers = new ArrayList<>();
                 for(UserSummary userSummary : users) {
                     for(String id : userList) {
                         if(id.equals(userSummary.getId())) {
                             if(mUsers.size() != 0) {
                                 for(UserSummary userSummary1 : mUsers) {
                                     if(!userSummary.getId().equals(userSummary1.getId())) {
-                                        mUsers.listIterator().add(userSummary);
+                                        // mUsers.listIterator().add(userSummary);
+                                        tempUsers.add(userSummary);
                                     }
                                 }
                             } else {
-                                mUsers.add(userSummary);
+                                // mUsers.add(userSummary);
+                                tempUsers.add(userSummary);
                             }
                         }
                     }
                 }
+                mUsers.addAll(tempUsers);
             } else {
                 Log.w("TAG", "Failed to load all friends", error);
             }

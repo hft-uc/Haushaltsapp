@@ -42,10 +42,12 @@ public class MessageActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
     private Intent intent;
+    private DatabaseReference mReference;
 
     private MessageAdapter messageAdapter;
     private List<Chat> mChats;
     private RecyclerView recyclerView;
+    private ValueEventListener seenListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,31 @@ public class MessageActivity extends AppCompatActivity {
                 Log.d("TAG", "get failed with ", task.getException());
             }
         });
+
+        seenMessage(userId);
+    }
+
+    private void seenMessage(String userId) {
+        mReference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        seenListener = mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Chat chat = dataSnapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId)) {
+                        Map<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("isseen", true);
+                        dataSnapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void sendMessage(String sender, String receiver, String message) {
@@ -108,6 +135,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("isseen", false);
         reference.child("Chats").push().setValue(hashMap);
     }
 
@@ -153,6 +181,7 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        mReference.removeEventListener(seenListener);
         status("offline");
     }
 }
