@@ -34,14 +34,13 @@ class ShoppingListFragment : Fragment() {
                 builder.setTitle("Neue Liste erstellen")
                 // Set up the input
                 val input = EditText(context)
-                input.hint = "blabla"
                 input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
                 builder.setView(input)
-                builder.setPositiveButton("OK") { _, _ ->
+                builder.setPositiveButton(android.R.string.ok) { _, _ ->
                     val text = input.text.toString()
                     shoppingViewModel.add(text)
                 }
-                builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+                builder.setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }
                 builder.show()
             }
         return root
