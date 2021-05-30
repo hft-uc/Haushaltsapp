@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.haushaltsapp.MessageActivity;
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.types.UserSummary;
 
@@ -18,7 +17,7 @@ import java.util.List;
 public class ChatUserListRecyclerViewAdapter extends RecyclerView.Adapter<ChatUserListRecyclerViewAdapter.ViewHolder> {
 
     private final List<UserSummary> chatUsers;
-    private Context mContext;
+    private final Context mContext;
 
     public ChatUserListRecyclerViewAdapter(List<UserSummary> chatUsers, Context mContext) {
         this.chatUsers = chatUsers;
@@ -59,8 +58,8 @@ public class ChatUserListRecyclerViewAdapter extends RecyclerView.Adapter<ChatUs
 
         public ViewHolder(View view) {
             super(view);
-            mUserIdView = (TextView) view.findViewById(R.id.user_id);
-            mChatUserView = (TextView) view.findViewById(R.id.chat_username);
+            mUserIdView = view.findViewById(R.id.user_id);
+            mChatUserView = view.findViewById(R.id.chat_username);
         }
 
         @Override
