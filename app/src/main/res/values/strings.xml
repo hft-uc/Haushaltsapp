@@ -33,4 +33,6 @@
     <string name="register">Register</string>
     <string name="clear_shopping_list">Clear shopping list</string>
     <string name="delete_shopping_list">Delete shopping list</string>
+    <string name="owner">Besitzer</string>
+    <string name="members">Teilnehmer</string>
 </resources>
