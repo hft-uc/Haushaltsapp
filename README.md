@@ -154,6 +154,8 @@ class ShoppingDetailPagerAdapter(fragment: Fragment) : FragmentStateAdapter(frag
         return 3
     }
 ```
+Bei uns gibt es auch noch ein `FinanceViewPageAdapter`, welcher das `UserFragment` und das `UserAddFragment` auch verwendet.
+
 
 #### 4.5 Kommunikation per ViewModel
 In 4.4 wurde erwähnt, dass das Host Fragment, den Kinderfragmenten die Daten mitteilen muss. Dies geschiet sehr pragmatisch, indem das Host Fragment einen Setter aufruft auf dem ViewModel und das Kind Fragment den gesetzten Wert dann verwenden kann. Es muss aber sicher gestellt werden, dass beide Fragmente auf der gleichen Instanz eines ViewModel arbeiten. 
@@ -223,6 +225,8 @@ public class UserViewModel extends ViewModel {
 }
 
 ```
+
+Hier sieht man dass es noch nicht perfekt ist, da man mit einem switch case jeden Fall in der geteilten Komponente seperate behandeln muss. Aber insgesamt ist es ein sehr große Verbesserung im Vergleich zu wenn man die Klassen kopiert. Mit der jetzigen Variente muss man nur im Host die Setter aufrufen und die Methoden mit switch case für den eigenen Fall implementieren.
 
 ### 5 Firebase
 #### 5.1 Sicherheit
