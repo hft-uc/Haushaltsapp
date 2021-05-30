@@ -11,6 +11,15 @@ data class SupplyEntry(
 ) {
     @Suppress("unused")
     constructor() : this("", "", "", null)
+    constructor(amount: String) : this() {
+
+    }
+
+    constructor(name: String, amount: String) : this("", "", "", null) {
+
+    }
 
 
+
+    fun toSummary(): SupplySummary = SupplySummary(id, name)
 }

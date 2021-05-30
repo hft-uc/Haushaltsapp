@@ -22,6 +22,8 @@
     <string name="menu_finanzen">Finanzen</string>
     <string name="chats">Chats</string>
     <string name="chat">Chat</string>
+    <string name="supply">Vorrat</string>
+    <string name="add_supplyitem">Vorrat hinzufügen</string>
     <string name="add_shopping_list">Add shopping list</string>
     <string name="add_shopping_list_entry">Add shopping list entry</string>
     <string name="add_member">Add member</string>

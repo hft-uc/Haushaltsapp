@@ -20,6 +20,10 @@
             android:id="@+id/nav_chat_detail"
             android:icon="@drawable/ic_menu_chat"
             android:title="@string/chat" />
+        <item
+            android:id="@+id/nav_supply"
+            android:icon="@drawable/ic_menu_supply"
+            android:title="Vorrat" />
 
     </group>
 </menu>
