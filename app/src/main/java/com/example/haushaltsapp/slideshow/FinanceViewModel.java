@@ -16,6 +16,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.Query;
 
+import java.util.Map;
+
 public class FinanceViewModel extends ViewModel {
     private static final String TAG = "FinanceViewModel";
     private final AuthRepository authRepository = new AuthRepository();
@@ -24,13 +26,19 @@ public class FinanceViewModel extends ViewModel {
 
     private MutableLiveData<Budget> BudgetLiveData;
     private String id;
+    Map<String, Double> transactionMap;
 
+    public Map<String, Double> getTransactionsMap() {
+        return transactionMap;
+    }
 
     public String getid() {
         return id;
     }
 
-    ;
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void loadBudget(String id) {
         this.id = id;
@@ -65,17 +73,17 @@ public class FinanceViewModel extends ViewModel {
     public LiveData<Boolean> addEntry(String name, Double amount) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        Transaction entry = new Transaction(name, amount, authRepository.getCurrentUser().getName());
+        Transaction entry = new Transaction(name, amount, authRepository.getCurrentUser().getName(), "cat");
         repository.addBudgetTransaction(id, entry)
                 .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
         return result;
 
     }
 
-    public LiveData<Boolean> addEntryByID(String id1, String name, Double amount) {
+    public LiveData<Boolean> addEntryByID(String id1, String name, Double amount, String category) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
         String test = authRepository.getCurrentUser().getName();
-        Transaction entry = new Transaction(name, amount, test);
+        Transaction entry = new Transaction(name, amount, test, category);
         repository.addBudgetTransaction(id1, entry)
                 .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
         return result;
@@ -109,5 +117,11 @@ public class FinanceViewModel extends ViewModel {
                 .setLifecycleOwner(lifecycleOwner)
                 .build();
     }
+
+    public Map<String, Double> test(String id) {
+        transactionMap = repository.test(id);
+        return transactionMap;
+    }
+
 
 }

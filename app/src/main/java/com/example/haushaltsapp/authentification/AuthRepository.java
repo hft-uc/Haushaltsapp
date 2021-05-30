@@ -27,10 +27,10 @@ public class AuthRepository {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(task -> {
-                if (task.isCanceled()) {
-                    Log.w(TAG, "signIn failed", task.getException());
-                } else {
+                if (task.isSuccessful()) {
                     Log.i(TAG, "signIn successful");
+                } else {
+                    Log.w(TAG, "signIn failed", task.getException());
                 }
 
                 result.setValue(task.isSuccessful());
@@ -39,11 +39,15 @@ public class AuthRepository {
         return result;
     }
 
-    public LiveData<Boolean> register(String email, String password, String name) {
-        MutableLiveData<Boolean> result = new MutableLiveData<>();
+    public void logout() {
+        auth.signOut();
+    }
+
+    public LiveData<String> register(String email, String password, String name) {
+        MutableLiveData<String> result = new MutableLiveData<>();
 
         auth.createUserWithEmailAndPassword(email, password)
-            .continueWith(task -> {
+            .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     final FirebaseUser firebaseUser = task.getResult().getUser();
 
@@ -60,21 +64,21 @@ public class AuthRepository {
                             }
                         });
 
-                    return db.collection(USERS_COLLECTION)
+                    db.collection(USERS_COLLECTION)
                         .document(user.getId())
-                        .set(user, SetOptions.merge());
+                        .set(user, SetOptions.merge())
+                        .addOnCompleteListener(another -> {
+                            if (another.isSuccessful()) {
+                                result.setValue(null);
+                            } else {
+                                Log.w(TAG, "register failed", task.getException());
+                                result.setValue(task.getException().getLocalizedMessage());
+                            }
+                        });
                 } else {
                     Log.w(TAG, "register failed", task.getException());
-
-                    return task;
+                    result.setValue(task.getException().getLocalizedMessage());
                 }
-            })
-            .addOnCompleteListener(task -> {
-                if (task.isCanceled()) {
-                    Log.w(TAG, "register failed", task.getException());
-                }
-
-                result.setValue(task.isSuccessful());
             });
 
         return result;

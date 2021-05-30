@@ -1,6 +1,8 @@
 package com.example.haushaltsapp.supply;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -8,9 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import androidx.lifecycle.ViewModelProvider;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
@@ -20,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class SupplyFragment extends Fragment {
     private SupplyViewModel supplyViewModel;
 
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -27,15 +34,15 @@ public class SupplyFragment extends Fragment {
         supplyViewModel =
                 new ViewModelProvider(this).get(SupplyViewModel.class);
 
-        RecyclerView recyclerView = root.findViewById(R.id.supply);
-        //recyclerView.setAdapter(supplyViewModel.createSupplyAdapter(getViewLifecycleOwner()));
+        RecyclerView recyclerView = root.findViewById(R.id.rvsupply);
+        recyclerView.setAdapter(supplyViewModel.createSupplyAdapter(getViewLifecycleOwner()));
 
-        root.<FloatingActionButton>findViewById(R.id.add_supply_fab).setOnClickListener(view -> {
+        root.<FloatingActionButton>findViewById(R.id.btn_add_supply_item).setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Neue Liste erstellen");
+            builder.setTitle("Vorrat hinzufügen");
             // Set up the input
             final EditText input = new EditText(getContext());
-            input.setHint("blabla");
+            input.setHint("");
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
             builder.setView(input);
 

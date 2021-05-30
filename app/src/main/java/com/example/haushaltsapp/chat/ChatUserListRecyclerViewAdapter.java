@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.haushaltsapp.MessageActivity;
 import com.example.haushaltsapp.R;
 import com.example.haushaltsapp.authentification.AuthRepository;
 import com.example.haushaltsapp.types.UserSummary;

@@ -1,5 +1,6 @@
 package com.example.haushaltsapp.user;
 
+import com.example.haushaltsapp.types.Budget;
 import com.example.haushaltsapp.types.ShoppingListDetail;
 import com.example.haushaltsapp.types.UserSummary;
 import com.google.android.gms.tasks.Task;
@@ -10,6 +11,7 @@ import com.google.firebase.firestore.WriteBatch;
 
 import static com.example.haushaltsapp.authentification.AuthRepository.USERS_COLLECTION;
 import static com.example.haushaltsapp.shopping.ShoppingRepository.SHOPPING_LISTS_COLLECTION;
+import static com.example.haushaltsapp.slideshow.BudgetRepository.Budget_COLLECTION;
 
 public class UserRepository {
 
@@ -22,14 +24,22 @@ public class UserRepository {
      */
     public Query getShoppingListMembers(String id) {
         return db.collection(SHOPPING_LISTS_COLLECTION)
-            .document(id)
-            .collection(MEMBERS_COLLECTION)
-            .orderBy("name");
+                .document(id)
+                .collection(MEMBERS_COLLECTION)
+                .orderBy("name");
     }
+
+    public Query getBudgetMembers(String id) {
+        return db.collection(Budget_COLLECTION)
+                .document(id)
+                .collection(MEMBERS_COLLECTION)
+                .orderBy("name");
+    }
+
 
     public Query getAllUsers() {
         return db.collection(USERS_COLLECTION)
-            .orderBy("name");
+                .orderBy("name");
     }
 
     public Task<Void> addShoppingListMember(ShoppingListDetail shoppingList, UserSummary user) {
@@ -60,11 +70,31 @@ public class UserRepository {
         batch.delete(generalRef);
 
         DocumentReference userSpecificRef = db.collection(USERS_COLLECTION)
-            .document(user.getId())
-            .collection(SHOPPING_LISTS_COLLECTION)
-            .document(shoppingList.getId());
+                .document(user.getId())
+                .collection(SHOPPING_LISTS_COLLECTION)
+                .document(shoppingList.getId());
         batch.delete(userSpecificRef);
 
         return batch.commit();
     }
+
+    public Task<Void> addBugetMember(Budget budget, UserSummary user) {
+        WriteBatch batch = db.batch();
+
+        DocumentReference generalRef = db.collection(Budget_COLLECTION)
+                .document(budget.getId())
+                .collection(MEMBERS_COLLECTION)
+                .document(user.getId());
+        batch.set(generalRef, user);
+
+        DocumentReference userSpecificRef = db.collection(USERS_COLLECTION)
+                .document(user.getId())
+                .collection(Budget_COLLECTION)
+                .document(budget.getId());
+        batch.set(userSpecificRef, budget.toSummary());
+
+        return batch.commit();
+    }
+
+
 }

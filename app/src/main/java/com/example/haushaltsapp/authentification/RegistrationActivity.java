@@ -37,12 +37,12 @@ public class RegistrationActivity extends AppCompatActivity {
             String pass = passwort.getText().toString().trim();
 
             authViewModel.register(email, pass, fullName.getText().toString())
-                .observe(this, success -> {
-                    if (success) {
+                .observe(this, error -> {
+                    if (error == null) {
                         Toast.makeText(RegistrationActivity.this, "done", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {
-                        Toast.makeText(RegistrationActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, "failed: " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
         });

@@ -24,19 +24,17 @@ public class FinanceViewPageAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
 
-
         switch (position) {
             case 0:
-                return new GraphicFragment();
-            case 1:
                 return new HistoryListFragment();
+            case 1:
+                return new GraphicFragment();
             case 2:
                 return new UserAddFragment();
             case 3:
                 return new UserFragment();
         }
         return null;
-
     }
 
     @Override

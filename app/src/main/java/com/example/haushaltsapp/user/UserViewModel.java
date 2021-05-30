@@ -80,7 +80,7 @@ public class UserViewModel extends ViewModel {
                 break;
             case SUPPLY:
             case FINANCE:
-                query = repository.getShoppingListMembers(id);
+                query = repository.getBudgetMembers(id);
                 break;
         }
         return query;
@@ -105,6 +105,7 @@ public class UserViewModel extends ViewModel {
                 break;
             case SUPPLY:
             case FINANCE:
+                repository.addBugetMember(budget, user);
                 break;
         }
     }

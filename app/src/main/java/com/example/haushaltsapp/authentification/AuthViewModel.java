@@ -15,7 +15,12 @@ public class AuthViewModel extends ViewModel {
         return repository.alreadySignedIn();
     }
 
-    public LiveData<Boolean> register(String email, String password, String name) {
+    public LiveData<String> register(String email, String password, String name) {
         return repository.register(email, password, name);
     }
+
+    public void logout() {
+        repository.logout();
+    }
+
 }

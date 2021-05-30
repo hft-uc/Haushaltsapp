@@ -11,42 +11,44 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
-import com.example.haushaltsapp.shopping.ShoppingListFragmentDirections;
-import com.example.haushaltsapp.shopping.ShoppingRecyclerViewAdapter;
-import com.example.haushaltsapp.types.ShoppingListSummary;
+//import com.example.haushaltsapp.supply.SupplyFragmentDirections;
+import com.example.haushaltsapp.types.SupplySummary;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 
 public class SupplyRecyclerViewAdapter
-        extends FirestorePagingAdapter<ShoppingListSummary, SupplyRecyclerViewAdapter.ViewHolder> {
+        extends FirestorePagingAdapter<SupplySummary,
+        com.example.haushaltsapp.supply.SupplyRecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = ShoppingRecyclerViewAdapter.class.getCanonicalName();
+    private static final String TAG = com.example.haushaltsapp.supply.SupplyRecyclerViewAdapter
+            .class.getCanonicalName();
 
-    public SupplyRecyclerViewAdapter(@NonNull FirestorePagingOptions<ShoppingListSummary> options) {
+    public SupplyRecyclerViewAdapter(@NonNull FirestorePagingOptions<SupplySummary> options) {
         super(options);
     }
 
-
     @Override
-    protected void onBindViewHolder(@NonNull SupplyRecyclerViewAdapter.ViewHolder holder, int position, @NonNull ShoppingListSummary model) {
+    protected void onBindViewHolder(@NonNull com.example.haushaltsapp.supply.SupplyRecyclerViewAdapter
+            .ViewHolder holder, int position, @NonNull SupplySummary model) {
         holder.setItem(model);
         holder.contentView.setText(model.getName());
     }
 
     @NonNull
     @Override
-    public SupplyRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public com.example.haushaltsapp.supply.SupplyRecyclerViewAdapter
+            .ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_shopping_item, parent, false);
+                .inflate(R.layout.fragment_supply, parent, false);
 
-        return new SupplyRecyclerViewAdapter.ViewHolder(view);
+        return new com.example.haushaltsapp.supply.SupplyRecyclerViewAdapter.ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View view;
         public final TextView contentView;
-        private ShoppingListSummary item;
+        private SupplySummary item;
 
 
         public ViewHolder(View view) {
@@ -55,8 +57,8 @@ public class SupplyRecyclerViewAdapter
             contentView = view.findViewById(R.id.shopping_content);
 
             view.setOnClickListener(v -> {
-                Log.i(TAG, "Navigating to shopping list with id " + item.getId());
-                Navigation.findNavController(v).navigate(ShoppingListFragmentDirections.actionNavShoppingToShoppingDetailFragment(item.getId()));
+                Log.i(TAG, "Navigating to supply with id " + item.getId());
+                //Navigation.findNavController(v).navigate(SupplyFragmentDirections.actionNavShoppingToSupplyFragment(item.getId()));
             });
         }
 
@@ -66,8 +68,11 @@ public class SupplyRecyclerViewAdapter
             return super.toString() + " '" + contentView.getText() + "'";
         }
 
-        public void setItem(ShoppingListSummary item) {
+        public void setItem(SupplySummary item) {
             this.item = item;
         }
     }
 }
+
+
+

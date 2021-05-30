@@ -47,8 +47,13 @@
             <Spinner
                 android:id="@+id/transaction_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="309dp"
+                android:layout_height="156dp"
                 android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/transaction_button"

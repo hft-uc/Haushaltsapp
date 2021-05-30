@@ -1,5 +1,6 @@
 package com.example.haushaltsapp.supply;
 import com.example.haushaltsapp.authentification.AuthRepository;
+import com.example.haushaltsapp.types.Supply;
 import com.example.haushaltsapp.types.SupplyEntry;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -9,14 +10,12 @@ import com.google.firebase.firestore.WriteBatch;
 
 public class SupplyRepository {
 
-    public static final String SUPPLY_COLLECTION = "supply";
-    public static final String SUPPLY_ENTRY_COLLECTION = "entry";
+    public static final String SUPPLY_COLLECTION = "Vorrat";
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    /**
-     * @return Query over collection of {@link com.example.haushaltsapp.types.SupplySummary}
-     */
+
+
     public Query getSupply(String userId) {
         return db.collection(AuthRepository.USERS_COLLECTION)
                 .document(userId)
@@ -24,21 +23,34 @@ public class SupplyRepository {
                 .orderBy("name");
     }
 
-    /**
-     * @return Query over document of {@link com.example.haushaltsapp.types.SupplyDetail}
-     */
-    public DocumentReference getShoppingList(String id) {
+
+
+    public DocumentReference getSupply(Supply id) {
         return db.collection(SUPPLY_COLLECTION)
-                .document(id);
+                .document(String.valueOf(id));
     }
 
-    /**
-     * @param id The id of the shopping list to add to
-     */
-    public Task<Void> addSupplyEntry(String id, SupplyEntry entry) {
+    public Task<Void> addSupply(Supply supplyEntry, SupplyEntry userId) {
+        WriteBatch batch = db.batch();
+
+        DocumentReference generalRef = db.collection(SUPPLY_COLLECTION).document();
+        supplyEntry.setId(generalRef.getId());
+        batch.set(generalRef, supplyEntry);
+
+        DocumentReference userSpecificRef = db.collection(AuthRepository.USERS_COLLECTION)
+                .document(String.valueOf(userId))
+                .collection(SUPPLY_COLLECTION)
+                .document(generalRef.getId());
+        batch.set(userSpecificRef, supplyEntry.toSummary());
+
+        return batch.commit();
+    }
+
+
+    public Task<Void> adSupplyEntry(String id, SupplyEntry entry) {
         final DocumentReference reference = db.collection(SUPPLY_COLLECTION)
                 .document(id)
-                .collection(SUPPLY_ENTRY_COLLECTION)
+                .collection(SUPPLY_COLLECTION)
                 .document();
         entry.setId(reference.getId());
 
