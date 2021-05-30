@@ -15,7 +15,11 @@ Diese README ist unsere Projektdokumentation.
 
 5. Firebase zeugs bla bla
    1. Sicherheit
-6. Kotlin vs Java
+6. Features
+    1. Chat
+    2. Einkaufsliste
+    3. Finanzen
+    4. Vorrat
 7. Projektjournal
 8. Fazit
 
@@ -293,11 +297,12 @@ Bsp
       }
     }
 
+### 6 Features
+#### 6.2 Einkaufsliste
+- __Auflistung aller Einkaufslisten__
+- __Einzelne Einträge in Liste__
+- __User hinzufügen und löschen__
 
-
-
-
-  
 #### 9.99 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
 2. Neues Projekt anlegen
