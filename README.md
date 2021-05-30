@@ -69,6 +69,7 @@ Ein weitere Vorteil, welcher hier aber nicht umgesetzt wurde, ist dass man die e
 
 Ein kleines Beispiel hierfür sind die Klassen im `authentification` Packet, hier wurden nicht relevante Sachen gekürzt:
 ``` java
+// java
 public class AuthRepository {
 
     private static final String TAG = AuthRepository.class.getCanonicalName();
@@ -136,10 +137,92 @@ Ein Grund für die Verwendung von Fragmenten über Activities, ist dass man mehr
 
 Dabei werden verwenden beide Features einen Host Fragment mit `ViewPager`, welche mehrere Kinderfragmente als Tabs darstellt, zwischen denen man per wischen wechseln kann. Dieses Host Framgent teilt den Kinderfragmenten die nötigen Daten mit, damit dieser die User abfragen und darstellen kann. Es ist dabei nicht komplett ohne Anpassung wiederverwendbar, mann muss Teil der Funktionalität für neue Features noch implementieren, besonders in Bezug auf die Datenbank (Siehe switch-case in ` UserViewModel`). Insgesamt ist es aber eine sehr viel bessere Lösung, da die UI Definition und das UI Verhalten somit zentral für alle Features nur einmal implementiert werden muss.
 
+In einem `FragmentStateAdapter` definiert man die Anzahl der Tabs und welche Fragmente an welcher Position sind:
+``` kotlin
+// Kotlin
+class ShoppingDetailPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> ShoppingDetailEntriesFragment()
+            1 -> UserFragment()
+            2 -> UserAddFragment()
+            else -> throw IllegalArgumentException("More entries in pager than expected")
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return 3
+    }
+```
+
 #### 4.5 Kommunikation per ViewModel
 In 4.4 wurde erwähnt, dass das Host Fragment, den Kinderfragmenten die Daten mitteilen muss. Dies geschiet sehr pragmatisch, indem das Host Fragment einen Setter aufruft auf dem ViewModel und das Kind Fragment den gesetzten Wert dann verwenden kann. Es muss aber sicher gestellt werden, dass beide Fragmente auf der gleichen Instanz eines ViewModel arbeiten. 
 
-Zum erstellen eines ViewModel wird im ersten Schritt die Funktion [ViewModelProvider(ViewModelStoreOwner owner)](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider#ViewModelProvider(androidx.lifecycle.ViewModelStoreOwner)) aufgerufen. Hier muss dann im Host und Kind Fragment der gleiche owner übergeben werden, welches das Host Fragment ist. Also kann man im Host Fragment einfach `ViewModelProvider(this)` machen und im Kind Fragment `ViewModelProvider(requireParentFragment())`. Dies kann man Beispielsweise in `UserFragment` sehen 
+Zum erstellen eines ViewModel wird im ersten Schritt die Funktion [ViewModelProvider(ViewModelStoreOwner owner)](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider#ViewModelProvider(androidx.lifecycle.ViewModelStoreOwner)) aufgerufen. Hier muss dann im Host und Kind Fragment der gleiche owner übergeben werden, welches das Host Fragment ist. 
+
+``` kotlin
+//kotlin, host
+class ShoppingDetailFragment : Fragment() {
+    private lateinit var userViewModel: UserViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+    }
+}
+```
+
+``` java
+//java, kind
+public class UserFragment extends Fragment {
+    private UserViewModel userViewModel;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        userViewModel = new ViewModelProvider(requireParentFragment()).get(UserViewModel.class);
+    }
+}
+```
+
+Danach muss das Host Fragment die Identifikatoren in das ViewModel injektieren, mit welchen dann gearbeitet wird.
+``` kotlin
+//kotlin, host 
+class ShoppingDetailFragment : Fragment() {
+    private lateinit var userViewModel: UserViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        shoppingViewModel.shoppingList.observe(viewLifecycleOwner,
+            { detail: ShoppingListDetail ->
+                userViewModel.setSource(UserSource.SHOPPING)
+                userViewModel.setId(detail.id)
+            })
+    }
+}
+```
+
+``` java
+//java, kind
+public class UserViewModel extends ViewModel {
+
+ public LiveData<List<UserSummary>> getMembers() {
+  private Query getQuery() {
+      Query query = null;
+      switch (source) {
+          case SHOPPING:
+              query = repository.getShoppingListMembers(id);
+              break;
+          case FINANCE:
+              query = repository.getBudgetMembers(id);
+              break;
+      }
+      return query;
+    }
+}
+
+```
 
 ### 5 Firebase
 #### 5.1 Sicherheit
