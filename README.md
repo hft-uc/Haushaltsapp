@@ -15,6 +15,7 @@ Diese README ist unsere Projektdokumentation.
 
 5. Firebase zeugs bla bla
    1. Sicherheit
+   2. Datenmodell
 6. Features
     1. Registrierung & Login
     2. Chat
@@ -297,6 +298,37 @@ Bsp
         return request.resource.data.keys().hasAll(requiredFields)
       }
     }
+
+#### 5.2 Datenmodel
+Das initiale Datenmodel ist für war in vielerlei hinsicht nicht geeignet. Hier wurden die benötigten Objekte direkt auf POJOs gemapped, welche man [hier](https://github.com/hft-uc/Haushaltsapp/tree/6912d2b74ed91f4122df1dac857cb80862bb006d/app/src/main/java/com/example/haushaltsapp/types) sehen kann.
+
+Nimmt man als Beispiel die Einkaufsliste
+
+``` kotlin
+//kotlin 
+data class ShoppingList(
+    val id: Int,
+    var name: String,
+    val entries: MutableList<ShoppingListEntry>,
+    val owner: User,
+    val members: MutableList<User>
+)
+```
+
+darf die `id` kein `int` sein, wie man es oft in relationen Datenbanken mit automatisch inkrementierenden Zähler macht. 
+Stattdessen muss es ein `String` sein, da Firebase eine `UUID` als Identifikator benutzt.  
+Weiterhin ist das weitere arbeiten mit Listen in dieser Form sehr ineffizient und umständlich. Ineffizient weil es Firebase nur Dokumente und Kollektionen hat. Speichert man es in obiger Form ab, so ist es ein Dokument und kann auch nur als solches abgefragt werden, also alles komplett. Man kann sich vorstellen, dass dies sehr ineffizient wird bei großen Listen.  
+Stattdessen wurden die Listen entfernt und also seperate Subkollektion abgebildet. Dies erlaubt es auch die bestehenden Bibliotheken für RecyclerViews zu verwenden.  
+So sieht als Beispiel ein Einkauflistendokument aus
+
+![](images/firestore_shopping_list.jpg)
+
+<br />
+
+Damit die Abfrage nach den Einkaufslisten, Finanzen und Vorräten eines Benutzers performant abläuft, wird diese Information seperat pro user nochmal abgespeichert. So gibt es zb eine Kollektion `shopping_list` in welcher alle exisitierenden Einkauflisten aller Benutzer abgespeichert sind mit allen Detail informationen. So muss man nicht die Kollektion mit allen Einkaufslisten durchsuchen, nach den spezifischen Einträgen, die dem Benutzer gehören.  
+Beim Benutzer selber gibt es somit eine Subkollektion mit einer Referenz zum vollen Eintrag. In dieser Referenz wird der Identifikator des Dokument abgespeichert, sowie der Anzeigename, welcher in der App in der Liste angezeigt wird.
+
+![](images/firestore_user_ref.jpg)
 
 ### 6 Features
 #### 6.1 Registrierung & Login
