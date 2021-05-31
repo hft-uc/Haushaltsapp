@@ -32,7 +32,7 @@ public class HistoryRecyclerViewAdapter extends FirestoreRecyclerAdapter<Transac
         holder.user.setText(model.getOwner());
         holder.category.setText(model.getCategory());
         holder.iconImageView.setImageResource(R.drawable.outline_shopping_cart_24);
-        holder.date.setText("01.03.2021");
+        holder.date.setText(model.getDate());
     }
 
     @NonNull

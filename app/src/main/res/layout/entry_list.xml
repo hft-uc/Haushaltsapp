@@ -42,7 +42,7 @@
             android:id="@+id/date_tw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="4dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,6 +65,7 @@
             android:layout_marginBottom="4dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/date_tw" />
 
         <ImageView

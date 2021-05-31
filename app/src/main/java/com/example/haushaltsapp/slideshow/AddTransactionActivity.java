@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.haushaltsapp.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class AddTransactionActivity extends AppCompatActivity {
     private Button entryButton;
     private TextInputEditText nameET;
@@ -19,6 +22,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     private TextInputEditText priceET;
     private FinanceViewModel financeViewModel;
     String value;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,8 @@ public class AddTransactionActivity extends AppCompatActivity {
             spinner.getSelectedItem();
             int test = ((spinner.getSelectedItemPosition() * 2) - 1) * Integer.parseInt(con);
             String cat2 = spinCategory.getSelectedItem().toString();
-            financeViewModel.addEntryByID(value, nameET.getText().toString(), (double) test, cat2);
+            Date currentTime = Calendar.getInstance().getTime();
+            financeViewModel.addEntryByID(value, nameET.getText().toString(), (double) test, cat2, currentTime.toString());
             finish();
         });
 

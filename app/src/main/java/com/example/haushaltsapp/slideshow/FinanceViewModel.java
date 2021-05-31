@@ -73,17 +73,17 @@ public class FinanceViewModel extends ViewModel {
     public LiveData<Boolean> addEntry(String name, Double amount) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        Transaction entry = new Transaction(name, amount, authRepository.getCurrentUser().getName(), "cat");
+        Transaction entry = new Transaction(name, amount, authRepository.getCurrentUser().getName(), "cat", "test");
         repository.addBudgetTransaction(id, entry)
                 .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
         return result;
 
     }
 
-    public LiveData<Boolean> addEntryByID(String id1, String name, Double amount, String category) {
+    public LiveData<Boolean> addEntryByID(String id1, String name, Double amount, String category, String date) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
         String test = authRepository.getCurrentUser().getName();
-        Transaction entry = new Transaction(name, amount, test, category);
+        Transaction entry = new Transaction(name, amount, test, category, date);
         repository.addBudgetTransaction(id1, entry)
                 .addOnCompleteListener(task -> result.setValue(task.isSuccessful()));
         return result;
