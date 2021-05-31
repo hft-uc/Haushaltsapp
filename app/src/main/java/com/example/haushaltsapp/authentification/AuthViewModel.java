@@ -23,4 +23,8 @@ public class AuthViewModel extends ViewModel {
         repository.logout();
     }
 
+    public void updateStatus(String status) {
+        repository.updateStatus(status);
+    }
+
 }

@@ -13,6 +13,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SuppressWarnings("ConstantConditions")
 public class AuthRepository {
 
@@ -91,5 +94,17 @@ public class AuthRepository {
 
     public boolean alreadySignedIn() {
         return auth.getCurrentUser() != null;
+    }
+
+    void updateStatus(String status) {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            db.collection(USERS_COLLECTION).document(currentUser.getUid()).update(hashMap);
+        } else {
+            Log.w(TAG, "Tried to update user, but on user is logged in");
+        }
     }
 }
