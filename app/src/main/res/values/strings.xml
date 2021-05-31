@@ -18,23 +18,21 @@
     <string name="action_settings">Logout</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_shopping">ShoppingList</string>
+    <string name="menu_shopping">Einkaufsliste</string>
     <string name="menu_finanzen">Finanzen</string>
     <string name="chats">Chats</string>
     <string name="chat">Chat</string>
     <string name="supply">Vorrat</string>
     <string name="add_supplyitem">Vorrat hinzufügen</string>
-    <string name="add_shopping_list">Add shopping list</string>
-    <string name="add_shopping_list_entry">Add shopping list entry</string>
-    <string name="add_member">Add member</string>
+    <string name="add_shopping_list">Einkaufsliste erstellen</string>
+    <string name="add_shopping_list_entry">Einkaufslisteneintrag erstellen</string>
+    <string name="add_member">Teilnehmer hinzufügen</string>
     <string name="name">Name</string>
-    <string name="add_entry">Add entry</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_entry">Eintrag hinzufügen</string>
     <string name="username">Username</string>
-    <string name="register">Register</string>
-    <string name="clear_shopping_list">Clear shopping list</string>
-    <string name="delete_shopping_list">Delete shopping list</string>
+    <string name="register">Registrieren</string>
+    <string name="clear_shopping_list">Einkaufsliste leeren</string>
+    <string name="delete_shopping_list">Einkaufsliste löschen</string>
     <string name="owner">Besitzer</string>
     <string name="members">Teilnehmer</string>
 </resources>
