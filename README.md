@@ -304,14 +304,15 @@ Falls man sehr viele Einträge hat, kann man nach unten scrollen und diese anzei
 
 ![](images/shopping_list.gif)
 
-
-
 In der Detailansicht sieht man alle Informationen zu einer Einkaufsliste einsehen.  
 Man sieht die einzelnen Einträge und kann am haken direkt sehen, welche schon erledigt sind. Man kann selber neue Einträge hinzufügen und als erledigt markieren.  
-Weitere Teilnehmer können hinzugefügt werden und somit diesen Zugriff zur Einkaufsliste gewähren. Mit diesen Teilnehmern teilt man dan die Einkaufsliste und kann durch in Echtzeit sehen, falls jemand anderes etwas abhakt.
+Weitere Teilnehmer können hinzugefügt werden und somit diesen Zugriff zur Einkaufsliste gewähren. Mit diesen Teilnehmern teilt man dan die Einkaufsliste und kann Live sehen, falls jemand anderes etwas abhakt.
 
 Ist man fertig kann man die Liste leeren und wiederverwenden oder komplett löschen.
 ![](images/shopping_detail.gif)
+
+Hier ist noch eine Darstellung der Live updates.
+![](images/shopping_list_real_time.gif)
 
 #### 9.99 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
