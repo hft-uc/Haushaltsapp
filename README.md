@@ -16,10 +16,11 @@ Diese README ist unsere Projektdokumentation.
 5. Firebase zeugs bla bla
    1. Sicherheit
 6. Features
-    1. Chat
-    2. Einkaufsliste
-    3. Finanzen
-    4. Vorrat
+    1. Registrierung & Login
+    2. Chat
+    3. Einkaufsliste
+    4. Finanzen
+    5. Vorrat
 7. Projektjournal
 8. Fazit
 
@@ -298,7 +299,23 @@ Bsp
     }
 
 ### 6 Features
-#### 6.2 Einkaufsliste
+#### 6.1 Registrierung & Login
+Die Registration und das Login sind sehr simple gehalten.
+Es werden bei der Registration nur die Email, das Password und der Benutzername abgefragt.
+
+![](images/registration.gif)
+
+Hat man sich erfolgreich registriert kann man sich dann anmelden und alle features der App verwenden.  
+Der Logout button befindet sich im 3 Punkte Menü oben rechts
+
+![](images/login.gif)
+
+Werden die falschen Einlogdaten angegeben, so scheitert der Login mit einer generischen Fehlermeldung.  
+Bei Problemen während der Registrierung erhält man hingegen eine genaue Fehlermeldung
+
+![](images/reg_login_error.gif)
+
+#### 6.3 Einkaufsliste
 Hier werden alle Einkaufslisten angezeigt, auf die man Zugriff hat. Das bedeutet Einkaufslisten, die man selber erstellt hat, aber auch welche zu denen man von anderen hinzugefügt wurde. Bei einem Klick auf einen Eintrag gelangt man zur Detailansicht der jeweiligen Einkaufsliste und mit einen Klick auf das + recht unten, erscheint ein Dialog mit dem man eine weitere Einkaufsliste erstellen kann.  
 Falls man sehr viele Einträge hat, kann man nach unten scrollen und diese anzeigen
 
