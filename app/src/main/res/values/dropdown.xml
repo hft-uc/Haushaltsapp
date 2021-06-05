@@ -5,11 +5,13 @@
         <item>Einkommen</item>
     </string-array>
     <string-array name="dropdown_category">
-        <item>clothing</item>
-        <item>gaming</item>
-        <item>work</item>
-        <item>shopping</item>
-        <item>transport</item>
+        <item>Kleidung</item>
+        <item>Gaming</item>
+        <item>Gehalt</item>
+        <item>Shopping</item>
+        <item>Tickets</item>
+        <item>Lebensmittel</item>
+        <item>Sonstiges</item>
     </string-array>
 
 

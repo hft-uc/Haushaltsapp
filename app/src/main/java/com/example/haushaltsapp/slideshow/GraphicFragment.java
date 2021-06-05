@@ -30,8 +30,7 @@ import java.util.Set;
 
 public class GraphicFragment extends Fragment {
 
-
-    private PieChart chart;
+    public PieChart chart;
     private FinanceViewModel financeViewModel;
     private TextView incTV;
     private TextView expTV;
@@ -101,7 +100,6 @@ public class GraphicFragment extends Fragment {
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(5, 10, 5, 5);
@@ -113,12 +111,12 @@ public class GraphicFragment extends Fragment {
         chart.setDrawEntryLabels(true);
         chart.setTransparentCircleColor(Color.WHITE);
         chart.setHoleRadius(50f);
+        data.setValueTextColor(Color.BLACK);
+        chart.setEntryLabelColor(Color.BLACK);
         chart.setTransparentCircleRadius(80f);
         chart.setData(data);
         chart.highlightValues(null);
         chart.invalidate();
-
-
         incTV.setText(String.valueOf(incomesSum));
         expTV.setText(String.valueOf(expensesSum));
         float progress = 100 * incomesSum / (float) (incomesSum - expensesSum);
@@ -131,5 +129,12 @@ public class GraphicFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
+
+    public void refreshdata() {
+        if (chart != null) {
+            chart.invalidate();
+        }
+    }
+
 
 }
