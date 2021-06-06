@@ -6,7 +6,6 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -15,10 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haushaltsapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FinanceFragment extends Fragment {
 
-    private Button btn;
+    FloatingActionButton action;
     private FinanceViewModel financeViewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -29,14 +29,14 @@ public class FinanceFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.BudgetRec);
         recyclerView.setAdapter(financeViewModel.createBudgetAdapter(getViewLifecycleOwner()));
 
-        btn = root.findViewById(R.id.button_temp);
+        action = root.findViewById(R.id.button_temp);
 
-        btn.setOnClickListener(view -> {
+        action.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Neues Budget erstellen");
             // Set up the input
             final EditText input = new EditText(getContext());
-            input.setHint("blabla");
+            input.setHint("");
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
             builder.setView(input);
 
