@@ -11,7 +11,7 @@ import com.example.haushaltsapp.user.UserFragment;
 public class FinanceViewPageAdapter extends FragmentStateAdapter {
     static final int[] TAB_ICONS = {
             R.drawable.outline_shopping_cart_24,
-            R.drawable.ic_menu_camera,
+            android.R.drawable.ic_menu_recent_history,
             R.drawable.outline_person_add_24,
             R.drawable.outline_group_24,
 
