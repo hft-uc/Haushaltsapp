@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -54,11 +55,16 @@ public class AddTransactionActivity extends AppCompatActivity {
             nameET.getText().toString();
             String con = priceET.getText().toString().replaceAll("[^0-9]", "");
             spinner.getSelectedItem();
-            int test = ((spinner.getSelectedItemPosition() * 2) - 1) * Integer.parseInt(con);
-            String cat2 = spinCategory.getSelectedItem().toString();
-            Date currentTime = Calendar.getInstance().getTime();
-            financeViewModel.addEntryByID(value, nameET.getText().toString(), (double) test, cat2, currentTime.toString());
-            finish();
+            if (con.length() != 0) {
+                int test = ((spinner.getSelectedItemPosition() * 2) - 1) * Integer.parseInt(con);
+                String cat2 = spinCategory.getSelectedItem().toString();
+                Date currentTime = Calendar.getInstance().getTime();
+                financeViewModel.addEntryByID(value, nameET.getText().toString(), (double) test, cat2, currentTime.toString());
+                finish();
+            } else {
+                Toast.makeText(AddTransactionActivity.this, "Bitte Namen und Betrag angeben",
+                        Toast.LENGTH_LONG).show();
+            }
         });
 
     }
