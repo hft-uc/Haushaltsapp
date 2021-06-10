@@ -407,6 +407,7 @@ Hier ist noch eine Darstellung der Live updates.
 
 #### 9 Quellenverzeichnis
 https://de.wikipedia.org/wiki/Ubiquitous_computing
+
 https://de.wikipedia.org/wiki/Google_Drive
    
    
