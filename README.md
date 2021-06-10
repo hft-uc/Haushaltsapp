@@ -4,8 +4,9 @@ Diese README ist unsere Projektdokumentation.
 
 1. Einleitung
 2. Planung
-    1. Organisation
-    2. x
+    1. Zielsetzung
+    2. Organisation
+    3. Dokumentenverwaltung
 
 3.  Werkzeuge für die Entwicklung
     1. Versionsverwaltung
@@ -24,11 +25,37 @@ Diese README ist unsere Projektdokumentation.
     5. Vorrat
 7. Projektjournal
 8. Fazit
+9. Quellenverzeichnis
 
 
+### 1 Einleitung
+„Im 21. Jahrhundert wird die technologische Revolution das Alltägliche, Kleine und Unsichtbare sein.“ - Mark Weiser, 1952-1999
 
+Mark Weiser hatte schon 1988 die Vision den Menschen bei seinen Tätigkeiten mit immer kleiner werdenden Computern Hilfestellung zu leisten. Erstmals verwendete er den Begriff Ubiquitous Computing mit der Idee, dass „intelligente Gegenstände“ den Menschen unmerklich unterstützen. 
 
-### 3.1 Versionsverwaltung
+Damit hatte Mark Weiser eine erste Idee, von dem, was heute fast schon selbstverständlich scheint. In der gegenwärtigen dritten Computer-Ära des Ubiquitous Computing sind für jede Person viele Computer eingebettet in die Umgebung. Alltägliche Aufgaben werden unterstützt durch „kleine Computer“.
+
+Im Rahmen unseres Projektes für das Modul „Ubiquitous Computing“ setzt genau hier unsere Projektidee an. Der alltägliche Haushalt soll erleichtert werden mit einer Haushaltsapp. 
+
+Im Folgenden legen wir dar, wie unsere App entstanden ist und führen die technischen Hintergründe aus.
+
+### 2 Planung
+#### 2.1 Zielsetzung
+Insbesondere die Organisation von Lebensmitteln steht bei der Haushaltsapp im Fokus. Dies bedeutet, dass Einkaufslisten geplant werden können verknüpft mit einem bestimmten zur Verfügung stehenden Budget. Da in einem Haushalt häufig mehrere Personen verantwortlich für die Organisation der Einkäufe sind, ist es wichtig, dass Listen mit anderen Haushaltsmitgliedern geteilt werden können. Auch Freunde und Nachbarn können so Gegenstände auf einer Einkaufsliste hinzufügen. Gleichzeitig soll der vorhandene Vorrat gespeichert werden und aktualisiert werden. So steht eine Übersicht der vorhandenen Lebensmittel zur Verfügung. Auch soll das Mindesthaltbarkeitsdatum festgehalten werden und die App meldet, sobald ein Produkt abgelaufen ist. Für das zur Verfügung stehende Budget werden die Ein- und Ausgaben festgehalten. Ausgaben können geplant werden. Auch in diesem Bereich ist es möglich ein bestimmtes Budget mit anderen Haushaltsmitgliedern, Freunden und Nachbarn zu teilen. Gleichzeitig ist es möglich eine individuelle Planung zu erstellen.
+Als mögliche Zusatzoptionen haben wir als Ziel das Mindesthaltbarkeitsdatum mit OCR zu scannen und per Barcode Produkte zu speichern. Zusätzlich ist es eine Option einen Chat zu erstellen, so dass auch eine Kommunikation bezüglich des Einkaufs ermöglicht wird.
+
+#### 2.2 Organisation 
+Diese Zielsetzung führte in den Start unseres Projektes. Ein Mal in der Woche waren Treffen via Zoom fest eingeplant. Hier wurde der Stand des Projektes und etwaige Probleme besprochen. Des weiteren wurden neue Aufgaben für die nächste Woche verteilt. Auf diese Weise konnte jeder über die Woche verteilt eigenständig arbeiten und seine Zeit planen.
+Bei Bedarf fanden weitere Treffen über Zoom statt. Die Kommunikation lief weitgehend über Discord.
+
+#### 2.3 Dokumentenverwaltung
+Für das Projekt wurden verschiedene gemeinschaftliche Dokumente angelegt. Hierzu gehören die Projektidee, die Aufgabenaufteilung mit zeitlichen Zielsetzungen, ein Journal mit der Erfassung der individuellen Arbeitszeiten und letztendlich eine Präsentation. Diese Dokumente wurden in Google Drive erstellt. Google Drive stellt ein Office-Softwarepaket zur Verfügung, das das Teilen von Dateien und das gemeinsame Bearbeiten von Dokumenten ermöglicht. In dem Projekt wurde Google Docs, Sheets und Slides verwendet. 
+Auf diese Weise ist allen Gruppenmitgliedern jederzeit der Zugriff auf die Dokumente und die Bearbeitung dieser garantiert.
+![grafik](https://user-images.githubusercontent.com/56401840/121574357-78409b00-ca26-11eb-9be0-9eb23ff90233.png)
+Die Projektdokumentation ist als ReadMe Teil des GitHub-Repositorys und kann hier von allen Teammitgliedern eingesehen und bearbeitet werden.
+
+### 3 Werkzeuge für die Entwicklung
+#### 3.1 Versionsverwaltung
 Für die Versionsverwaltung benutzen wir Git. Wir haben uns darauf geeinigt nur auf dem Master branch zu arbeiten da unsere Aufgabenbereiche Modular aufgeteilt sind. Als Plattform für unser Remote Repository benutzen wir Github da es kostenlos ist. Die Handhabung ist recht leicht und es gibt uns auch die Möglichkeit Workflows zu benutzen. Ein Workflow ist ein automatisierter Prozess der zum Beispiel überprüft ob unsere App kompiliert.   
 
 ### 4 Architektur
@@ -363,7 +390,7 @@ Ist man fertig kann man die Liste leeren und wiederverwenden oder komplett lösc
 Hier ist noch eine Darstellung der Live updates.
 ![](images/shopping_list_real_time.gif)
 
-#### 9.99 Wie man dieses Projekt baut
+#### 6.6 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
 2. Neues Projekt anlegen
 3. Neue Datenabnk anlegen (Bild folgt)
@@ -371,6 +398,16 @@ Hier ist noch eine Darstellung der Live updates.
 5.Firebase mit dem Android App Projekt hinzufügen (Bild folgt)
 6.----
 7. google-services.json in app/ folder einfügen
+
+#### 7 Projektjournal
+
+
+#### 8 Fazit
+
+
+#### 9 Quellenverzeichnis
+https://de.wikipedia.org/wiki/Ubiquitous_computing
+https://de.wikipedia.org/wiki/Google_Drive
    
    
    
