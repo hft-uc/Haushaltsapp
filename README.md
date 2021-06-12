@@ -406,6 +406,23 @@ Ist man fertig kann man die Liste leeren und wiederverwenden oder komplett lösc
 Hier ist noch eine Darstellung der Live updates.
 ![](images/shopping_list_real_time.gif)
 
+
+### 6.4 Finanzen
+Hier wird ein neues Budget erstellt. In der Liste befinden sich alle Budgets auf die der user Zugriff hat
+![](images/Budget1.PNG)
+
+
+Auch hier gibt es ähnlich wie bei der shoppinglist die Möglichkeit andere user hinzuzufügen
+Über den Button können neue Einträge hinzugefügt werden. Diese werden dann in der Liste dargestellt. Auch die Einträge von anderen usern die auf dieses Budget zugriff haben werden hier angezeigt. Hier sieht man Beispielsweise die Einträge von einem user mit dem Namen Username
+
+![](images/Budget2.PNG)
+
+
+
+Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den switchbutton kann zwischen Ein- und Ausgaben gewechselt werden. Unten sehen wir wie die Einnahmen und Kosten im Verhältnis zueinander stehen.
+![](images/Budget3.PNG)
+
+
 #### 7 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
 2. Neues Projekt anlegen
