@@ -23,9 +23,9 @@ Diese README ist unsere Projektdokumentation.
     3. Einkaufsliste
     4. Finanzen
     5. Vorrat
-7. Projektjournal
-8. Fazit
-9. Quellenverzeichnis
+8. Projektjournal
+9. Fazit
+10. Quellenverzeichnis
 
 
 ### 1 Einleitung
@@ -267,8 +267,8 @@ Hier sieht man dass es noch nicht perfekt ist, da man mit einem switch case jede
 
 ### 5 Firebase
 #### 5.1 Sicherheit
-Firebase schützt in der Datenbank abgelegte Daten nicht. Zumindest nicht von alleine bla bla bla
-
+Firebase bietet uns eine Datenbank as a service an. Die Datenbank liegt in der CLoud und muss daher erreichbar sein. Das wird über den API key geregelt. Diesen Key kann man recht einfach auslesen und daher muss man vorsichtsmaßnahmen treffen.
+Firebase schützt in der Datenbank abgelegte Daten nicht. Jeder der Zugriff auf die Datenbank hat kann alle Daten(Dokumente und Kollektionen) einsehen. Daher eignet es sich nur für die Entwicklung
 
 Default Regeln
 
@@ -282,46 +282,59 @@ Default Regeln
        }
       }
 
-Die Default Regeln sind nur für die Entwicklung gedacht da jedes Dokument gelesen und geändert werden kann. Die Datenbank ist nicht geschützt.
+Die Securityrules sind ähnlich wie Javascript. Wir sehen über die wildcard document=** wird jedes Dokument in unsere Datenbank von der nachfolgenden Bedingungen betroffen. Mit allow read, write if geben wir die Bedingung an ab wann der Zufriff auf die Dokumente freigegeben ist.
 
 
-Bsp
+Hier ist ein Beispiel bei den usern. Hier verifizieren wir dass nur der owner auf seine eigenen Daten zugreifen darf.
 
-    match /Budget/{itemId}{
-
+// itemiD ist die UUID
+   match /users/{itemId}{
+// Lesezugriff wenn der Zugriff vom owner kommt und er eingeloggt ist
       allow read: if isOwner(resource.data) &&
         isSignedIn();
-
-      allow create: if isValidBudget(request.resource.data) &&
+// Erstellrechte wenn der Zugriff vom owner kommt und er eingeloggt ist (benutzen wir nicht aber für die Vollständigkeit halber gibt es diese Regel trotzdem.)
+      allow create: if isValidUser(request.resource.data) &&
         isOwner(request.resource.data) &&
+        isSignedIn() &&
         checkKeys();
-
-      allow update: if isValidBudget(request.resource.data) &&
+// updaterechte wenn der Zugriff vom owner kommt und er eingeloggt ist benutzen wir nicht aber für die Vollständigkeit halber gibt es diese Regel trotzdem.
+      allow update: if isValidUser(request.resource.data) &&
         isOwner(request.resource.data) &&
         isOwner(resource.data) &&
+        isSignedIn() &&
         checkKeys();
+// deleterechte wenn der Zugriff vom owner kommt und er eingeloggt ist benutzen wir nicht aber für die Vollständigkeit halber gibt es diese Regel trotzdem.
+      allow delete: if isOwner(resource.data) &&
+        isSignedIn();
 
-      allow delete: if isOwner(resource.data);
-
-      // FUNCTIONS
+// die Bedingungen rufen die FUnktionen hier auf
+      // überprüft ob der user eingeloggt ist(Bei uns als user in Firebase vorhanden ist)
       function isSignedIn() {
         return request.auth != null;
       }
-  
-      function isOwner(budget) {
-        return request.auth.uid == budget.;
+   // überprüft ob der user der owner ist
+      function isOwner(user) {
+        return request.auth.uid == user.;
       }
-  
-      function isValidBudget(budget) {
+  // hier werden die Fields überprüft. Es wird gecheckt ob die Werte nicht null sind und ob sie den richtigen Datentypen haben 
+      function isValidUser(user) {
         return (
-          // budget.id
-          budget.id is string &&
-          budget.id != '' 
+          // user.email
+          user.email is string &&
+          user.email != '' &&
+          // user.id
+          user.id is string &&
+          user.id != '' &&
+          // user.name
+          user.name is string &&
+          // user.status
+          user.status is string &&
+          user.status != '' 
         );
       }
-
+// stellt sicher dass bei einer Abfrage alle fields vorhanden sind 
       function checkKeys() {
-        let requiredFields = ['id'];
+        let requiredFields = ['email','id','status'];
         return request.resource.data.keys().hasAll(requiredFields)
       }
     }
@@ -390,22 +403,23 @@ Ist man fertig kann man die Liste leeren und wiederverwenden oder komplett lösc
 Hier ist noch eine Darstellung der Live updates.
 ![](images/shopping_list_real_time.gif)
 
-#### 6.6 Wie man dieses Projekt baut
+#### 7 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
 2. Neues Projekt anlegen
-3. Neue Datenabnk anlegen (Bild folgt)
-4. Authentifizierung hinzufügen (Bild folgt)
-5.Firebase mit dem Android App Projekt hinzufügen (Bild folgt)
-6.----
-7. google-services.json in app/ folder einfügen
+3. Neue Realtime Datenbank und eine Cloud Firestore Datenbank anlegen 
+4. Authentifizierung hinzufügen 
+5. Firebase mit dem Android App Projekt hinzufügen
+6. Das Repository in Androidstudio hinzufügen
+7. google-services.json (config file mit dem Api key) in app/ folder einfügen
+8. Projekt kompilieren 
 
-#### 7 Projektjournal
-
-
-#### 8 Fazit
+#### 8 Projektjournal
 
 
-#### 9 Quellenverzeichnis
+#### 9 Fazit
+
+
+#### 10 Quellenverzeichnis
 https://de.wikipedia.org/wiki/Ubiquitous_computing
 
 https://de.wikipedia.org/wiki/Google_Drive
