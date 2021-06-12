@@ -286,37 +286,40 @@ Die Securityrules sind ähnlich wie Javascript. Wir sehen über die wildcard doc
 
 
 Hier ist ein Beispiel bei den usern. Hier verifizieren wir dass nur der owner auf seine eigenen Daten zugreifen darf.
-
-// itemiD ist die UUID
-   match /users/{itemId}{
-// Lesezugriff wenn der Zugriff vom owner kommt und er eingeloggt ist
+``` javascript
+    // itemiD ist die UUID
+    match /users/{itemId}{
+      // Lesezugriff wenn der Zugriff vom owner kommt und er eingeloggt ist
       allow read: if isOwner(resource.data) &&
         isSignedIn();
-// Erstellrechte wenn der Zugriff vom owner kommt und er eingeloggt ist (benutzen wir nicht aber für die Vollständigkeit halber gibt es diese Regel trotzdem.)
+
+      // Erstellrechte wenn der Zugriff vom owner kommt und er eingeloggt ist 
       allow create: if isValidUser(request.resource.data) &&
         isOwner(request.resource.data) &&
         isSignedIn() &&
         checkKeys();
-// updaterechte wenn der Zugriff vom owner kommt und er eingeloggt ist benutzen wir nicht aber für die Vollständigkeit halber gibt es diese Regel trotzdem.
+
+      // updaterechte wenn der Zugriff vom owner kommt und er eingeloggt ist 
       allow update: if isValidUser(request.resource.data) &&
         isOwner(request.resource.data) &&
         isOwner(resource.data) &&
         isSignedIn() &&
         checkKeys();
-// deleterechte wenn der Zugriff vom owner kommt und er eingeloggt ist benutzen wir nicht aber für die Vollständigkeit halber gibt es diese Regel trotzdem.
+
+     //deleterechte wenn der Zugriff vom owner kommt und er eingeloggt ist 
       allow delete: if isOwner(resource.data) &&
         isSignedIn();
 
-// die Bedingungen rufen die FUnktionen hier auf
+      // die Bedingungen rufen die FUnktionen hier auf
       // überprüft ob der user eingeloggt ist(Bei uns als user in Firebase vorhanden ist)
       function isSignedIn() {
         return request.auth != null;
       }
-   // überprüft ob der user der owner ist
+     // überprüft ob der user der owner ist
       function isOwner(user) {
         return request.auth.uid == user.;
       }
-  // hier werden die Fields überprüft. Es wird gecheckt ob die Werte nicht null sind und ob sie den richtigen Datentypen haben 
+     // hier werden die Fields überprüft. Es wird gecheckt ob die Werte nicht null sind und ob sie den richtigen Datentypen haben 
       function isValidUser(user) {
         return (
           // user.email
@@ -332,13 +335,13 @@ Hier ist ein Beispiel bei den usern. Hier verifizieren wir dass nur der owner au
           user.status != '' 
         );
       }
-// stellt sicher dass bei einer Abfrage alle fields vorhanden sind 
+    // stellt sicher dass bei einer Abfrage alle fields vorhanden sind 
       function checkKeys() {
         let requiredFields = ['email','id','status'];
         return request.resource.data.keys().hasAll(requiredFields)
       }
     }
-
+```
 #### 5.2 Datenmodel
 Das initiale Datenmodel ist für war in vielerlei hinsicht nicht geeignet. Hier wurden die benötigten Objekte direkt auf POJOs gemapped, welche man [hier](https://github.com/hft-uc/Haushaltsapp/tree/6912d2b74ed91f4122df1dac857cb80862bb006d/app/src/main/java/com/example/haushaltsapp/types) sehen kann.
 
