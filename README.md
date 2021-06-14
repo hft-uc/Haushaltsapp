@@ -28,7 +28,7 @@ Diese README ist unsere Projektdokumentation.
 10. Quellenverzeichnis
 
 
-### 1 Einleitung
+## 1 Einleitung
 „Im 21. Jahrhundert wird die technologische Revolution das Alltägliche, Kleine und Unsichtbare sein.“ - Mark Weiser, 1952-1999
 
 Mark Weiser hatte schon 1988 die Vision den Menschen bei seinen Tätigkeiten mit immer kleiner werdenden Computern Hilfestellung zu leisten. Erstmals verwendete er den Begriff Ubiquitous Computing mit der Idee, dass „intelligente Gegenstände“ den Menschen unmerklich unterstützen. 
@@ -39,27 +39,27 @@ Im Rahmen unseres Projektes für das Modul „Ubiquitous Computing“ setzt gena
 
 Im Folgenden legen wir dar, wie unsere App entstanden ist und führen die technischen Hintergründe aus.
 
-### 2 Planung
-#### 2.1 Zielsetzung
+# 2 Planung
+## 2.1 Zielsetzung
 Insbesondere die Organisation von Lebensmitteln steht bei der Haushaltsapp im Fokus. Dies bedeutet, dass Einkaufslisten geplant werden können verknüpft mit einem bestimmten zur Verfügung stehenden Budget. Da in einem Haushalt häufig mehrere Personen verantwortlich für die Organisation der Einkäufe sind, ist es wichtig, dass Listen mit anderen Haushaltsmitgliedern geteilt werden können. Auch Freunde und Nachbarn können so Gegenstände auf einer Einkaufsliste hinzufügen. Gleichzeitig soll der vorhandene Vorrat gespeichert werden und aktualisiert werden. So steht eine Übersicht der vorhandenen Lebensmittel zur Verfügung. Auch soll das Mindesthaltbarkeitsdatum festgehalten werden und die App meldet, sobald ein Produkt abgelaufen ist. Für das zur Verfügung stehende Budget werden die Ein- und Ausgaben festgehalten. Ausgaben können geplant werden. Auch in diesem Bereich ist es möglich ein bestimmtes Budget mit anderen Haushaltsmitgliedern, Freunden und Nachbarn zu teilen. Gleichzeitig ist es möglich eine individuelle Planung zu erstellen.
 Als mögliche Zusatzoptionen haben wir als Ziel das Mindesthaltbarkeitsdatum mit OCR zu scannen und per Barcode Produkte zu speichern. Zusätzlich ist es eine Option einen Chat zu erstellen, so dass auch eine Kommunikation bezüglich des Einkaufs ermöglicht wird.
 
-#### 2.2 Organisation 
+### 2.2 Organisation 
 Diese Zielsetzung führte in den Start unseres Projektes. Ein Mal in der Woche waren Treffen via Zoom fest eingeplant. Hier wurde der Stand des Projektes und etwaige Probleme besprochen. Des weiteren wurden neue Aufgaben für die nächste Woche verteilt. Auf diese Weise konnte jeder über die Woche verteilt eigenständig arbeiten und seine Zeit planen.
 Bei Bedarf fanden weitere Treffen über Zoom statt. Die Kommunikation lief weitgehend über Discord.
 
-#### 2.3 Dokumentenverwaltung
+### 2.3 Dokumentenverwaltung
 Für das Projekt wurden verschiedene gemeinschaftliche Dokumente angelegt. Hierzu gehören die Projektidee, die Aufgabenaufteilung mit zeitlichen Zielsetzungen, ein Journal mit der Erfassung der individuellen Arbeitszeiten und letztendlich eine Präsentation. Diese Dokumente wurden in Google Drive erstellt. Google Drive stellt ein Office-Softwarepaket zur Verfügung, das das Teilen von Dateien und das gemeinsame Bearbeiten von Dokumenten ermöglicht. In dem Projekt wurde Google Docs, Sheets und Slides verwendet. 
 Auf diese Weise ist allen Gruppenmitgliedern jederzeit der Zugriff auf die Dokumente und die Bearbeitung dieser garantiert.
 ![grafik](https://user-images.githubusercontent.com/56401840/121574357-78409b00-ca26-11eb-9be0-9eb23ff90233.png)
 Die Projektdokumentation ist als ReadMe Teil des GitHub-Repositorys und kann hier von allen Teammitgliedern eingesehen und bearbeitet werden.
 
-### 3 Werkzeuge für die Entwicklung
-#### 3.1 Versionsverwaltung
+## 3 Werkzeuge für die Entwicklung
+### 3.1 Versionsverwaltung
 Für die Versionsverwaltung benutzen wir Git. Wir haben uns darauf geeinigt nur auf dem Master branch zu arbeiten da unsere Aufgabenbereiche Modular aufgeteilt sind. Als Plattform für unser Remote Repository benutzen wir Github da es kostenlos ist. Die Handhabung ist recht leicht und es gibt uns auch die Möglichkeit Workflows zu benutzen. Ein Workflow ist ein automatisierter Prozess der zum Beispiel überprüft ob unsere App kompiliert.   
 
-### 4 Architektur
-#### 4.1 Packete nach Feature nicht Schichten
+## 4 Architektur
+### 4.1 Packete nach Feature nicht Schichten
 Es gibt 2 Hauptgruppen bei der Aufteilung eines Projektes. Die eine ist die Aufteilung der Packete nach Schichten, also jeweils ein Packet für alle `Activitiy`,`Fragment`, `ViewModel`, `Model` usw. Dagegen gibt es die Aufteilung nach Features. Also ein Packet pro Feature, wo jeweils alle zum Feature relevanten Klassen enthalten sind und somit `Activitiy`,`Fragment`, `ViewModel` und `Model` alle in einem Packet zusammen vermischt sein können.
 
 Wir haben uns für die Aufteilung nach Feature entschieden. Es gruppiert Klassen, die eng mit einander arbeiten, zusammen und verringert so den "mentalen weg", den ein Entwickler durch das Dateisystem laufen muss, um zu den dazugehörigen Klassen zu gelangen.
@@ -80,7 +80,7 @@ Eine textuelle representation kann man auf Windows mit dem Befehl `tree` erhalte
     └───utils
 ```
 
-#### 4.2 Model View ViewModel (MVVM)
+### 4.2 Model View ViewModel (MVVM)
 Ein sehr verbreitetes Architekturmodell in der nativen Android Entwicklung ist das von MVC abgewandelte MVVM Modell. Es schreibt eine Aufteilung der Verantwortlichkeiten vor und sorgt damit für eine ingesamt bessere Codebasis. Die Verantwortlichkeiten sind wie folgt aufgeteilt:
 
 1. __Model__: Es beinhaltet die Daten, deren Format und die Zugriffslogik.
@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
 
 ```
 
-#### 4.4 Fragmente wiederverwenden
+### 4.4 Fragmente wiederverwenden
 Ein Grund für die Verwendung von Fragmenten über Activities, ist dass man mehrer Fragment in einer Activity darstellen kann und somit zwischen verschiedenen Features einfach teilen kann. Mehrere unserer Features haben die Möglichkeit User zu einer Gruppe zuzuweisen und müssen diese entsprechend auch anzeigen. Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von der Einkaufsliste und dem Finanz Feature verwendet wird.
 
 Dabei werden verwenden beide Features einen Host Fragment mit `ViewPager`, welche mehrere Kinderfragmente als Tabs darstellt, zwischen denen man per wischen wechseln kann. Dieses Host Framgent teilt den Kinderfragmenten die nötigen Daten mit, damit dieser die User abfragen und darstellen kann. Es ist dabei nicht komplett ohne Anpassung wiederverwendbar, mann muss Teil der Funktionalität für neue Features noch implementieren, besonders in Bezug auf die Datenbank (Siehe switch-case in ` UserViewModel`). Insgesamt ist es aber eine sehr viel bessere Lösung, da die UI Definition und das UI Verhalten somit zentral für alle Features nur einmal implementiert werden muss.
@@ -194,7 +194,7 @@ class ShoppingDetailPagerAdapter(fragment: Fragment) : FragmentStateAdapter(frag
 Bei uns gibt es auch noch ein `FinanceViewPageAdapter`, welcher das `UserFragment` und das `UserAddFragment` auch verwendet.
 
 
-#### 4.5 Kommunikation per ViewModel
+### 4.5 Kommunikation per ViewModel
 In 4.4 wurde erwähnt, dass das Host Fragment, den Kinderfragmenten die Daten mitteilen muss. Dies geschiet sehr pragmatisch, indem das Host Fragment einen Setter aufruft auf dem ViewModel und das Kind Fragment den gesetzten Wert dann verwenden kann. Es muss aber sicher gestellt werden, dass beide Fragmente auf der gleichen Instanz eines ViewModel arbeiten. 
 
 Zum erstellen eines ViewModel wird im ersten Schritt die Funktion [ViewModelProvider(ViewModelStoreOwner owner)](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider#ViewModelProvider(androidx.lifecycle.ViewModelStoreOwner)) aufgerufen. Hier muss dann im Host und Kind Fragment der gleiche owner übergeben werden, welches das Host Fragment ist. 
@@ -265,8 +265,8 @@ public class UserViewModel extends ViewModel {
 
 Hier sieht man dass es noch nicht perfekt ist, da man mit einem switch case jeden Fall in der geteilten Komponente seperate behandeln muss. Aber insgesamt ist es ein sehr große Verbesserung im Vergleich zu wenn man die Klassen kopiert. Mit der jetzigen Variente muss man nur im Host die Setter aufrufen und die Methoden mit switch case für den eigenen Fall implementieren.
 
-### 5 Firebase
-#### 5.1 Sicherheit
+## 5 Firebase
+### 5.1 Sicherheit
 Firebase bietet uns eine Datenbank as a service an. Die Datenbank liegt in der CLoud und muss daher erreichbar sein. Das wird über den API key geregelt. Diesen Key kann man recht einfach auslesen und daher muss man vorsichtsmaßnahmen treffen.
 Firebase schützt in der Datenbank abgelegte Daten nicht. Jeder der Zugriff auf die Datenbank hat kann alle Daten(Dokumente und Kollektionen) einsehen. Daher eignet es sich nur für die Entwicklung
 
@@ -342,7 +342,7 @@ Hier ist ein Beispiel bei den usern. Hier verifizieren wir dass nur der owner au
       }
     }
 ```
-#### 5.2 Datenmodel
+### 5.2 Datenmodel
 Das initiale Datenmodel ist für war in vielerlei hinsicht nicht geeignet. Hier wurden die benötigten Objekte direkt auf POJOs gemapped, welche man [hier](https://github.com/hft-uc/Haushaltsapp/tree/6912d2b74ed91f4122df1dac857cb80862bb006d/app/src/main/java/com/example/haushaltsapp/types) sehen kann.
 
 Nimmt man als Beispiel die Einkaufsliste
@@ -373,8 +373,8 @@ Beim Benutzer selber gibt es somit eine Subkollektion mit einer Referenz zum vol
 
 ![](images/firestore_user_ref.jpg)
 
-### 6 Features
-#### 6.1 Registrierung & Login
+## 6 Features
+### 6.1 Registrierung & Login
 Die Registration und das Login sind sehr simple gehalten.
 Es werden bei der Registration nur die Email, das Password und der Benutzername abgefragt.
 
@@ -390,7 +390,7 @@ Bei Problemen während der Registrierung erhält man hingegen eine genaue Fehler
 
 ![](images/reg_login_error.gif)
 
-#### 6.3 Einkaufsliste
+### 6.3 Einkaufsliste
 Hier werden alle Einkaufslisten angezeigt, auf die man Zugriff hat. Das bedeutet Einkaufslisten, die man selber erstellt hat, aber auch welche zu denen man von anderen hinzugefügt wurde. Bei einem Klick auf einen Eintrag gelangt man zur Detailansicht der jeweiligen Einkaufsliste und mit einen Klick auf das + recht unten, erscheint ein Dialog mit dem man eine weitere Einkaufsliste erstellen kann.  
 Falls man sehr viele Einträge hat, kann man nach unten scrollen und diese anzeigen
 
@@ -423,7 +423,7 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 ![](images/Budget3.PNG)
 
 
-#### 7 Wie man dieses Projekt baut
+## 7 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
 2. Neues Projekt anlegen
 3. Neue Realtime Datenbank und eine Cloud Firestore Datenbank anlegen 
@@ -433,13 +433,13 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 7. google-services.json (config file mit dem Api key) in app/ folder einfügen
 8. Projekt kompilieren 
 
-#### 8 Projektjournal
+## 8 Projektjournal
 
 
-#### 9 Fazit
+## 9 Fazit
 
 
-#### 10 Quellenverzeichnis
+## 10 Quellenverzeichnis
 https://de.wikipedia.org/wiki/Ubiquitous_computing
 
 https://de.wikipedia.org/wiki/Google_Drive
