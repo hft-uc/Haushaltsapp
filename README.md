@@ -57,6 +57,8 @@ Für die beiden Teammitglieder, die neu in die Android Entwicklung einsteigen, i
 Diese Zielsetzung führte in den Start unseres Projektes. Ein Mal in der Woche waren Treffen via Zoom fest eingeplant. Hier wurde der Stand des Projektes und etwaige Probleme besprochen. Des weiteren wurden neue Aufgaben für die nächste Woche verteilt. Auf diese Weise konnte jeder über die Woche verteilt eigenständig arbeiten und seine Zeit planen.
 Bei Bedarf fanden weitere Treffen über Zoom statt. Die Kommunikation lief weitgehend über Discord.
 
+Zunächst haben wir die Aufgaben nach der "Schicht" aufgeteilt. Also eine typische Weise Codebasen zu strukturieren, ist in eine Datenschicht, Logikschicht und UI-Schicht. Dies hat sich aber bereits nach einer Woche als sehr schlecht erwiesen, da wir insgesamt zu wenig über die Android Entwicklung mit Firebase wussten. Stattdessen war jedes Teammitglied für ein Feature zuständig, aber dann auf allen Schichten
+
 ### 2.3 Dokumentenverwaltung
 Für das Projekt wurden verschiedene gemeinschaftliche Dokumente angelegt. Hierzu gehören die Projektidee, die Aufgabenaufteilung mit zeitlichen Zielsetzungen, ein Journal mit der Erfassung der individuellen Arbeitszeiten und letztendlich eine Präsentation. Diese Dokumente wurden in Google Drive erstellt. Google Drive stellt ein Office-Softwarepaket zur Verfügung, das das Teilen von Dateien und das gemeinsame Bearbeiten von Dokumenten ermöglicht. In dem Projekt wurde Google Docs, Sheets und Slides verwendet. 
 Auf diese Weise ist allen Gruppenmitgliedern jederzeit der Zugriff auf die Dokumente und die Bearbeitung dieser garantiert.
@@ -65,7 +67,19 @@ Die Projektdokumentation ist als ReadMe Teil des GitHub-Repositorys und kann hie
 
 ## 3 Werkzeuge für die Entwicklung
 ### 3.1 Versionsverwaltung
-Für die Versionsverwaltung benutzen wir Git. Wir haben uns darauf geeinigt nur auf dem Master branch zu arbeiten da unsere Aufgabenbereiche Modular aufgeteilt sind. Als Plattform für unser Remote Repository benutzen wir Github da es kostenlos ist. Die Handhabung ist recht leicht und es gibt uns auch die Möglichkeit Workflows zu benutzen. Ein Workflow ist ein automatisierter Prozess der zum Beispiel überprüft ob unsere App kompiliert.   
+Für die Versionsverwaltung benutzen wir Git. Wir haben uns letztendlich darauf geeinigt direkt auf dem Master branch zu arbeiten, da unsere Aufgabenbereiche Modular aufgeteilt sind. Als Plattform für unser Remote Repository benutzen wir Github, da es kostenlos ist. Die Handhabung ist recht leicht und es gibt uns auch die Möglichkeit Workflows zu benutzen. Ein Workflow ist ein automatisierter Prozess der zum Beispiel überprüft ob unsere App kompiliert.   
+Zunächst wollten wir, dass jeder auf seinen eigenem Feature Branch arbeitet und wir dann alles per pull requests in den master mergen.
+Grund hierfür war, dass wir einen CI Job laufen lassen wollten, der den Code baut und somit sicherstellt, dass der Code kompiliert. Leider gab es hier Probleme, weil wir die Identifikationsdatei für Firebase geheim halten wollten, ohne diese das Projekt aber nicht baut.  
+
+### 3.2 IDE
+Für die native Android Entwicklung ist Android Studio das Tool der Wahl. Es beinhaltet alle Quality of Life Features von IntelliJ IDEA und liefert auch alle nötigen Bibliotheken für die Android Entwicklung.
+
+Die App kann hieraus gebaut werden und automatisch auf das Handy installiert werden.
+Man kann auch Images für spezifische Android Versionen herunterladen und somit einen Emulator mit dieser Android Version starten, falls man versionsspezifische Eigenschaften testen will.  
+
+Startet man die Anwendung über Android Studio erhält man auch direkt alle Logs der Anwendung angezeigt. Besonders für den Beginn, wo man noch am rumprobieren ist mit Firebase und somit noch keine UI hat, ist dies ein sehr einfacher Weg um zu wissen was passiert.
+
+Android Studio bietet auch Templates bei der Erstellung der UI. Es können ganz einfach Sachen sein wie ein leeren Fragment mit einer leeren XML Datei, aber auch komplexere Sachen wie eine RecyclerView mit Fragment, RecyclerViewAdapter, ViewHolder, recyclerViewXml und recyclerViewItemXml. 
 
 ## 4 Architektur
 ### 4.1 Packete nach Feature nicht Schichten
