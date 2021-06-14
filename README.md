@@ -47,7 +47,7 @@ Als mögliche Zusatzoptionen haben wir als Ziel das Mindesthaltbarkeitsdatum mit
 
 ### Technisch
 2 der 4 Teammitglieder waren bereits mit der Android Entwicklung und auch der Entwicklung im allgemeinen vertraut und haben deshalb ihren Fokus auf technische Aspekte gelegt. Hier wollten wir uns mit neuen Technologien vertraut machen.   
-Mit dem vermehrter Angebot von "X as a Service", ist eine Erfahrung mit Firebase und somit "Backend as a Service (BaaS)" sehr wertvoll.
+Mit dem vermehrter Angebot von "X as a Service", ist eine Erfahrung mit Firebase und somit "Database as a Service" sehr wertvoll.
 Hier wollten wir die Einschränkungen und auch Möglichkeiten kennenlernen, damit wir dies zukünftig für weitere Projekte evaluieren können.  
 Direkt mit gebündelt in Firebase ist auch NoSql, da sowohl die Realtime Database als auch der Cloud FireStore NoSql Datenbanken sind.
 
@@ -87,9 +87,9 @@ Es gibt 2 Hauptgruppen bei der Aufteilung eines Projektes. Die eine ist die Auft
 
 Wir haben uns für die Aufteilung nach Feature entschieden. Es gruppiert Klassen, die eng mit einander arbeiten, zusammen und verringert so den "mentalen weg", den ein Entwickler durch das Dateisystem laufen muss, um zu den dazugehörigen Klassen zu gelangen.
 
-Da wir auch seperate jeweils an einen Feature arbeiten, hat jeder sein eigenes Packet und kann somit niemand anderen in quere kommen.
+Da wir auch separate jeweils an einen Feature arbeiten, hat jeder sein eigenes Packet und kann somit niemand anderen in quere kommen.
 
-Eine textuelle representation kann man auf Windows mit dem Befehl `tree` erhalten (TODO neu generieren vor abgabe)
+Eine textuelle Repräsentation wäre
 ```
 └───haushaltsapp
     ├───authentification
@@ -104,7 +104,7 @@ Eine textuelle representation kann man auf Windows mit dem Befehl `tree` erhalte
 ```
 
 ### 4.2 Model View ViewModel (MVVM)
-Ein sehr verbreitetes Architekturmodell in der nativen Android Entwicklung ist das von MVC abgewandelte MVVM Modell. Es schreibt eine Aufteilung der Verantwortlichkeiten vor und sorgt damit für eine ingesamt bessere Codebasis. Die Verantwortlichkeiten sind wie folgt aufgeteilt:
+Ein sehr verbreitetes Architekturmodell in der nativen Android Entwicklung ist das von MVC abgewandelte MVVM Modell. Es schreibt eine Aufteilung der Verantwortlichkeiten vor und sorgt damit für eine insgesamt bessere Codebasis. Die Verantwortlichkeiten sind wie folgt aufgeteilt:
 
 1. __Model__: Es beinhaltet die Daten, deren Format und die Zugriffslogik.
 2. __View__: Es beinhaltet die graphische Oberfläche. Hier wird das Layout beschrieben, sowie das Verhalten bei einer Userinteraktion.
@@ -113,15 +113,15 @@ Ein sehr verbreitetes Architekturmodell in der nativen Android Entwicklung ist d
 Bei uns in der App ist:
 1. das __Model__ die Integration mit Firebase, welche durch die Repository Klassen realisiert sind.
 2. die __View__ die Beschreibung der Layouts durch die XML Dateien und das Interaktionsverhalten, welche durch die Fragment und Activity Klassen realisiert sind.
-3. das __ViewModel__ die Abstraktionschicht zwischen Model und View und stellt alle nötigen business Funktionalitäten zur Verfügung. Dabei wird das `reactive pattern` verwendet, welches durch `LiveData` realisiert wird. Funktionen haben als Rückgabetyp `LiveData`, an welchen man einen Listener hinzufügen kann. Bei einem Event, also Daten wurden erfolgreich geladen, bzw haben sich verändert, kann die View reagieren und sich anpassen. Hierfür gibt es von Firebase auch Bibliotheken, die die Arbeit mit `RecyclerView`, also Listen, abnimmt. Es dient zusätzlich als Zustandspeicher, womit man über Fragmente hinweg Daten austauschen kann
+3. das __ViewModel__ die Abstraktion Schicht zwischen Model und View und stellt alle nötigen business Funktionalitäten zur Verfügung. Dabei wird das `reactive pattern` verwendet, welches durch `LiveData` realisiert wird. Funktionen haben als Rückgabetyp `LiveData`, an welchen man einen Listener hinzufügen kann. Bei einem Event, also Daten wurden erfolgreich geladen, bzw. haben sich verändert, kann die View reagieren und sich anpassen. Hierfür gibt es von Firebase auch Bibliotheken, die die Arbeit mit `RecyclerView`, also Listen, abnimmt. Es dient zusätzlich als Zustand Speicher, womit man über Fragmente hinweg Daten austauschen kann
 
-Die Reaktive Programmierung ist hierbei sehr wichtig, weil man ansonsten, durch das Laden der Daten, den Hauptthread blockiert, welcher auch der UI Thread genannt wird. Somit würde die komplette UI einfrieren bis die Daten geladen worden sind. Im schlimmsten Fall würde Android auch die App beenden.
+Die Reaktive Programmierung ist hierbei sehr wichtig, weil man ansonsten, durch das Laden der Daten, den Hauptthread blockiert, welcher auch der UI Thread genannt wird. Somit würde die komplette UI einfrieren bis die Daten geladen worden sind. Im schlimmsten Fall würde Android auch die App beenden, weil es denkt die App ist eingefroren.
 
-Das abspeichern des Zustandes in ViewModel ist wichtig, das man zb durch das drehen des Handys um 90°, das Fragement zerstört und neu erstellt wird. Somit geht jeglicher Zustand verloren, welcher nur im Fragment vorhanden ist.
+Das abspeichern des Zustandes in ViewModel ist wichtig, da man zB. durch das drehen des Handys um 90°, das Fragment zerstört und neu erstellt wird. Somit geht jeglicher Zustand verloren, welcher nur im Fragment vorhanden ist.
 
-Durch diese Aufteilung der Verantwortlichkeiten, kann man Code teilen zwischen Komponenten. Zudem haben erfahrene Entwicker einen leichteren Einstieg in neue MVVM Projekte, da sie wissen, wo sie nach bestimmten Verantwortlichkeiten suchen müssen. 
+Durch diese Aufteilung der Verantwortlichkeiten, kann man Code teilen zwischen Komponenten. Zudem haben erfahrene Entwickler einen leichteren Einstieg in neue MVVM Projekte, da sie wissen, wo sie nach bestimmten Verantwortlichkeiten suchen müssen. 
 
-Ein weitere Vorteil, welcher hier aber nicht umgesetzt wurde, ist dass man die einzelnen Schichten einfacher testen kann. Indem man jeweils für die tiefer liegende Schicht ein Mock erstellt und diese per `Dependecy Injection` in die Klassen injektiert, kann man jede Schicht in isolation testen.
+Ein weitere Vorteil, welcher hier aber nicht umgesetzt wurde, ist dass man die einzelnen Schichten einfacher testen kann. Indem man jeweils für die tiefer liegende Schicht ein Mock erstellt und diese per `Dependecy Injection` in die Klassen injektiert, kann man jede Schicht in Isolation testen.
 
 Ein kleines Beispiel hierfür sind die Klassen im `authentification` Packet, hier wurden nicht relevante Sachen gekürzt:
 ``` java
@@ -193,9 +193,13 @@ public class LoginActivity extends AppCompatActivity {
 ```
 
 ### 4.4 Fragmente wiederverwenden
-Ein Grund für die Verwendung von Fragmenten über Activities, ist dass man mehrer Fragment in einer Activity darstellen kann und somit zwischen verschiedenen Features einfach teilen kann. Mehrere unserer Features haben die Möglichkeit User zu einer Gruppe zuzuweisen und müssen diese entsprechend auch anzeigen. Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von der Einkaufsliste und dem Finanz Feature verwendet wird.
+Ein Grund für die Verwendung von Fragmenten über Activities, ist dass man mehrere Fragment in einer Activity darstellen kann und somit Fragmente zwischen verschiedenen Features einfach teilen kann.
+Mehrere unserer Features haben die Möglichkeit User zu einer Gruppe zuzuweisen und müssen diese entsprechend auch anzeigen.
+Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von der Einkaufsliste und dem Finanz Feature verwendet wird.
 
-Dabei werden verwenden beide Features einen Host Fragment mit `ViewPager`, welche mehrere Kinderfragmente als Tabs darstellt, zwischen denen man per wischen wechseln kann. Dieses Host Framgent teilt den Kinderfragmenten die nötigen Daten mit, damit dieser die User abfragen und darstellen kann. Es ist dabei nicht komplett ohne Anpassung wiederverwendbar, mann muss Teil der Funktionalität für neue Features noch implementieren, besonders in Bezug auf die Datenbank (Siehe switch-case in ` UserViewModel`). Insgesamt ist es aber eine sehr viel bessere Lösung, da die UI Definition und das UI Verhalten somit zentral für alle Features nur einmal implementiert werden muss.
+Dabei verwenden beide Features einen Host Fragment mit `ViewPager`, welcher mehrere Tabs darstellt, zwischen denen man per wischen wechseln kann.
+Dieses Host Fragment teilt den Kinderfragmenten die nötigen Daten mit, damit dieser die User abfragen und darstellen kann. Es ist dabei nicht komplett ohne Anpassung wieder verwendbar.
+Man muss Teil der Funktionalität für neue Features noch implementieren, besonders in Bezug auf die Datenbank (Siehe switch-case in ` UserViewModel`). Insgesamt ist es aber eine sehr viel bessere Lösung, da die UI Definition und das UI Verhalten somit zentral für alle Features nur einmal implementiert werden muss.
 
 In einem `FragmentStateAdapter` definiert man die Anzahl der Tabs und welche Fragmente an welcher Position sind:
 ``` kotlin
@@ -218,7 +222,11 @@ Bei uns gibt es auch noch ein `FinanceViewPageAdapter`, welcher das `UserFragmen
 
 
 ### 4.5 Kommunikation per ViewModel
-In 4.4 wurde erwähnt, dass das Host Fragment, den Kinderfragmenten die Daten mitteilen muss. Dies geschiet sehr pragmatisch, indem das Host Fragment einen Setter aufruft auf dem ViewModel und das Kind Fragment den gesetzten Wert dann verwenden kann. Es muss aber sicher gestellt werden, dass beide Fragmente auf der gleichen Instanz eines ViewModel arbeiten. 
+In 4.4 wurde erwähnt, dass das Host Fragment, den Kinderfragmenten die Daten mitteilen muss. Dies geschieht sehr pragmatisch, indem das Host Fragment einen Setter aufruft auf dem ViewModel und das Kind Fragment den gesetzten Wert dann verwenden kann. Es muss aber sicher gestellt werden, dass beide Fragmente auf der gleichen Instanz eines ViewModel arbeiten. 
+
+![](images/kommunikation_per_viewModel.svg)
+
+<br>
 
 Zum erstellen eines ViewModel wird im ersten Schritt die Funktion [ViewModelProvider(ViewModelStoreOwner owner)](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider#ViewModelProvider(androidx.lifecycle.ViewModelStoreOwner)) aufgerufen. Hier muss dann im Host und Kind Fragment der gleiche owner übergeben werden, welches das Host Fragment ist. 
 
@@ -286,7 +294,9 @@ public class UserViewModel extends ViewModel {
 
 ```
 
-Hier sieht man dass es noch nicht perfekt ist, da man mit einem switch case jeden Fall in der geteilten Komponente seperate behandeln muss. Aber insgesamt ist es ein sehr große Verbesserung im Vergleich zu wenn man die Klassen kopiert. Mit der jetzigen Variente muss man nur im Host die Setter aufrufen und die Methoden mit switch case für den eigenen Fall implementieren.
+Hier sieht man dass es noch nicht perfekt ist, da man mit einem switch case jeden Fall in der geteilten Komponente separate behandeln muss.
+Aber insgesamt ist es ein sehr große Verbesserung im Vergleich zu wenn man die Klassen kopiert.
+Mit der jetzigen Variante muss man nur im Host die Setter aufrufen und die Methoden mit switch case für den eigenen Fall implementieren.
 
 ## 5 Firebase
 ### 5.1 Sicherheit
@@ -366,7 +376,7 @@ Hier ist ein Beispiel bei den usern. Hier verifizieren wir dass nur der owner au
     }
 ```
 ### 5.2 Datenmodel
-Das initiale Datenmodel ist für war in vielerlei hinsicht nicht geeignet. Hier wurden die benötigten Objekte direkt auf POJOs gemapped, welche man [hier](https://github.com/hft-uc/Haushaltsapp/tree/6912d2b74ed91f4122df1dac857cb80862bb006d/app/src/main/java/com/example/haushaltsapp/types) sehen kann.
+Das initiale Datenmodel ist für war in vielerlei Hinsicht nicht geeignet. Hier wurden die benötigten Objekte direkt auf POJOs gemapped, welche man [hier](https://github.com/hft-uc/Haushaltsapp/tree/6912d2b74ed91f4122df1dac857cb80862bb006d/app/src/main/java/com/example/haushaltsapp/types) sehen kann.
 
 Nimmt man als Beispiel die Einkaufsliste
 
@@ -381,17 +391,17 @@ data class ShoppingList(
 )
 ```
 
-darf die `id` kein `int` sein, wie man es oft in relationen Datenbanken mit automatisch inkrementierenden Zähler macht. 
+darf die `id` kein `int` sein, wie man es oft in Relationalen Datenbanken mit automatisch inkrementierenden Zähler macht. 
 Stattdessen muss es ein `String` sein, da Firebase eine `UUID` als Identifikator benutzt.  
 Weiterhin ist das weitere arbeiten mit Listen in dieser Form sehr ineffizient und umständlich. Ineffizient weil es Firebase nur Dokumente und Kollektionen hat. Speichert man es in obiger Form ab, so ist es ein Dokument und kann auch nur als solches abgefragt werden, also alles komplett. Man kann sich vorstellen, dass dies sehr ineffizient wird bei großen Listen.  
-Stattdessen wurden die Listen entfernt und also seperate Subkollektion abgebildet. Dies erlaubt es auch die bestehenden Bibliotheken für RecyclerViews zu verwenden.  
+Stattdessen wurden die Listen entfernt und also separate Subkollektion abgebildet. Dies erlaubt es auch die bestehenden Bibliotheken für RecyclerViews zu verwenden.  
 So sieht als Beispiel ein Einkauflistendokument aus
 
 ![](images/firestore_shopping_list.jpg)
 
 <br />
 
-Damit die Abfrage nach den Einkaufslisten, Finanzen und Vorräten eines Benutzers performant abläuft, wird diese Information seperat pro user nochmal abgespeichert. So gibt es zb eine Kollektion `shopping_list` in welcher alle exisitierenden Einkauflisten aller Benutzer abgespeichert sind mit allen Detail informationen. So muss man nicht die Kollektion mit allen Einkaufslisten durchsuchen, nach den spezifischen Einträgen, die dem Benutzer gehören.  
+Damit die Abfrage nach den Einkaufslisten, Finanzen und Vorräten eines Benutzers performant abläuft, wird diese Information separat pro User nochmal abgespeichert. So gibt es zb eine Kollektion `shopping_list` in welcher alle existierenden Einkauflisten aller Benutzer abgespeichert sind mit allen Detail Informationen. So muss man nicht die Kollektion mit allen Einkaufslisten durchsuchen, nach den spezifischen Einträgen, die dem Benutzer gehören.  
 Beim Benutzer selber gibt es somit eine Subkollektion mit einer Referenz zum vollen Eintrag. In dieser Referenz wird der Identifikator des Dokument abgespeichert, sowie der Anzeigename, welcher in der App in der Liste angezeigt wird.
 
 ![](images/firestore_user_ref.jpg)
@@ -403,12 +413,12 @@ Es werden bei der Registration nur die Email, das Password und der Benutzername 
 
 ![](images/registration.gif)
 
-Hat man sich erfolgreich registriert kann man sich dann anmelden und alle features der App verwenden.  
+Hat man sich erfolgreich registriert kann man sich dann anmelden und alle Features der App verwenden.  
 Der Logout button befindet sich im 3 Punkte Menü oben rechts
 
 ![](images/login.gif)
 
-Werden die falschen Einlogdaten angegeben, so scheitert der Login mit einer generischen Fehlermeldung.  
+Werden die falschen Login Daten angegeben, so scheitert der Login mit einer generischen Fehlermeldung.  
 Bei Problemen während der Registrierung erhält man hingegen eine genaue Fehlermeldung
 
 ![](images/reg_login_error.gif)
@@ -421,22 +431,22 @@ Falls man sehr viele Einträge hat, kann man nach unten scrollen und diese anzei
 
 In der Detailansicht sieht man alle Informationen zu einer Einkaufsliste einsehen.  
 Man sieht die einzelnen Einträge und kann am haken direkt sehen, welche schon erledigt sind. Man kann selber neue Einträge hinzufügen und als erledigt markieren.  
-Weitere Teilnehmer können hinzugefügt werden und somit diesen Zugriff zur Einkaufsliste gewähren. Mit diesen Teilnehmern teilt man dan die Einkaufsliste und kann Live sehen, falls jemand anderes etwas abhakt.
+Weitere Teilnehmer können hinzugefügt werden und somit diesen Zugriff zur Einkaufsliste gewähren. Mit diesen Teilnehmern teilt man dann die Einkaufsliste und kann Live sehen, falls jemand anderes etwas abhakt.
 
 Ist man fertig kann man die Liste leeren und wiederverwenden oder komplett löschen.
 ![](images/shopping_detail.gif)
 
-Hier ist noch eine Darstellung der Live updates.
+Hier ist noch eine Darstellung der Live Updates.
 ![](images/shopping_list_real_time.gif)
 
 
 ### 6.4 Finanzen
-Hier wird ein neues Budget erstellt. In der Liste befinden sich alle Budgets auf die der user Zugriff hat
+Hier wird ein neues Budget erstellt. In der Liste befinden sich alle Budgets auf die der User Zugriff hat
 ![](images/Budget1.PNG)
 
 
-Auch hier gibt es ähnlich wie bei der shoppinglist die Möglichkeit andere user hinzuzufügen
-Über den Button können neue Einträge hinzugefügt werden. Diese werden dann in der Liste dargestellt. Auch die Einträge von anderen usern die auf dieses Budget zugriff haben werden hier angezeigt. Hier sieht man Beispielsweise die Einträge von einem user mit dem Namen Username
+Auch hier gibt es ähnlich wie bei der Einkaufsliste die Möglichkeit andere User hinzuzufügen
+Über den Button können neue Einträge hinzugefügt werden. Diese werden dann in der Liste dargestellt. Auch die Einträge von anderen Usern die auf dieses Budget zugriff haben werden hier angezeigt. Hier sieht man Beispielsweise die Einträge von einem User mit dem Namen Username
 
 ![](images/Budget2.PNG)
 
