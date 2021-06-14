@@ -47,7 +47,7 @@ Als mögliche Zusatzoptionen haben wir als Ziel das Mindesthaltbarkeitsdatum mit
 
 ### Technisch
 2 der 4 Teammitglieder waren bereits mit der Android Entwicklung und auch der Entwicklung im allgemeinen vertraut und haben deshalb ihren Fokus auf technische Aspekte gelegt. Hier wollten wir uns mit neuen Technologien vertraut machen.   
-Mit dem vermehrter Angebot von "X as a Service", ist eine Erfahrung mit Firebase und somit "Database as a Service" sehr wertvoll.
+Mit dem vermehrter Angebot von "X as a Service", ist eine Erfahrung mit Firebase und somit "Backend as a Service" sehr wertvoll.
 Hier wollten wir die Einschränkungen und auch Möglichkeiten kennenlernen, damit wir dies zukünftig für weitere Projekte evaluieren können.  
 Direkt mit gebündelt in Firebase ist auch NoSql, da sowohl die Realtime Database als auch der Cloud FireStore NoSql Datenbanken sind.
 
@@ -476,6 +476,22 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 
 
 ## 9 Fazit
+### Fachlich 
+
+
+### Technisch
+Firebase bietet eine einfache und schnelle Methode funktionale Android Anwendungen zu entwickeln, ohne jeglichen serverseitigen Aufwand.
+Es bietet auch direkt viele Features an, wie einen Offline Modus.
+Für unsere simple Anwendungen war es deshalb sehr gut geeignet.
+
+Da es nur ein Hochschulprojekt ohne echt User sind, hat die fehlende Integritätsüberprüfung einer NoSql Datenbank sehr geringe Auswirkungen.
+Es können Datenlaichen entstehen, aber für den User kann man dies alles sehr einfach verstecken. 
+Für die standardmäßigen Anwendungsfälle im Enterprise Umfeld kann dies aber Fatal sein. Man hat zwar die schnelle Initiale Entwicklung, muss aber dann die Referenzielle Integrität im Code selber sicherstellen.  
+Firebase erfüllt somit seinen Zweck als "Backend as a Service", bringt aber die Probleme einer NoSql Datenbank mit sich.
+
+Eine Migration von Firebase weg kann sich auch als sehr schwer gestalten. Wir haben anfangs versucht Firebase komplett weg zu abstrahieren, aber da es Bibliotheken gibt, die direkt aus einer Anfrage von Firebase eine Liste in der UI erstellen können, zieht sich Firebase durch die komplette Codebasis durch. Diese Bibliothek hat uns einiges an Arbeit gespart, aber falls man wechseln will, muss man alles dazu anpassen.
+Dies kann zu einem Vendor Lock In führen.
+Man kann dieses Problem mildern, indem man auf die Bibliotheken verzichtet und den Mehraufwand zu Beginn leistet.
 
 
 ## 10 Quellenverzeichnis
