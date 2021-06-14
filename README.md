@@ -41,8 +41,17 @@ Im Folgenden legen wir dar, wie unsere App entstanden ist und führen die techni
 
 # 2 Planung
 ## 2.1 Zielsetzung
+### Fachlich
 Insbesondere die Organisation von Lebensmitteln steht bei der Haushaltsapp im Fokus. Dies bedeutet, dass Einkaufslisten geplant werden können verknüpft mit einem bestimmten zur Verfügung stehenden Budget. Da in einem Haushalt häufig mehrere Personen verantwortlich für die Organisation der Einkäufe sind, ist es wichtig, dass Listen mit anderen Haushaltsmitgliedern geteilt werden können. Auch Freunde und Nachbarn können so Gegenstände auf einer Einkaufsliste hinzufügen. Gleichzeitig soll der vorhandene Vorrat gespeichert werden und aktualisiert werden. So steht eine Übersicht der vorhandenen Lebensmittel zur Verfügung. Auch soll das Mindesthaltbarkeitsdatum festgehalten werden und die App meldet, sobald ein Produkt abgelaufen ist. Für das zur Verfügung stehende Budget werden die Ein- und Ausgaben festgehalten. Ausgaben können geplant werden. Auch in diesem Bereich ist es möglich ein bestimmtes Budget mit anderen Haushaltsmitgliedern, Freunden und Nachbarn zu teilen. Gleichzeitig ist es möglich eine individuelle Planung zu erstellen.
 Als mögliche Zusatzoptionen haben wir als Ziel das Mindesthaltbarkeitsdatum mit OCR zu scannen und per Barcode Produkte zu speichern. Zusätzlich ist es eine Option einen Chat zu erstellen, so dass auch eine Kommunikation bezüglich des Einkaufs ermöglicht wird.
+
+### Technisch
+2 der 4 Teammitglieder waren bereits mit der Android Entwicklung und auch der Entwicklung im allgemeinen vertraut und haben deshalb ihren Fokus auf technische Aspekte gelegt. Hier wollten wir uns mit neuen Technologien vertraut machen.   
+Mit dem vermehrter Angebot von "X as a Service", ist eine Erfahrung mit Firebase und somit "Backend as a Service (BaaS)" sehr wertvoll.
+Hier wollten wir die Einschränkungen und auch Möglichkeiten kennenlernen, damit wir dies zukünftig für weitere Projekte evaluieren können.  
+Direkt mit gebündelt in Firebase ist auch NoSql, da sowohl die Realtime Database als auch der Cloud FireStore NoSql Datenbanken sind.
+
+Für die beiden Teammitglieder, die neu in die Android Entwicklung einsteigen, ist es das Kennenlernen der nativen Android Entwicklung mit Java
 
 ### 2.2 Organisation 
 Diese Zielsetzung führte in den Start unseres Projektes. Ein Mal in der Woche waren Treffen via Zoom fest eingeplant. Hier wurde der Stand des Projektes und etwaige Probleme besprochen. Des weiteren wurden neue Aufgaben für die nächste Woche verteilt. Auf diese Weise konnte jeder über die Woche verteilt eigenständig arbeiten und seine Zeit planen.
