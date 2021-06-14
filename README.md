@@ -406,6 +406,12 @@ Beim Benutzer selber gibt es somit eine Subkollektion mit einer Referenz zum vol
 
 ![](images/firestore_user_ref.jpg)
 
+#### 5.3 Authentifizierung 
+
+Wir haben uns für die Emailauthentifizierung entschieden. Firebase bietet uns dafür die passenden Funktionen. In der Firebase console kann man unter dem Punkt Authentication die verschiedenen Möglichkeiten der Authentifizierung sehen. Es gibt Facebook,Twitter,Telefon und viele andere Möglichkeiten für die Authentifizierung. Firebase bietet eine einfache Implementierung dieser Möglichkeiten an.
+Die Implementierung für die Authentifikation konnten wir schon in Punkt 4.5 sehen.
+
+
 ## 6 Features
 ### 6.1 Registrierung & Login
 Die Registration und das Login sind sehr simple gehalten.
