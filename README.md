@@ -83,6 +83,11 @@ Startet man die Anwendung über Android Studio erhält man auch direkt alle Logs
 
 Android Studio bietet auch Templates bei der Erstellung der UI. Es können ganz einfach Sachen sein wie ein leeren Fragment mit einer leeren XML Datei, aber auch komplexere Sachen wie eine RecyclerView mit Fragment, RecyclerViewAdapter, ViewHolder, recyclerViewXml und recyclerViewItemXml. 
 
+### 3.3 Build Tool
+Hier gibt's es nicht viel zu sagen.
+Für die Android Entwicklung wird standardmäßig Gradle verwendet.
+Android Studio erstellt einem auch direkt eine leere `build.gradle` Datei mit, in welcher wir alle unsere Abhängigkeiten Eingetragen haben
+
 ## 4 Architektur
 ### 4.1 Packete nach Feature nicht Schichten
 Es gibt 2 Hauptgruppen bei der Aufteilung eines Projektes. Die eine ist die Aufteilung der Packete nach Schichten, also jeweils ein Packet für alle `Activitiy`,`Fragment`, `ViewModel`, `Model` usw. Dagegen gibt es die Aufteilung nach Features. Also ein Packet pro Feature, wo jeweils alle zum Feature relevanten Klassen enthalten sind und somit `Activitiy`,`Fragment`, `ViewModel` und `Model` alle in einem Packet zusammen vermischt sein können.
