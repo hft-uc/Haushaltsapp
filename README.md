@@ -62,7 +62,9 @@ Zunächst haben wir die Aufgaben nach der "Schicht" aufgeteilt. Also eine typisc
 ### 2.3 Dokumentenverwaltung
 Für das Projekt wurden verschiedene gemeinschaftliche Dokumente angelegt. Hierzu gehören die Projektidee, die Aufgabenaufteilung mit zeitlichen Zielsetzungen, ein Journal mit der Erfassung der individuellen Arbeitszeiten und letztendlich eine Präsentation. Diese Dokumente wurden in Google Drive erstellt. Google Drive stellt ein Office-Softwarepaket zur Verfügung, das das Teilen von Dateien und das gemeinsame Bearbeiten von Dokumenten ermöglicht. In dem Projekt wurde Google Docs, Sheets und Slides verwendet. 
 Auf diese Weise ist allen Gruppenmitgliedern jederzeit der Zugriff auf die Dokumente und die Bearbeitung dieser garantiert.
-![grafik](https://user-images.githubusercontent.com/56401840/121574357-78409b00-ca26-11eb-9be0-9eb23ff90233.png)
+
+![](images/Dokumente.png)
+
 Die Projektdokumentation ist als ReadMe Teil des GitHub-Repositorys und kann hier von allen Teammitgliedern eingesehen und bearbeitet werden.
 
 ## 3 Werkzeuge für die Entwicklung
@@ -479,6 +481,11 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 
 
 ### 6.5 Vorrat
+Zunächst wurde der Vorrat in das Startmenü eingebunden.
+![](images/Vorrat1.png)
+
+Im Bereich Vorrat werden jegliche Dinge gespeichert, die schon vorhanden sind. Es kann eine Liste in der alle Items hinzugefügt werden können. Diese werden zunächst nur in der Datenbank gespeichert. Hier ist eine weitere Ausarbeitung notwendig, so dass diese auch angezeigt werden und ein Mindesthaltbarkeitsdatum dazu gespeichert werden kann.
+![](images/Vorrat2.png)
 
 
 ## 7 Wie man dieses Projekt baut
