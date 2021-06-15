@@ -482,6 +482,7 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 
 ### 6.5 Vorrat
 Zunächst wurde der Vorrat in das Startmenü eingebunden.
+
 ![](images/Vorrat1.png)
 
 Im Bereich Vorrat werden jegliche Dinge gespeichert, die schon vorhanden sind.
