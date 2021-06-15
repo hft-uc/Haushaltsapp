@@ -484,8 +484,12 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 Zunächst wurde der Vorrat in das Startmenü eingebunden.
 ![](images/Vorrat1.png)
 
-Im Bereich Vorrat werden jegliche Dinge gespeichert, die schon vorhanden sind. Es kann eine Liste in der alle Items hinzugefügt werden können. Diese werden zunächst nur in der Datenbank gespeichert. Hier ist eine weitere Ausarbeitung notwendig, so dass diese auch angezeigt werden und ein Mindesthaltbarkeitsdatum dazu gespeichert werden kann.
+Im Bereich Vorrat werden jegliche Dinge gespeichert, die schon vorhanden sind.
+Es kann eine Liste in der alle Items hinzugefügt werden können. Diese werden zunächst nur in der Datenbank gespeichert.
+Hier ist eine weitere Ausarbeitung notwendig, so dass diese auch angezeigt werden und ein Mindesthaltbarkeitsdatum dazu gespeichert werden kann.
+
 ![](images/Vorrat2.png)
+
 
 
 ## 7 Wie man dieses Projekt baut
