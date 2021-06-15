@@ -504,12 +504,12 @@ Hier ist eine weitere Ausarbeitung notwendig, so dass diese auch angezeigt werde
 3. Neue Realtime Datenbank und eine Cloud Firestore Datenbank anlegen 
 4. Authentifizierung hinzufügen 
 5. Firebase mit dem Android App Projekt hinzufügen
-6. Das Repository in Androidstudio hinzufügen
+6. Das Repository in Android Studio hinzufügen
 7. google-services.json (config file mit dem Api key) in app/ folder einfügen
 8. Projekt kompilieren 
 
 ## 8 Projektjournal
-
+TODO Tabelle exportieren vor Abgabe
 
 ## 9 Fazit
 ### Fachlich 
