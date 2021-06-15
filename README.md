@@ -523,21 +523,16 @@ Insgesamt ist es eine sehr gute Lösung für uns und man kann es zukünftig für
 Für die standardmäßigen Enterprise Anwendungen hingegen ist es ungeeignet. Über den nicht relationalen Datenspeicher hinaus, benötigt man auch oft die Möglichkeit des Batchprocessings,  Emailversands oder auch feingranulare Konfiguration anhand des User, seiner Rolle, seiner Organisation oder auch seiner Beziehung zu anderen.
 
 ## 10 Quellenverzeichnis
-https://de.wikipedia.org/wiki/Ubiquitous_computing
+- https://de.wikipedia.org/wiki/Ubiquitous_computing
+- https://de.wikipedia.org/wiki/Google_Drive
+- https://www.uni-trier.de/fileadmin/urt/doku/android/android.pdf
+- https://firebase.google.com/docs/projects/learn-more?authuser=0
+- https://firebase.google.com/docs/firestore/rtdb-vs-firestore
+- https://developer.android.com/studio/intro/studio-config?utm_source=android-studio#antivirus-impact
+- https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/#using_firebaseui%20to%20populate%20a%20recyclerview
+- https://developer.android.com/guide/navigation/navigation-swipe-view-2
+- https://developer.android.com/guide/topics/ui/layout/recyclerview
 
-https://de.wikipedia.org/wiki/Google_Drive
-
-https://www.uni-trier.de/fileadmin/urt/doku/android/android.pdf
-
-https://firebase.google.com/docs/projects/learn-more?authuser=0
-
-https://firebase.google.com/docs/firestore/rtdb-vs-firestore#querying
-
-https://firebase.google.com/docs/firestore/rtdb-vs-firestore
-
-https://developer.android.com/studio/intro/studio-config?utm_source=android-studio#antivirus-impact
-   
-   
    
    
 
