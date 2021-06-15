@@ -89,7 +89,7 @@ Für die Android Entwicklung wird standardmäßig Gradle verwendet.
 Android Studio erstellt einem auch direkt eine leere `build.gradle` Datei mit, in welcher wir alle unsere Abhängigkeiten Eingetragen haben
 
 ## 4 Architektur
-### 4.1 Packete nach Feature nicht Schichten
+### 4.1 Pakete nach Feature nicht Schichten
 Es gibt 2 Hauptgruppen bei der Aufteilung eines Projektes. Die eine ist die Aufteilung der Packete nach Schichten, also jeweils ein Packet für alle `Activitiy`,`Fragment`, `ViewModel`, `Model` usw. Dagegen gibt es die Aufteilung nach Features. Also ein Packet pro Feature, wo jeweils alle zum Feature relevanten Klassen enthalten sind und somit `Activitiy`,`Fragment`, `ViewModel` und `Model` alle in einem Packet zusammen vermischt sein können.
 
 Wir haben uns für die Aufteilung nach Feature entschieden. Es gruppiert Klassen, die eng mit einander arbeiten, zusammen und verringert so den "mentalen weg", den ein Entwickler durch das Dateisystem laufen muss, um zu den dazugehörigen Klassen zu gelangen.
