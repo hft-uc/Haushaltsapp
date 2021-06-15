@@ -406,10 +406,26 @@ Beim Benutzer selber gibt es somit eine Subkollektion mit einer Referenz zum vol
 
 ![](images/firestore_user_ref.jpg)
 
-#### 5.3 Authentifizierung 
+### 5.3 Authentifizierung 
 
 Wir haben uns für die Emailauthentifizierung entschieden. Firebase bietet uns dafür die passenden Funktionen. In der Firebase console kann man unter dem Punkt Authentication die verschiedenen Möglichkeiten der Authentifizierung sehen. Es gibt Facebook,Twitter,Telefon und viele andere Möglichkeiten für die Authentifizierung. Firebase bietet eine einfache Implementierung dieser Möglichkeiten an.
 Die Implementierung für die Authentifikation konnten wir schon in Punkt 4.5 sehen.
+
+
+### 5.4 Vendor Lock In
+
+Wir haben zunächst versucht Firebase komplett weg zu abstrahieren, sodass außerhalb der Model Schicht keinerlei Referenzen zu Firebase existieren.
+Grund hierfür ist, dass die Benutzung von Firebase ein Implementationsdetail ist, welches für die View und ViewModel Schicht unrelevant ist.
+Eine Implementation auf diese Art würde es erlauben mit vergleichsweise geringen Aufwand von Firebase auf eine andere Lösung zu Migrieren.
+
+Letzten Endes hat dies aber nicht funktioniert.
+Es gibt Bibliotheken für Firebase, welche die komplette Handhabung für RecyclerViews, also den Listen in Android, macht.
+Wir haben diese Bibliotheken genutzt um schneller einen minimale Version der Anwendung entwickeln zu können.
+Dies hat aber auch zur Folge, dass sich Referenzen auf Firebase durch die gesamte Codebasis ziehen und wir somit effektiv nur noch Firebase verwenden können.
+Ein Umstieg auf herkömmliche Backends würde eine vergleichsweise sehr aufwändige Re-Implementierung mit sich ziehen.
+
+Für unsere Anwendung ist aber das Risiko des Vendor Lock Ins minimal, da es ein kurz lebiges Projekt ist.
+Somit können wir sehr schnell unsere Anwendung entwickeln und profitieren von vielen zusätzlichen Features, die ansonsten sehr Aufwändig sind. Wie zB. der Live Updates oder auch der Offline Modus.
 
 
 ## 6 Features
@@ -480,19 +496,11 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 
 
 ### Technisch
-Firebase bietet eine einfache und schnelle Methode funktionale Android Anwendungen zu entwickeln, ohne jeglichen serverseitigen Aufwand.
-Es bietet auch direkt viele Features an, wie einen Offline Modus.
-Für unsere simple Anwendungen war es deshalb sehr gut geeignet.
+Das Risiko des Vendor Lock In ist für uns nicht relevant und man kann stattdessen sehr rapide Feature reiche Anwendungen entwickeln.
+Man muss Acht geben beim Datenmodell und der Verwaltung hiervon, da es eine NoSQL Datenbank ist und somit keine Referenzielle Integrität bietet.
+Insgesamt ist es eine sehr gute Lösung für uns und man kann es zukünftig für kleine Projekte auch in Erwägung ziehen. 
 
-Da es nur ein Hochschulprojekt ohne echt User sind, hat die fehlende Integritätsüberprüfung einer NoSql Datenbank sehr geringe Auswirkungen.
-Es können Datenlaichen entstehen, aber für den User kann man dies alles sehr einfach verstecken. 
-Für die standardmäßigen Anwendungsfälle im Enterprise Umfeld kann dies aber Fatal sein. Man hat zwar die schnelle Initiale Entwicklung, muss aber dann die Referenzielle Integrität im Code selber sicherstellen.  
-Firebase erfüllt somit seinen Zweck als "Backend as a Service", bringt aber die Probleme einer NoSql Datenbank mit sich.
-
-Eine Migration von Firebase weg kann sich auch als sehr schwer gestalten. Wir haben anfangs versucht Firebase komplett weg zu abstrahieren, aber da es Bibliotheken gibt, die direkt aus einer Anfrage von Firebase eine Liste in der UI erstellen können, zieht sich Firebase durch die komplette Codebasis durch. Diese Bibliothek hat uns einiges an Arbeit gespart, aber falls man wechseln will, muss man alles dazu anpassen.
-Dies kann zu einem Vendor Lock In führen.
-Man kann dieses Problem mildern, indem man auf die Bibliotheken verzichtet und den Mehraufwand zu Beginn leistet.
-
+Für die standardmäßigen Enterprise Anwendungen hingegen ist es ungeeignet. Über den nicht relationalen Datenspeicher hinaus, benötigt man auch oft die Möglichkeit des Batchprocessings,  Emailversands oder auch feingranulare Konfiguration anhand des User, seiner Rolle, seiner Organisation oder auch seiner Beziehung zu anderen.
 
 ## 10 Quellenverzeichnis
 https://de.wikipedia.org/wiki/Ubiquitous_computing
