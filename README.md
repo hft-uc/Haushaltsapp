@@ -51,7 +51,7 @@ Mit dem vermehrter Angebot von "X as a Service", ist eine Erfahrung mit Firebase
 Hier wollten wir die Einschränkungen und auch Möglichkeiten kennenlernen, damit wir dies zukünftig für weitere Projekte evaluieren können.  
 Direkt mit gebündelt in Firebase ist auch NoSql, da sowohl die Realtime Database als auch der Cloud FireStore NoSql Datenbanken sind.
 
-Für die beiden Teammitglieder, die neu in die Android Entwicklung einsteigen, ist es das Kennenlernen der nativen Android Entwicklung mit Java
+Für die beiden Teammitglieder, die neu in die Android Entwicklung einsteigen, ist es das Kennenlernen der nativen Android Entwicklung mit Java. Im Besonderen bedeutet dies die einzelnen Elemente von Android Studio kennen zu lernen und eine Bedienoberfläche zu entwerfen mit der entsprechenden Klassenhierarchie. Neben der Arbeit in der Android Entwicklung war es das Ziel die Arbeit mit Firebase kennenzulernen, die Struktur zu verstehen und in dem Projekt zu verwenden.
 
 ### 2.2 Organisation 
 Diese Zielsetzung führte in den Start unseres Projektes. Ein Mal in der Woche waren Treffen via Zoom fest eingeplant. Hier wurde der Stand des Projektes und etwaige Probleme besprochen. Des weiteren wurden neue Aufgaben für die nächste Woche verteilt. Auf diese Weise konnte jeder über die Woche verteilt eigenständig arbeiten und seine Zeit planen.
@@ -478,6 +478,9 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 ![](images/Budget3.PNG)
 
 
+### 6.5 Vorrat
+
+
 ## 7 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
 2. Neues Projekt anlegen
@@ -493,7 +496,7 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 
 ## 9 Fazit
 ### Fachlich 
-
+Während der Arbeit an dem Projekt ist eine lauffähige App entstanden, die die Organisation des Haushalts erleichtern kann. Aufgrund des unterschiedlichen Kenntnisstandes der Teammitglieder sind die Schwerpunkte anders ausgefallen, als ursprünglich geplant. Die geplanten Haupt-Features wurden realisiert, wobei insbesondere der Bereich der Einkaufsliste und der Finanzen gut ausgearbeitet sind. Der Bereich des Vorrats ist noch nicht verwendbar für einen Nutzer. Stattdessen wurde das Zusatzfeature eines Chats realisiert.
 
 ### Technisch
 Das Risiko des Vendor Lock In ist für uns nicht relevant und man kann stattdessen sehr rapide Feature reiche Anwendungen entwickeln.
@@ -506,6 +509,16 @@ Für die standardmäßigen Enterprise Anwendungen hingegen ist es ungeeignet. Ü
 https://de.wikipedia.org/wiki/Ubiquitous_computing
 
 https://de.wikipedia.org/wiki/Google_Drive
+
+https://www.uni-trier.de/fileadmin/urt/doku/android/android.pdf
+
+https://firebase.google.com/docs/projects/learn-more?authuser=0
+
+https://firebase.google.com/docs/firestore/rtdb-vs-firestore#querying
+
+https://firebase.google.com/docs/firestore/rtdb-vs-firestore
+
+https://developer.android.com/studio/intro/studio-config?utm_source=android-studio#antivirus-impact
    
    
    
