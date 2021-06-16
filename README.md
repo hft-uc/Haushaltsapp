@@ -1,5 +1,8 @@
 # Haushaltsapp
-Diese README ist unsere Projektdokumentation.
+
+https://github.com/hft-uc/Haushaltsapp
+
+Diese README ist unsere Projektdokumentation. 
 
 
 1. Einleitung
