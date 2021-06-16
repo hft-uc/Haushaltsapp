@@ -7,24 +7,30 @@ Diese README ist unsere Projektdokumentation.
     1. Zielsetzung
     2. Organisation
     3. Dokumentenverwaltung
-
 3.  Werkzeuge für die Entwicklung
     1. Versionsverwaltung
-    2. x
-
+    2. IDE
+    3. Build Tool
 4. Architektur
-
-5. Firebase zeugs bla bla
+    1. Pakete nach Feature nicht Schichten
+    2. Model View ViewModel (MVVM)
+    3. Fragmente wiederverwenden
+    4. Kommunikation per ViewModel
+5. Firebase
    1. Sicherheit
-   2. Datenmodell
+   2. Datenmodel
+   3. Authentifizierung
+   4. Vendor Lock In
 6. Features
     1. Registrierung & Login
-    2. Chat
-    3. Einkaufsliste
-    4. Finanzen
-    5. Vorrat
+    2. Einkaufsliste
+    3. Finanzen
+    4. Vorrat
+    5. Chat
 8. Projektjournal
 9. Fazit
+    1. Fachlich
+    2. Technisch
 10. Quellenverzeichnis
 
 
@@ -39,13 +45,13 @@ Im Rahmen unseres Projektes für das Modul „Ubiquitous Computing“ setzt gena
 
 Im Folgenden legen wir dar, wie unsere App entstanden ist und führen die technischen Hintergründe aus.
 
-# 2 Planung
-## 2.1 Zielsetzung
-### Fachlich
+## 2 Planung
+### 2.1 Zielsetzung
+#### Fachlich
 Insbesondere die Organisation von Lebensmitteln steht bei der Haushaltsapp im Fokus. Dies bedeutet, dass Einkaufslisten geplant werden können verknüpft mit einem bestimmten zur Verfügung stehenden Budget. Da in einem Haushalt häufig mehrere Personen verantwortlich für die Organisation der Einkäufe sind, ist es wichtig, dass Listen mit anderen Haushaltsmitgliedern geteilt werden können. Auch Freunde und Nachbarn können so Gegenstände auf einer Einkaufsliste hinzufügen. Gleichzeitig soll der vorhandene Vorrat gespeichert werden und aktualisiert werden. So steht eine Übersicht der vorhandenen Lebensmittel zur Verfügung. Auch soll das Mindesthaltbarkeitsdatum festgehalten werden und die App meldet, sobald ein Produkt abgelaufen ist. Für das zur Verfügung stehende Budget werden die Ein- und Ausgaben festgehalten. Ausgaben können geplant werden. Auch in diesem Bereich ist es möglich ein bestimmtes Budget mit anderen Haushaltsmitgliedern, Freunden und Nachbarn zu teilen. Gleichzeitig ist es möglich eine individuelle Planung zu erstellen.
 Als mögliche Zusatzoptionen haben wir als Ziel das Mindesthaltbarkeitsdatum mit OCR zu scannen und per Barcode Produkte zu speichern. Zusätzlich ist es eine Option einen Chat zu erstellen, so dass auch eine Kommunikation bezüglich des Einkaufs ermöglicht wird.
 
-### Technisch
+#### Technisch
 2 der 4 Teammitglieder waren bereits mit der Android Entwicklung und auch der Entwicklung im allgemeinen vertraut und haben deshalb ihren Fokus auf technische Aspekte gelegt. Hier wollten wir uns mit neuen Technologien vertraut machen.   
 Mit dem vermehrter Angebot von "X as a Service", ist eine Erfahrung mit Firebase und somit "Backend as a Service" sehr wertvoll.
 Hier wollten wir die Einschränkungen und auch Möglichkeiten kennenlernen, damit wir dies zukünftig für weitere Projekte evaluieren können.  
@@ -469,7 +475,7 @@ Bei Problemen während der Registrierung erhält man hingegen eine genaue Fehler
 
 ![](images/reg_login_error.gif)
 
-### 6.3 Einkaufsliste
+### 6.2 Einkaufsliste
 Hier werden alle Einkaufslisten angezeigt, auf die man Zugriff hat. Das bedeutet Einkaufslisten, die man selber erstellt hat, aber auch welche zu denen man von anderen hinzugefügt wurde. Bei einem Klick auf einen Eintrag gelangt man zur Detailansicht der jeweiligen Einkaufsliste und mit einen Klick auf das + recht unten, erscheint ein Dialog mit dem man eine weitere Einkaufsliste erstellen kann.  
 Falls man sehr viele Einträge hat, kann man nach unten scrollen und diese anzeigen
 
@@ -486,7 +492,7 @@ Hier ist noch eine Darstellung der Live Updates.
 ![](images/shopping_list_real_time.gif)
 
 
-### 6.4 Finanzen
+### 6.3 Finanzen
 Hier wird ein neues Budget erstellt. In der Liste befinden sich alle Budgets auf die der User Zugriff hat
 ![](images/Budget1.PNG)
 
@@ -502,7 +508,7 @@ Die Ein- und Ausgaben werden in diesem Kuchendiagram dargestellt. Über den swit
 ![](images/Budget3.PNG)
 
 
-### 6.5 Vorrat
+### 6.4 Vorrat
 Zunächst wurde der Vorrat in das Startmenü eingebunden.
 
 ![](images/Vorrat1.png)
@@ -514,7 +520,7 @@ Hier ist eine weitere Ausarbeitung notwendig, so dass diese auch angezeigt werde
 ![](images/Vorrat2.png)
 
 
-### 6.6 Chat
+### 6.5 Chat
 Hier wird ein Chat erstellt. Mit dem Chat Features können alle registrierten User miteinander kommunizieren. Mit einem Klick auf dem Chat öffnet sich die Seite, in der man die Detailansicht des Chats anschauen kann. Beim Chats kann man eine Liste von allen bisherigen Chats sehen. Bei Users enthält die Liste von alle Users, von denen man zum Chatten ein User auswählen kann. Beim Profil wird das eigene Userprofil angezeigt.
 
 ![](images/chat_demo.gif)
@@ -545,6 +551,12 @@ Wenn man online ist, bleibt das Pünktchen grün. Aber für offline wird es grau
 
 ## 8 Projektjournal
 TODO Tabelle exportieren vor Abgabe
+|Total|Minuten|Stunden|
+|---|---|---|
+|Dennis Weggenmann|3785|63.08333333|
+|Marie Stutzer|3795|63.25|
+|Salma Akther|3630|60.5|
+|Xiang Rong Lin|3635|60.58333333|
 
 ## 9 Fazit
 ### Fachlich 
