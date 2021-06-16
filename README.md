@@ -550,7 +550,6 @@ Wenn man online ist, bleibt das Pünktchen grün. Aber für offline wird es grau
 8. Projekt kompilieren 
 
 ## 8 Projektjournal
-TODO Tabelle exportieren vor Abgabe
 |Total|Minuten|Stunden|
 |---|---|---|
 |Dennis Weggenmann|3785|63.08333333|
