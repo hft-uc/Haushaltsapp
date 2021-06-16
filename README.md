@@ -522,6 +522,8 @@ Insgesamt ist es eine sehr gute Lösung für uns und man kann es zukünftig für
 
 Für die standardmäßigen Enterprise Anwendungen hingegen ist es ungeeignet. Über den nicht relationalen Datenspeicher hinaus, benötigt man auch oft die Möglichkeit des Batchprocessings,  Emailversands oder auch feingranulare Konfiguration anhand des User, seiner Rolle, seiner Organisation oder auch seiner Beziehung zu anderen.
 
+Der Aufwand um Firebase sicher zu machen ist hoch. Die Sicherheitsregeln sind sehr komplex. Um wirklich alle Daten in der Datenbank abzusicheren braucht es viel Entwicklungsaufwand und ausgibiges Testen.  
+
 ## 10 Quellenverzeichnis
 - https://de.wikipedia.org/wiki/Ubiquitous_computing
 - https://de.wikipedia.org/wiki/Google_Drive
