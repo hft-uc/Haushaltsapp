@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
 ### 4.4 Fragmente wiederverwenden
 Ein Grund für die Verwendung von Fragmenten über Activities, ist dass man mehrere Fragment in einer Activity darstellen kann und somit Fragmente zwischen verschiedenen Features einfach teilen kann.
 Mehrere unserer Features haben die Möglichkeit User zu einer Gruppe zuzuweisen und müssen diese entsprechend auch anzeigen.
-Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von der Einkaufsliste, Finanz  und dem Chat Feature verwendet wird.
+Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von dem Einkaufsliste und Finanz Feature komplett verwendet wird und vom Chat Feature in Teilen.
 
 Dabei verwenden die Features einen Host Fragment mit `ViewPager`, welcher mehrere Tabs darstellt, zwischen denen man per wischen wechseln kann.
 Dieses Host Fragment teilt den Kinderfragmenten die nötigen Daten mit, damit dieser die User abfragen und darstellen kann. Es ist dabei nicht komplett ohne Anpassung wieder verwendbar.
@@ -225,7 +225,7 @@ class ShoppingDetailPagerAdapter(fragment: Fragment) : FragmentStateAdapter(frag
         return 3
     }
 ```
-Bei uns gibt es auch noch `FinanceViewPageAdapter`, welcher das `UserFragment` und das `UserAddFragment` verwendet und `ChatDetailPageAdapter`, welcher das `UserFragment` auch verwendet. 
+Bei uns gibt es auch noch `FinanceViewPageAdapter`, welcher das `UserFragment` und das `UserAddFragment` verwendet. 
 
 
 ### 4.5 Kommunikation per ViewModel
@@ -514,14 +514,14 @@ Hier ist eine weitere Ausarbeitung notwendig, so dass diese auch angezeigt werde
 ![](images/Vorrat2.png)
 
 
-### 6.4 Chat
-Hier wird ein Chat erstellt. Mit dem Chat Features können alle registrierte User miteinander kommunizieren. Mit einem Click auf dem Chat öffnet die Seite, in der man die Detailansicht des Chats anschauen kann. Beim Chats kann man alle Liste von bisherigen Chats sehen. Bei Users enthält die Liste von alle Users, von denen man zum Chaten ein User auswählen kann. Bei Profil wird eingeloggte Usersprofil angezeigt.
+### 6.6 Chat
+Hier wird ein Chat erstellt. Mit dem Chat Features können alle registrierten User miteinander kommunizieren. Mit einem Klick auf dem Chat öffnet sich die Seite, in der man die Detailansicht des Chats anschauen kann. Beim Chats kann man eine Liste von allen bisherigen Chats sehen. Bei Users enthält die Liste von alle Users, von denen man zum Chatten ein User auswählen kann. Beim Profil wird das eigene Userprofil angezeigt.
 
 ![](images/chat_demo.gif)
 
 
 
-Hier wird angezeigt, wie man mit dem ausgewählten User chatten kann. Mit dem search kann man seinen gewünschten User aus der Userliste finden und darauf klicken. Mit dem click öffnet die seite, wo man Nachricht senden und empfangen kann. Hier wird ein realtime Beispiel angezeigt, wo ein User die Nachricht sendet und andere User gleich diese Nachricht empfängt. Wenn Empfänger diese Nachricht empfängt, aber noch nicht die gesehen wird, dann ist der Status bei sender 'delevered' und wenn die Nachricht gesehen wird, wird der Status 'seen' beim Sender.
+Hier wird angezeigt, wie man mit dem ausgewählten User chatten kann. Mit der Suche kann man seinen gewünschten User aus der Userliste finden und darauf klicken. Mit dem Klick öffnet sich die Ansicht, wo man Nachrichten senden und empfangen kann. Hier wird ein Live Demo angezeigt, wo ein User die Nachricht sendet und andere User direkt diese Nachricht empfängt. Wenn der Empfänger diese Nachricht erhält, aber noch nicht die gesehen wird, dann ist der Status beim Sender 'delivered' und wenn die Nachricht gesehen wird, wird der Status zu 'seen' beim Sender.
 
 ![](images/chatting_realtime_demo.gif)
 
