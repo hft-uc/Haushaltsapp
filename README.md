@@ -582,11 +582,11 @@ Der Aufwand um Firebase sicher zu machen ist hoch. Die Sicherheitsregeln sind se
 - https://developer.android.com/guide/navigation/navigation-swipe-view-2
 - https://developer.android.com/guide/topics/ui/layout/recyclerview
 
-https://developer.android.com/courses/fundamentals-training/toc-v2
-https://www.logicchip.com/tab-view-inside-navigation-drawer/
-https://www.journaldev.com/12958/android-tablayout-viewpager
-https://www.youtube.com/watch?v=uB7WeED1d1w&list=PLB6lc7nQ1n4h5tzT3tu_YSy9VNrVUR_4W
-https://www.youtube.com/watch?v=fJWFeW09qeE&list=PLzLFqCABnRQftQQETzoVMuteXzNiXmnj8
+- https://developer.android.com/courses/fundamentals-training/toc-v2
+- https://www.logicchip.com/tab-view-inside-navigation-drawer/
+- https://www.journaldev.com/12958/android-tablayout-viewpager
+- https://www.youtube.com/watch?v=uB7WeED1d1w&list=PLB6lc7nQ1n4h5tzT3tu_YSy9VNrVUR_4W
+- https://www.youtube.com/watch?v=fJWFeW09qeE&list=PLzLFqCABnRQftQQETzoVMuteXzNiXmnj8
 
    
    
