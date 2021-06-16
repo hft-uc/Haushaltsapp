@@ -492,6 +492,24 @@ Hier ist eine weitere Ausarbeitung notwendig, so dass diese auch angezeigt werde
 ![](images/Vorrat2.png)
 
 
+### 6.4 Chat
+Hier wird ein Chat erstellt. Mit dem Chat Features können alle registrierte User miteinander kommunizieren. Mit einem Click auf dem Chat öffnet die Seite, in der man die Detailansicht des Chats anschauen kann. Beim Chats kann man alle Liste von bisherigen Chats sehen. Bei Users enthält die Liste von alle Users, von denen man zum Chaten ein User auswählen kann. Bei Profil wird eingeloggte Usersprofil angezeigt.
+
+![](images/chat_demo.gif)
+
+
+
+Hier wird angezeigt, wie man mit dem ausgewählten User chatten kann. Mit dem search kann man seinen gewünschten User aus der Userliste finden und darauf klicken. Mit dem click öffnet die seite, wo man Nachricht senden und empfangen kann. Hier wird ein realtime Beispiel angezeigt, wo ein User die Nachricht sendet und andere User gleich diese Nachricht empfängt. Wenn Empfänger diese Nachricht empfängt, aber noch nicht die gesehen wird, dann ist der Status bei sender 'delevered' und wenn die Nachricht gesehen wird, wird der Status 'seen' beim Sender.
+
+![](images/chatting_realtime_demo.gif)
+
+
+
+Wenn man online ist, bleibt das Pünktchen grün. Aber für offline wird es grau.
+
+![](images/online_offline_demo.gif)
+
+
 
 ## 7 Wie man dieses Projekt baut
 1. Log in [Firebase Konsole](https://console.firebase.google.com/)
