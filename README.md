@@ -202,9 +202,9 @@ public class LoginActivity extends AppCompatActivity {
 ### 4.4 Fragmente wiederverwenden
 Ein Grund für die Verwendung von Fragmenten über Activities, ist dass man mehrere Fragment in einer Activity darstellen kann und somit Fragmente zwischen verschiedenen Features einfach teilen kann.
 Mehrere unserer Features haben die Möglichkeit User zu einer Gruppe zuzuweisen und müssen diese entsprechend auch anzeigen.
-Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von der Einkaufsliste und dem Finanz Feature verwendet wird.
+Dafür gibt es ein Packet `user` in welchen diese Funktionalität implementiert ist und aktuell von der Einkaufsliste, Finanz  und dem Chat Feature verwendet wird.
 
-Dabei verwenden beide Features einen Host Fragment mit `ViewPager`, welcher mehrere Tabs darstellt, zwischen denen man per wischen wechseln kann.
+Dabei verwenden die Features einen Host Fragment mit `ViewPager`, welcher mehrere Tabs darstellt, zwischen denen man per wischen wechseln kann.
 Dieses Host Fragment teilt den Kinderfragmenten die nötigen Daten mit, damit dieser die User abfragen und darstellen kann. Es ist dabei nicht komplett ohne Anpassung wieder verwendbar.
 Man muss Teil der Funktionalität für neue Features noch implementieren, besonders in Bezug auf die Datenbank (Siehe switch-case in ` UserViewModel`). Insgesamt ist es aber eine sehr viel bessere Lösung, da die UI Definition und das UI Verhalten somit zentral für alle Features nur einmal implementiert werden muss.
 
@@ -225,7 +225,7 @@ class ShoppingDetailPagerAdapter(fragment: Fragment) : FragmentStateAdapter(frag
         return 3
     }
 ```
-Bei uns gibt es auch noch ein `FinanceViewPageAdapter`, welcher das `UserFragment` und das `UserAddFragment` auch verwendet.
+Bei uns gibt es auch noch `FinanceViewPageAdapter`, welcher das `UserFragment` und das `UserAddFragment` verwendet und `ChatDetailPageAdapter`, welcher das `UserFragment` auch verwendet. 
 
 
 ### 4.5 Kommunikation per ViewModel
@@ -413,7 +413,7 @@ Beim Benutzer selber gibt es somit eine Subkollektion mit einer Referenz zum vol
 
 ![](images/firestore_user_ref.jpg)
 
-Für Chat wurde hier die benötigten Objekte direkt auf POJOs gemapped. Das kann man unter diesem Link: https://github.com/hft-uc/Haushaltsapp/tree/master/app/src/main/java/com/example/haushaltsapp/chat sehen kann.
+Für Chat wurde hier die benötigten Objekte direkt auf POJOs gemapped. Das kann man unter diesem Link: https://github.com/hft-uc/Haushaltsapp/tree/master/app/src/main/java/com/example/haushaltsapp/chat sehen.
 
 ``` java
 public class Chat {
@@ -423,8 +423,8 @@ public class Chat {
     private boolean isseen;
     }
 ```
-Für Chat wurde Realtime Database angewandt. Funktionsweise ist das einfacher als Firestore databse. Wir wollten hier nur verschidene Database lernen und im App anwenden. 
-Ein wesentlicher Unterschied oder Vorteil ist, Firebse Realtime Database kann der Verbindungsstatus des Clients Clients aufzeichnen und jedes Mal, wenn sich der Verbindungsstatus des Clients ändert, Aktualisierungen bereitstellen. Diese Funktionalität wurde hier angewndt. Die ganze Chat Liste sieht im Datenbank so aus:
+Für Chat wurde Realtime Database angewandt. Funktionsweise ist das einfacher als Firestore Databse. Wir wollten hier nur verschidene Database lernen und für App anwenden. 
+Ein wesentlicher Unterschied oder Vorteil ist, Firebse Realtime Database kann der Verbindungsstatus des Clients aufzeichnen und jedes Mal, wenn sich der Verbindungsstatus des Clients ändert, Aktualisierungen bereitstellen. Diese Funktionalität wurde hier angewndt. Die ganze Chat Liste sehen im Datenbank so aus:
 
 ![](images/realtime_database_chat_list.png)
 
@@ -569,6 +569,12 @@ Der Aufwand um Firebase sicher zu machen ist hoch. Die Sicherheitsregeln sind se
 - https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/#using_firebaseui%20to%20populate%20a%20recyclerview
 - https://developer.android.com/guide/navigation/navigation-swipe-view-2
 - https://developer.android.com/guide/topics/ui/layout/recyclerview
+
+https://developer.android.com/courses/fundamentals-training/toc-v2
+https://www.logicchip.com/tab-view-inside-navigation-drawer/
+https://www.journaldev.com/12958/android-tablayout-viewpager
+https://www.youtube.com/watch?v=uB7WeED1d1w&list=PLB6lc7nQ1n4h5tzT3tu_YSy9VNrVUR_4W
+https://www.youtube.com/watch?v=fJWFeW09qeE&list=PLzLFqCABnRQftQQETzoVMuteXzNiXmnj8
 
    
    
