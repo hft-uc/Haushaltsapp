@@ -413,6 +413,23 @@ Beim Benutzer selber gibt es somit eine Subkollektion mit einer Referenz zum vol
 
 ![](images/firestore_user_ref.jpg)
 
+Für Chat wurde hier die benötigten Objekte direkt auf POJOs gemapped. Das kann man unter diesem Link: https://github.com/hft-uc/Haushaltsapp/tree/master/app/src/main/java/com/example/haushaltsapp/chat sehen kann.
+
+``` java
+public class Chat {
+    private String sender;
+    private String receiver;
+    private String message;
+    private boolean isseen;
+    }
+```
+Für Chat wurde Realtime Database angewandt. Funktionsweise ist das einfacher als Firestore databse. Wir wollten hier nur verschidene Database lernen und im App anwenden. 
+Ein wesentlicher Unterschied oder Vorteil ist, Firebse Realtime Database kann der Verbindungsstatus des Clients Clients aufzeichnen und jedes Mal, wenn sich der Verbindungsstatus des Clients ändert, Aktualisierungen bereitstellen. Diese Funktionalität wurde hier angewndt. Die ganze Chat Liste sieht im Datenbank so aus:
+
+![](images/realtime_database_chat_list.png)
+
+
+
 ### 5.3 Authentifizierung 
 
 Wir haben uns für die Emailauthentifizierung entschieden. Firebase bietet uns dafür die passenden Funktionen. In der Firebase console kann man unter dem Punkt Authentication die verschiedenen Möglichkeiten der Authentifizierung sehen. Es gibt Facebook,Twitter,Telefon und viele andere Möglichkeiten für die Authentifizierung. Firebase bietet eine einfache Implementierung dieser Möglichkeiten an.
