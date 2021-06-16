@@ -83,8 +83,13 @@ Startet man die Anwendung über Android Studio erhält man auch direkt alle Logs
 
 Android Studio bietet auch Templates bei der Erstellung der UI. Es können ganz einfach Sachen sein wie ein leeren Fragment mit einer leeren XML Datei, aber auch komplexere Sachen wie eine RecyclerView mit Fragment, RecyclerViewAdapter, ViewHolder, recyclerViewXml und recyclerViewItemXml. 
 
+### 3.3 Build Tool
+Hier gibt's es nicht viel zu sagen.
+Für die Android Entwicklung wird standardmäßig Gradle verwendet.
+Android Studio erstellt einem auch direkt eine leere `build.gradle` Datei mit, in welcher wir alle unsere Abhängigkeiten Eingetragen haben
+
 ## 4 Architektur
-### 4.1 Packete nach Feature nicht Schichten
+### 4.1 Pakete nach Feature nicht Schichten
 Es gibt 2 Hauptgruppen bei der Aufteilung eines Projektes. Die eine ist die Aufteilung der Packete nach Schichten, also jeweils ein Packet für alle `Activitiy`,`Fragment`, `ViewModel`, `Model` usw. Dagegen gibt es die Aufteilung nach Features. Also ein Packet pro Feature, wo jeweils alle zum Feature relevanten Klassen enthalten sind und somit `Activitiy`,`Fragment`, `ViewModel` und `Model` alle in einem Packet zusammen vermischt sein können.
 
 Wir haben uns für die Aufteilung nach Feature entschieden. Es gruppiert Klassen, die eng mit einander arbeiten, zusammen und verringert so den "mentalen weg", den ein Entwickler durch das Dateisystem laufen muss, um zu den dazugehörigen Klassen zu gelangen.
@@ -517,12 +522,12 @@ Wenn man online ist, bleibt das Pünktchen grün. Aber für offline wird es grau
 3. Neue Realtime Datenbank und eine Cloud Firestore Datenbank anlegen 
 4. Authentifizierung hinzufügen 
 5. Firebase mit dem Android App Projekt hinzufügen
-6. Das Repository in Androidstudio hinzufügen
+6. Das Repository in Android Studio hinzufügen
 7. google-services.json (config file mit dem Api key) in app/ folder einfügen
 8. Projekt kompilieren 
 
 ## 8 Projektjournal
-
+TODO Tabelle exportieren vor Abgabe
 
 ## 9 Fazit
 ### Fachlich 
@@ -535,22 +540,19 @@ Insgesamt ist es eine sehr gute Lösung für uns und man kann es zukünftig für
 
 Für die standardmäßigen Enterprise Anwendungen hingegen ist es ungeeignet. Über den nicht relationalen Datenspeicher hinaus, benötigt man auch oft die Möglichkeit des Batchprocessings,  Emailversands oder auch feingranulare Konfiguration anhand des User, seiner Rolle, seiner Organisation oder auch seiner Beziehung zu anderen.
 
+Der Aufwand um Firebase sicher zu machen ist hoch. Die Sicherheitsregeln sind sehr komplex. Um wirklich alle Daten in der Datenbank abzusicheren braucht es viel Entwicklungsaufwand und ausgibiges Testen.  
+
 ## 10 Quellenverzeichnis
-https://de.wikipedia.org/wiki/Ubiquitous_computing
+- https://de.wikipedia.org/wiki/Ubiquitous_computing
+- https://de.wikipedia.org/wiki/Google_Drive
+- https://www.uni-trier.de/fileadmin/urt/doku/android/android.pdf
+- https://firebase.google.com/docs/projects/learn-more?authuser=0
+- https://firebase.google.com/docs/firestore/rtdb-vs-firestore
+- https://developer.android.com/studio/intro/studio-config?utm_source=android-studio#antivirus-impact
+- https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/#using_firebaseui%20to%20populate%20a%20recyclerview
+- https://developer.android.com/guide/navigation/navigation-swipe-view-2
+- https://developer.android.com/guide/topics/ui/layout/recyclerview
 
-https://de.wikipedia.org/wiki/Google_Drive
-
-https://www.uni-trier.de/fileadmin/urt/doku/android/android.pdf
-
-https://firebase.google.com/docs/projects/learn-more?authuser=0
-
-https://firebase.google.com/docs/firestore/rtdb-vs-firestore#querying
-
-https://firebase.google.com/docs/firestore/rtdb-vs-firestore
-
-https://developer.android.com/studio/intro/studio-config?utm_source=android-studio#antivirus-impact
-   
-   
    
    
 
